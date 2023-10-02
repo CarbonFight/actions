@@ -6,6 +6,12 @@
 
 ## Tables
 
+
+TODO 
+- [ ]  Action périodiques à temps limité
+- [ ]  Lier périodiques et actions  
+Actions favorites
+
 ### Users
 
 - DateTime **created_time** : Creation time (timestamp)
@@ -31,33 +37,50 @@
 - String (list) **periodicity** (array) : array of strings with days of the week
 - string **side** : Only for main food action (ex : rice, pasta)
 
-### usersParameters
+### Parameters
 - **co2target** : Target (Goal) parameter of the user
+- code parrain
+- code parrainage
 
-### usersStats
+### Stats
 
-- **globalProjection** : Needs rework
-- **globalScore** : Needs rework
-- **totalPoints** : Needs rework
+// Stats CO2e
+// For all arrays above, [0] is today, [1] yesterday, etc.
+- string **uid** : UserId, users table
 - **days** : Array of last 7 days total CO2e.
 - **weeks** : Array of last 4 weeks total CO2e.
 - **months** : Array of last 4 months total CO2e.
+
 - **energies** : Array of last 7 days energy CO2e.
 - **foods** : Array of last 7 days food CO2e.
 - **transports** : Array of last 7 days transport CO2e.
+- **1 par catégorie** : donc 9
 
-> For all arrays above, [0] is today, [1] yesterday, etc.
+// Manque les stats pour la page stats, quand on affiche semaine ou mois, il faut les stats par catégorie sur la semaine / mois
 
+- **globalScore** : Points des succès + Points accomplissements + Nouvelles actions
+- **totalPoints** : Needs rework
+
+
+// Attendre de voir si c'est utile dans l'UI
+- **periodics** : Total CO2e of all periodics (Transport + Food + Energy)
 - **energyPeriodics** : Total CO2e of all Energy Periodics
 - **foodPeriodics** : Total CO2e of all Food Periodics
 - **transportPeriodics** : Total CO2e of all Transport Periodics
-- **periodics** : Total CO2e of all periodics (Transport + Food + Energy)
+- **1 par catégorie** : donc 9
+
+
+// A voir si c'est toujours utile dans FF
 - **daysCharts** : Array used by UI to display chart. Based on **days** field, reverse order, divided by 1000
 - **weeksCharts** : Array used by UI to display chart. Based on **weeks** field, reverse order, divided by 1000
 - **monthsCharts** : Array used by UI to display chart. Based on **monthsCharts** field, reverse order, divided by 1000
-- **uid** : UserId, users table
 
-### usersTrophies
+
+### Accomplissements
+
+
+
+### Succès
 
 - **uid** : UserId, users table
 - **has2Invites** : not yet implemented
@@ -70,3 +93,31 @@
 - **hasReviewApp**: not yet implemented
 - **hasStart** : always true, first points
 
+# Exemples
+
+## Trajet en voiture
+uid:"zezrzerzerzerfs12"
+created_time: (dateTime)
+country : "FR"
+category : "transport"
+action : "car"
+option : "Thermique"
+co2e: 17850
+emission_factor: 119
+peopleSharing : 2
+count: 150
+roundtrip : true
+isPeriodic: false
+
+
+## 2 cafés tous les jours
+uid:"zezrzerzerzerfs12"
+created_time: (dateTime)
+country : "FR"
+category : "food"
+action : "coffee"
+co2e: 200
+emission_factor: 100
+count: 2
+isPeriodic: true
+periodicity: ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]
