@@ -20,6 +20,9 @@ Actions favorites
 - String **uid** : UserId, users table
 - Image path **photo_url** : Photo url
 - DateTime (list) **connection_history** : (rafacto) list of last connexions
+- Code parrain (code de la personne qui a invité)
+- Code parrainage (pour inviter) a générer
+- **co2target** : Target (Goal) parameter of the user
 
 ### Actions
 - string **uid** : UserId, users table
@@ -37,10 +40,6 @@ Actions favorites
 - String (list) **periodicity** (array) : array of strings with days of the week
 - string **side** : Only for main food action (ex : rice, pasta)
 
-### Parameters
-- **co2target** : Target (Goal) parameter of the user
-- code parrain
-- code parrainage
 
 ### Stats
 
@@ -76,22 +75,27 @@ Actions favorites
 - **monthsCharts** : Array used by UI to display chart. Based on **monthsCharts** field, reverse order, divided by 1000
 
 
-### Accomplissements
-
-
-
-### Succès
+### Défis & Accomplissements
 
 - **uid** : UserId, users table
-- **has2Invites** : not yet implemented
-- **has3Periodics** : user has 3 periodics
-- **has50Actions** : user has 50 actions
+- bool **has2Invites** : not yet implemented
+- bool **has3Periodics** : user has 3 periodics
+- bool **has50Actions** : user has 50 actions
 - **has5Likes** : not yet implemented
 - **has7DaysStreak** : not yet implemented
 - **hasGoals** : user has changed is co2 target
 - **hasParams** : not yet implemented
 - **hasReviewApp**: not yet implemented
 - **hasStart** : always true, first points
+
+
+### Badges
+
+- **uid** : UserId, users table
+- bool **badge1** : 
+- bool **has3Periodics** :
+- bool **has50Actions** :
+
 
 # Exemples
 
