@@ -22,7 +22,11 @@ Actions favorites
 - DateTime (list) **connection_history** : (rafacto) list of last connexions
 - Code parrain (code de la personne qui a invité)
 - Code parrainage (pour inviter) a générer
-- **co2target** : Target (Goal) parameter of the user
+- Strin **lastName**
+- String **firstName**
+- int **co2target** : Target (Goal) parameter of the user
+- bool **hasCompletedHowto** : A complété le tuto
+- string **team** : Team
 
 ### Actions
 - string **uid** : UserId, users table
@@ -40,39 +44,61 @@ Actions favorites
 - String (list) **periodicity** (array) : array of strings with days of the week
 - string **side** : Only for main food action (ex : rice, pasta)
 
+### Team Stats
+Todo
+Mise à jour tous les jours
+
 
 ### Stats
 
-// Stats CO2e
-// For all arrays above, [0] is today, [1] yesterday, etc.
 - string **uid** : UserId, users table
-- **days** : Array of last 7 days total CO2e.
-- **weeks** : Array of last 4 weeks total CO2e.
-- **months** : Array of last 4 months total CO2e.
+- int **score** : Actual score
+- int **sponsorshipCount** : Sponsorship count
 
-- **energies** : Array of last 7 days energy CO2e.
-- **foods** : Array of last 7 days food CO2e.
-- **transports** : Array of last 7 days transport CO2e.
-- **1 par catégorie** : donc 9
+Stats page, week period  
+For all arrays above, [0] the first day if the week, [6] is the last day.
 
-// Manque les stats pour la page stats, quand on affiche semaine ou mois, il faut les stats par catégorie sur la semaine / mois
+- int (list) **weekTotalPerDay** : total CO2e's array per day
+- int **weekTotal** : Total CO2e 
+- int **weekTransport** : Total CO2e for the week for category transport
+- int **weekServices** : Total CO2e for the week for category services
+- int **weekObjects** : Total CO2e for the week for category objects
+- int **weekLodging** : Total CO2e for the week for category Lodging
+- int **weekFurniture** : Total CO2e for the week for category Furniture
+- int **weekFood** : Total CO2e for the week for category Food
+- int **weekDigital** : Total CO2e for the week for category Digital
+- int **weekClothes** : Total CO2e for the week for category Clothes
+- int **weekAppliance** : Total CO2e for the week for category Appliance
 
-- **globalScore** : Points des succès + Points accomplissements + Nouvelles actions
-- **totalPoints** : Needs rework
+Stats page, month period  
+For all arrays above, [0] the first day of the month, [31] is last day of the month.
 
+- int (list) **monthTotalPerDay** : total CO2e's array per day
+- int **monthTotal** : Total CO2e for the month
+- int **monthTransport** : Total CO2e for the month for category transport
+- int **monthServices** : Total CO2e for the month for category services
+- int **monthObjects** : Total CO2e for the month for category objects
+- int **monthLodging** : Total CO2e for the month for category Lodging
+- int **monthFurniture** : Total CO2e for the month for category Furniture
+- int **monthFood** : Total CO2e for the month for category Food
+- int **monthDigital** : Total CO2e for the month for category Digital
+- int **monthClothes** : Total CO2e for the month for category Clothes
+- int **monthAppliance** : Total CO2e for the month for category Appliance
 
-// Attendre de voir si c'est utile dans l'UI
-- **periodics** : Total CO2e of all periodics (Transport + Food + Energy)
-- **energyPeriodics** : Total CO2e of all Energy Periodics
-- **foodPeriodics** : Total CO2e of all Food Periodics
-- **transportPeriodics** : Total CO2e of all Transport Periodics
-- **1 par catégorie** : donc 9
+Stats page, year period  
+For all arrays above, [0] the actual month, [11] is the last month of the year.
 
-
-// A voir si c'est toujours utile dans FF
-- **daysCharts** : Array used by UI to display chart. Based on **days** field, reverse order, divided by 1000
-- **weeksCharts** : Array used by UI to display chart. Based on **weeks** field, reverse order, divided by 1000
-- **monthsCharts** : Array used by UI to display chart. Based on **monthsCharts** field, reverse order, divided by 1000
+- int (list) **yearTotalPerDay** : total CO2e's array per day
+- int **yearTotal** : Total CO2e for the year
+- int **yearTransport** : Total CO2e for the year for category transport
+- int **yearServices** : Total CO2e for the year for category services
+- int **yearObjects** : Total CO2e for the year for category objects
+- int **yearLodging** : Total CO2e for the year for category Lodging
+- int **yearFurniture** : Total CO2e for the year for category Furniture
+- int **yearFood** : Total CO2e for the year for category Food
+- int **yearDigital** : Total CO2e for the year for category Digital
+- int **yearClothes** : Total CO2e for the year for category Clothes
+- int **yearAppliance** : Total CO2e for the year for category Appliance
 
 
 ### Défis & Accomplissements
