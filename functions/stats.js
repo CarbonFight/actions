@@ -82,6 +82,26 @@ exports.flush = functions.region('europe-west6').firestore.document('/users/{doc
                     actionsCountTotal: FieldValue.increment(-1)
                 });
 
+                if (previousValues.category == "transport") {
+                    userStats.ref.update({actionsCountTransport: FieldValue.increment(-1)});
+                } else if (previousValues.category == "services") {
+                    userStats.ref.update({actionsCountServices: FieldValue.increment(-1)});
+                } else if (previousValues.category == "objects") {
+                    userStats.ref.update({actionsCountObjects: FieldValue.increment(-1)});
+                } else if (previousValues.category == "lodging") {
+                    userStats.ref.update({actionsCountLodging: FieldValue.increment(-1)});
+                } else if (previousValues.category == "furniture") {
+                    userStats.ref.update({actionsCountFurniture: FieldValue.increment(-1)});
+                } else if (previousValues.category == "food") {
+                    userStats.ref.update({actionsCountFood: FieldValue.increment(-1)});
+                } else if (previousValues.category == "digital") {
+                    userStats.ref.update({actionsCountDigital: FieldValue.increment(-1)});
+                } else if (previousValues.category == "clothes") {
+                    userStats.ref.update({actionsCountClothes: FieldValue.increment(-1)});
+                } else if (previousValues.category == "appliance") {
+                    userStats.ref.update({actionsCountAppliance: FieldValue.increment(-1)});
+                }
+
             });
 
         // Action added
@@ -94,9 +114,27 @@ exports.flush = functions.region('europe-west6').firestore.document('/users/{doc
             .then((query) => {
 
                 const userStats = query.docs[0];
-                userStats.ref.update({
-                    actionsCountTotal: FieldValue.increment(1)
-                });
+                userStats.ref.update({actionsCountTotal: FieldValue.increment(1)});
+
+                if (newValues.category == "transport") {
+                    userStats.ref.update({actionsCountTransport: FieldValue.increment(1)});
+                } else if (newValues.category == "services") {
+                    userStats.ref.update({actionsCountServices: FieldValue.increment(1)});
+                } else if (newValues.category == "objects") {
+                    userStats.ref.update({actionsCountObjects: FieldValue.increment(1)});
+                } else if (newValues.category == "lodging") {
+                    userStats.ref.update({actionsCountLodging: FieldValue.increment(1)});
+                } else if (newValues.category == "furniture") {
+                    userStats.ref.update({actionsCountFurniture: FieldValue.increment(1)});
+                } else if (newValues.category == "food") {
+                    userStats.ref.update({actionsCountFood: FieldValue.increment(1)});
+                } else if (newValues.category == "digital") {
+                    userStats.ref.update({actionsCountDigital: FieldValue.increment(1)});
+                } else if (newValues.category == "clothes") {
+                    userStats.ref.update({actionsCountClothes: FieldValue.increment(1)});
+                } else if (newValues.category == "appliance") {
+                    userStats.ref.update({actionsCountAppliance: FieldValue.increment(1)});
+                }
 
             });
             console.log("newCO2e : " + newValues.co2e);

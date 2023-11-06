@@ -216,8 +216,8 @@ const actionDataTransport1 = createActionData(uid, 'transport', 'car', 'Thermiqu
 const actionDataTransport2 = createActionData(uid, 'transport', 'train', 'Transilien', null, 7.04, 2);
 const actionDataClothes1 = createActionData(uid, 'clothes', 'Chemise', 'Coton', null, 13000, 1);
 const actionDataClothes2 = createActionData(uid, 'clothes', 'Manteau', 'Veste imperméable', null, 41000, 1);
-const actionDataEnergy1 = createActionData(uid, 'energy', 'electricity', 'Photovoltaïque', null, 44, 2);
-const actionDataEnergy2 = createActionData(uid, 'energy', 'gas', 'Gaz naturel', null, 239, 1);
+const actionDataEnergy1 = createActionData(uid, 'lodging', 'electricity', 'Photovoltaïque', null, 44, 2);
+const actionDataEnergy2 = createActionData(uid, 'lodging', 'gas', 'Gaz naturel', null, 239, 1);
 
 const actions = [actionDataFood1, actionDataFood2, actionDataTransport1, actionDataTransport2, actionDataClothes1, actionDataClothes2, actionDataEnergy1, actionDataEnergy2];
 const randomIndex = Math.floor(Math.random() * actions.length);
