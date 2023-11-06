@@ -1,16 +1,75 @@
 const admin = require('firebase-admin');
 const path = require("path");
-const serviceAccount = require(path.resolve(__dirname, './../../actions-serviceAccountKey.json'));
+const { exit } = require('process');
+const serviceAccount = require(path.resolve(__dirname, './serviceAccountKey.json'));
 const { argv } = require('yargs');
 
-const userCount = argv.count || 500; //default 500
+const userCount = argv.count || 10; //default 10
 
+
+
+// Initialize app
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://actions-dd2b5.firebaseapp.com"
 });
-
 const firestore = admin.firestore();
+
+// Generate Random Users
+function generateFakeIdentity() {
+
+  var firstNames = [
+    'John', 'Jane', 'Jack', 'Jim', 'Jill', 'Joan', 'Jenny', 'Joe', 'Jesse',
+    'Jody', 'Jodi', 'Josh', 'Jules', 'Julie', 'Judy', 'Jake', 'Jade', 'Jude',
+    'Jean', 'Jett', 'Judd', 'Jules', 'Jock', 'Jax', 'Jed', 'Jeb', 'Jen',
+    'Jett', 'Jude', 'Jean', 'Jock', 'Jax', 'Jed', 'Jeb', 'Jen'
+  ];
+  
+  var lastNames = [
+    'Johnson', 'Jackson', 'Jameson', 'Jenkins', 'Jennings', 'Jensen', 'Jett',
+    'Jewell', 'Jewett', 'Jolly', 'Jollyman', 'Jones', 'Joplin', 'Judd', 'Judge',
+    'Jude', 'Julian', 'Julius', 'Jumper', 'Jumperman', 'Jumperdink', 'Jumperdoo',
+    'Jumperdink', 'Jumperoo', 'Jumperduff', 'Jumperdoff', 'Jumperdough', 'Jumperstuff',
+    'Jumperdoodle', 'Jumperdoo', 'Jumperdink', 'Jumperdoo', 'Jumperdoo', 'Jumperdink',
+    'Jumperdoo', 'Jumperdink'
+  ];
+
+  var firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  var lastName =  lastNames[Math.floor(Math.random() * lastNames.length)];
+  
+  return {
+    firstName: firstName,
+    lastName: lastName,
+    displayName: firstName + ' ' + lastName,
+    email: firstName + '.' + lastName + '@example.com',
+    photo_url: "https://lh3.googleusercontent.com/a-/" + firstName + '-' + lastName + "=s96-c"
+  };
+};
+
+function generateUUID() {
+  var d = new Date().getTime();
+  var uuid = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'.replace(/[x]/g, function(c) {
+    var r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+  return uuid;
+}
+
+function generateSponsorCode() {
+  return Math.random().toString(36).substr(2, 8).toUpperCase().match(/.{1,4}/g).join('-')
+}
+
+function generateTeam() {
+  var teams = ['earth', 'sky', 'forest'];
+  return teams[Math.floor(Math.random() * teams.length)];
+}
+
+function generateTarget() {
+  var targets = [2,4,6,8,10];
+  return targets[Math.floor(Math.random() * targets.length)];
+}
+
 
 function generateRandomDate() {
   const startDate = new Date(2000, 0, 1);
@@ -64,12 +123,29 @@ async function viderCollectionActions() {
   }
 }
 
+async function viderCollectionStats() {
+  const actionsCollection = firestore.collection('stats');
+
+  try {
+    const snapshot = await actionsCollection.get();
+    const deletePromises = [];
+
+    snapshot.forEach((doc) => {
+      deletePromises.push(doc.ref.delete());
+    });
+
+    await Promise.all(deletePromises);
+    console.log("La collection 'stats' a été vidée avec succès.");
+  } catch (error) {
+    console.error("Erreur lors de la suppression des documents de la collection 'actions': ", error);
+  }
+}
+
+
+
 async function ajouterUtilisateur(index) {
   const usersCollection = firestore.collection('users');
-
-  const displayName = `Utilisateur ${index}`;
-  const email = `user${index}@example.com`;
-  const photoUrl = `url${index}`;
+  const fakeIdentity = new generateFakeIdentity();
 
   const connectionHistory = Array.from({ length: 10 }, () => generateRandomDate())
   .map(formatDate)
@@ -81,11 +157,19 @@ async function ajouterUtilisateur(index) {
 
   try {
     const docRef = await usersCollection.add({
+      uid: generateUUID(),
       created_time: admin.firestore.FieldValue.serverTimestamp(),
-      display_name: displayName,
-      email: email,
-      photo_url: photoUrl,
-      connection_history: connectionHistory
+      display_name: fakeIdentity.displayName,
+      last_Name: fakeIdentity.lastName,
+      first_Name: fakeIdentity.firstName,
+      email: fakeIdentity.email,
+      photo_url: fakeIdentity.photo_url,
+      sponsorship_code: generateSponsorCode(),
+      sponsor: generateSponsorCode(),
+      connection_history: connectionHistory,
+      team: generateTeam(),
+      target: generateTarget(),
+      hasCompletedHowto: false
     });
 
     console.log(`Utilisateur ajouté avec succès avec l'identifiant : ${docRef.id}`);
@@ -156,6 +240,7 @@ async function ajouterAction(uid) {
 async function ajouterUtilisateursDeTest() {
   await viderCollectionUsers();
   await viderCollectionActions();
+  await viderCollectionStats();
 
   for (let i = 1; i <= userCount; i++) {
     const userId = await ajouterUtilisateur(i);

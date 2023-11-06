@@ -18,7 +18,7 @@
     "dependencies": {
         "cors": "^2.8.5",
         "express": "^4.18.2",
-        "firebase-functions": "^4.4.1",
+        "firebase-functions": "^4.5.0",
         "lint": "^1.1.2",
         "supertest": "^6.3.3",
         "swagger-node-express": "^1.2.3",
