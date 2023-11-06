@@ -1,11 +1,12 @@
 const admin = require('firebase-admin');
+const { setMaxIdleHTTPParsers } = require('http');
 const path = require("path");
 const { exit } = require('process');
 const serviceAccount = require(path.resolve(__dirname, './serviceAccountKey.json'));
 const { argv } = require('yargs');
 
-const userCount = argv.count || 10; //default 10
-
+const userCount = argv.count || 1; //default 10
+const actionCount = argv.count || 10; //default 10
 
 
 // Initialize app
@@ -143,7 +144,7 @@ async function viderCollectionStats() {
 
 
 
-async function ajouterUtilisateur(index) {
+async function ajouterUtilisateur(uid) {
   const usersCollection = firestore.collection('users');
   const fakeIdentity = new generateFakeIdentity();
 
@@ -157,7 +158,7 @@ async function ajouterUtilisateur(index) {
 
   try {
     const docRef = await usersCollection.add({
-      uid: generateUUID(),
+      uid: uid,
       created_time: admin.firestore.FieldValue.serverTimestamp(),
       display_name: fakeIdentity.displayName,
       last_Name: fakeIdentity.lastName,
@@ -243,8 +244,16 @@ async function ajouterUtilisateursDeTest() {
   await viderCollectionStats();
 
   for (let i = 1; i <= userCount; i++) {
-    const userId = await ajouterUtilisateur(i);
-    await ajouterAction(userId);
+    const uid = generateUUID();
+    await ajouterUtilisateur(uid);
+
+    // Wait 2 sec to Stats document to be created
+    const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+    await delay(2000);
+
+    for (let a = 1; a <= actionCount; a++) { 
+      await ajouterAction(uid);
+    }
   }
 
   console.log("Opération terminée avec succès !");

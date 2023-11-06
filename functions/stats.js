@@ -1,4 +1,6 @@
 const functions = require('firebase-functions');
+const { FieldValue } = require('firebase-admin/firestore');
+
 const {
   db,
 } = require('./admin');
@@ -61,17 +63,52 @@ exports.flush = functions.region('europe-west6').firestore.document('/users/{doc
  exports.update = functions.region('europe-west6').firestore.document('/actions/{documentId}')
     .onWrite(async (event) => {
 
-        const previousValues =  event.data.before.data();
-        const newValues =  event.data.after.data();
+        const previousValues =  event.before.data();
+        const newValues =  event.after.data();
 
-        const previousCO2e = previousValues.co2e;
-        const newCO2e = newValues.co2e;
-
-        // If action is deleted
+        // Action deleted
         if(!newValues) {
             console.log("Action supprimée");
-        } else {
+            const previousCO2e = previousValues.co2e;
+
+            console.log("previousCO2e : " + previousCO2e);
+
+            // Update stats
+            await db.collection('stats').where('uid', '==', previousValues.uid).limit(1).get()
+            .then((query) => {
+                
+                const userStats = query.docs[0];
+                userStats.ref.update({
+                    actionsCountTotal: FieldValue.increment(-1)
+                });
+
+            });
+
+        // Action added
+        } else if(!previousValues) {
+            console.log("Action ajoutée");
+
+            const newValues = event.after.data();
+
+            await db.collection('stats').where('uid', '==', newValues.uid).limit(1).get()
+            .then((query) => {
+
+                const userStats = query.docs[0];
+                userStats.ref.update({
+                    actionsCountTotal: FieldValue.increment(1)
+                });
+
+            });
+            console.log("newCO2e : " + newValues.co2e);
+        }
+        else {
             console.log("Action ajoutée ou modifiée");
+           
+            const previousCO2e = previousValues.co2e;
+            const newCO2e = newValues.co2e;
+
+            console.log("previousCO2e : " + previousCO2e);
+            console.log("newCO2e : " + newCO2e);
         }
 
     });
