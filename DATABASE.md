@@ -16,17 +16,17 @@ Actions favorites
 
 - DateTime **created_time** : Creation time (timestamp)
 - String **display_name** : Displayed name
+- String **last_Name**
+- String **first_Name**
 - String **email** : email
+- String **photo_url** : Photo url
 - String **uid** : UserId, users table
-- Image path **photo_url** : Photo url
-- DateTime (list) **connection_history** : (rafacto) list of last connexions
-- Code parrain (code de la personne qui a invité)
-- Code parrainage (pour inviter) a générer
-- Strin **lastName**
-- String **firstName**
-- int **co2target** : Target (Goal) parameter of the user
-- bool **hasCompletedHowto** : A complété le tuto
+- String **sponsorship_code** : Sponsorship code XXXX-XXXX
+- String **sponsor** : Code from sponsor XXXX-XXXX
 - string **team** : Team
+- int **target** : Target (Goal) parameter of the user
+- bool **hasCompletedHowto** : Has completed tutorial
+- DateTime (list) **connection_history** : (rafacto) list of last connexions
 
 ### Actions
 - string **uid** : UserId, users table
@@ -54,6 +54,20 @@ Mise à jour tous les jours
 - string **uid** : UserId, users table
 - int **score** : Actual score
 - int **sponsorshipCount** : Sponsorship count
+
+For challenges, actions count
+
+- int **actionsCountTotal** : Action count for all categories 
+- int **actionsCountTransport**
+- int **actionsCountServices**
+- int **actionsCountObjects**
+- int **actionsCountLodging**
+- int **actionsCountFurniture**
+- int **actionsCountFood**
+- int **actionsCountDigital**
+- int **actionsCountClothes**
+- int **actionsCountAppliance**
+
 
 Stats page, week period  
 For all arrays above, [0] the first day if the week, [6] is the last day.
