@@ -1,74 +1,45 @@
-# actions
+# CarbonFight Actions V2
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/fdf95efb0c36446397e4c0e75078b155)](https://app.codacy.com/gh/CarbonFight/actions/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## Requirements
 
-Install Nodejs
+- [Node.js](https://nodejs.org/en/download)
+- [Firebase CLI](https://firebase.google.com/docs/cli?hl=fr#install-cli-mac-linux)
+- [Google Cloud CLI](https://cloud.google.com/sdk/docs/install?hl=fr#deb)
 
-## Install project dependencies : 
+## Install
 
 ```bash
-npm install firebase
+npm --prefix ./functions install ./functions
+npm --prefix ./import install ./import
 ```
 
-```bash
-npm install firebase-admin
-```
+## Configure
+Download you service account json file from Google Firebase.  
 
 ```bash
-npm install yargs
-```
+# Copy account json file
+cp <yourFile> import/serviceAccountKey.json
 
-## How to generate users and actions data for test 
+# Create empty dump folder
+mkdir dumps
 
-Copy the actions-serviceAccountKey.json file into root project.
-
-Run the following command:
-
-```bash
-cd functions/database
-```
-
-```bash
-node initDataTests.js --count 1000 // count optional, default 500
-```
-
-count is the number of users that we wsh to generate, it's 500 by default
-
-
-## Firebase emulator (local tests)
-
-Install Java
-
-```bash
-# On Ubuntu
-sudo apt install default-jre
-```
-
-Install [Gcloud](https://cloud.google.com/sdk/docs/install?hl=fr#deb)
-
-Configure Gcloud
-
-```bash
+# Configure Google Cloud CLI
 gcloud auth login
 gcloud components update
-gcloud config set project carbonfight-89af6
+gcloud config set project actions-dd2b5
 ```
 
-Create dumps folder
+## Run
+
+You can run a bash script that will :
+- Generate fake data into firestore
+- Dump firestore database
+- Download dump into local firebase emulator
+- Lanuch firebase emulator
 
 ```bash
-mkdir dumps
-```
-
-Download database (need specific rights on GCP project)
-
-```bash
-gsutil rm -r gs://actions-dd2b5.appspot.com/backups
-gcloud firestore export gs://actions-dd2b5.appspot.com/backups
-gsutil -m cp -r gs://actions-dd2b5.appspot.com/backups/* ./dumps/
-```
-
-You can launch Firebase emulator
-```bash
-firebase emulators:start --import ./dumps
+chmod +x ./refresh_emulator.bash
+./refresh_emulator.bash
 ```

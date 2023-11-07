@@ -1,13 +1,9 @@
 const admin = require('firebase-admin');
-const { setMaxIdleHTTPParsers } = require('http');
 const path = require("path");
-const { exit } = require('process');
 const serviceAccount = require(path.resolve(__dirname, './serviceAccountKey.json'));
-const { argv } = require('yargs');
 
-const userCount = argv.count || 1; //default 10
-const actionCount = argv.count || 10; //default 10
-
+const userCount =  1;
+const actionCount =  10; 
 
 // Initialize app
 admin.initializeApp({
