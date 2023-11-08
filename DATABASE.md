@@ -67,12 +67,9 @@ For challenges, actions count
 - int **actionsCountDigital**
 - int **actionsCountClothes**
 - int **actionsCountAppliance**
+  
 
-
-Stats page, week period  
-For all arrays above, [0] the first day if the week, [6] is the last day.
-
-- int (list) **weekTotalPerDay** : total CO2e's array per day
+- int (list) **weekTotalPerDay** : total CO2e's array per day [0] the first day if the week, [6] is the last day.
 - int **weekTotal** : Total CO2e 
 - int **weekTransport** : Total CO2e for the week for category transport
 - int **weekServices** : Total CO2e for the week for category services
@@ -84,10 +81,7 @@ For all arrays above, [0] the first day if the week, [6] is the last day.
 - int **weekClothes** : Total CO2e for the week for category Clothes
 - int **weekAppliance** : Total CO2e for the week for category Appliance
 
-Stats page, month period  
-For all arrays above, [0] the first day of the month, [31] is last day of the month.
-
-- int (list) **monthTotalPerDay** : total CO2e's array per day
+- int (list) **monthTotalPerDay** : total CO2e's array per day [0] the first day of the month, [30] is last day of the month.
 - int **monthTotal** : Total CO2e for the month
 - int **monthTransport** : Total CO2e for the month for category transport
 - int **monthServices** : Total CO2e for the month for category services
@@ -115,18 +109,18 @@ For all arrays above, [0] the actual month, [11] is the last month of the year.
 - int **yearAppliance** : Total CO2e for the year for category Appliance
 
 
-### Défis & Accomplissements
+### Challenges
 
 - **uid** : UserId, users table
-- bool **has2Invites** : not yet implemented
-- bool **has3Periodics** : user has 3 periodics
-- bool **has50Actions** : user has 50 actions
-- **has5Likes** : not yet implemented
-- **has7DaysStreak** : not yet implemented
-- **hasGoals** : user has changed is co2 target
-- **hasParams** : not yet implemented
-- **hasReviewApp**: not yet implemented
-- **hasStart** : always true, first points
+- bool **onboardingTransport** : actionsCountTransport > 0
+- bool **onboardingServices** : actionsCountServices > 0
+- bool **onboardingObjects** : actionsCountObjects > 0
+- bool **onboardingLodging** : actionsCountLodging > 0
+- bool **onboardingFurniture** : actionsCountFurniture > 0
+- bool **onboardingFood** : actionsCountFood > 0
+- bool **onboardingDigital** : actionsCountDigital > 0
+- bool **onboardingClothes** : actionsCountClothes > 0
+- bool **onboardingAppliance** : actionsCountAppliance > 0
 
 
 ### Badges
