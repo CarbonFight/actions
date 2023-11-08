@@ -134,9 +134,28 @@ async function viderCollectionStats() {
     await Promise.all(deletePromises);
     console.log("La collection 'stats' a été vidée avec succès.");
   } catch (error) {
-    console.error("Erreur lors de la suppression des documents de la collection 'actions': ", error);
+    console.error("Erreur lors de la suppression des documents de la collection 'stats': ", error);
   }
 }
+
+async function viderCollectionChallenges() {
+  const actionsCollection = firestore.collection('challenges');
+
+  try {
+    const snapshot = await actionsCollection.get();
+    const deletePromises = [];
+
+    snapshot.forEach((doc) => {
+      deletePromises.push(doc.ref.delete());
+    });
+
+    await Promise.all(deletePromises);
+    console.log("La collection 'challenges' a été vidée avec succès.");
+  } catch (error) {
+    console.error("Erreur lors de la suppression des documents de la collection 'challenges': ", error);
+  }
+}
+
 
 
 
@@ -238,6 +257,7 @@ async function ajouterUtilisateursDeTest() {
   await viderCollectionUsers();
   await viderCollectionActions();
   await viderCollectionStats();
+  await viderCollectionChallenges();
 
   for (let i = 1; i <= userCount; i++) {
     const uid = generateUUID();

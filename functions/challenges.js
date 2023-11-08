@@ -67,6 +67,30 @@ const {
                 const userChallenges = query.docs[0];
                 userChallenges.ref.update({onboardingAppliance: true})});
         }
+        if (newStats.eventUpdateCount > 0) {
+            await db.collection('challenges').where('uid', '==', newStats.uid).limit(1).get()
+            .then((query) => {
+                const userChallenges = query.docs[0];
+                userChallenges.ref.update({onboardingUpdateAction: true})});
+        }
+        if (newStats.eventDeleteCount > 0) {
+            await db.collection('challenges').where('uid', '==', newStats.uid).limit(1).get()
+            .then((query) => {
+                const userChallenges = query.docs[0];
+                userChallenges.ref.update({onboardingDeleteAction: true})});
+        }
+        if (newStats.eventUpdateTargetCount > 0) {
+            await db.collection('challenges').where('uid', '==', newStats.uid).limit(1).get()
+            .then((query) => {
+                const userChallenges = query.docs[0];
+                userChallenges.ref.update({onboardingUpdateTarget: true})});
+        }
+        if (newStats.eventUpdateTeamCount > 0) {
+            await db.collection('challenges').where('uid', '==', newStats.uid).limit(1).get()
+            .then((query) => {
+                const userChallenges = query.docs[0];
+                userChallenges.ref.update({onboardingUpdateTeam: true})});
+        }
         // End of onboarding challenges
     });
 
@@ -90,8 +114,11 @@ const {
             onboardingFood: false,
             onboardingDigital: false,
             onboardingClothes: false,
-            onboardingAppliance: false
-
+            onboardingAppliance: false,
+            onboardingUpdateAction: false,
+            onboardingDeleteAction: false,
+            onboardingUpdateTarget: false,
+            onboardingUpdateTeam: false
         });
         } catch (error) {
         throw new Error(`Init user challenges failed, ${error}`);

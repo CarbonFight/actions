@@ -25,7 +25,7 @@ Actions favorites
 - String **sponsor** : Code from sponsor XXXX-XXXX
 - string **team** : Team
 - int **target** : Target (Goal) parameter of the user
-- bool **hasCompletedHowto** : Has completed tutorial
+- bool **skipHowto** : has finished or skipped howto
 - DateTime (list) **connection_history** : (rafacto) list of last connexions
 
 ### Actions
@@ -55,7 +55,7 @@ Mise à jour tous les jours
 - int **score** : Actual score
 - int **sponsorshipCount** : Sponsorship count
 
-For challenges, actions count
+For onboarding challenges
 
 - int **actionsCountTotal** : Action count for all categories 
 - int **actionsCountTransport**
@@ -67,7 +67,12 @@ For challenges, actions count
 - int **actionsCountDigital**
 - int **actionsCountClothes**
 - int **actionsCountAppliance**
-  
+
+- int **eventActionAddCount** : increment +1 when user add action
+- int **eventActionUpdateCount** : increment +1 when user update action
+- int **eventActionDeleteCount** : increment +1 when user delete action
+- int **eventUpdateTargetCount** : increment +1 when user update target
+- int **eventUpdateTeamCount** : increment +1 when user update team
 
 - int (list) **weekTotalPerDay** : total CO2e's array per day [0] the first day if the week, [6] is the last day.
 - int **weekTotal** : Total CO2e 
@@ -111,7 +116,7 @@ For all arrays above, [0] the actual month, [11] is the last month of the year.
 
 ### Challenges
 
-- **uid** : UserId, users table
+- string **uid** : UserId, users table
 - bool **onboardingTransport** : actionsCountTransport > 0
 - bool **onboardingServices** : actionsCountServices > 0
 - bool **onboardingObjects** : actionsCountObjects > 0
@@ -121,6 +126,10 @@ For all arrays above, [0] the actual month, [11] is the last month of the year.
 - bool **onboardingDigital** : actionsCountDigital > 0
 - bool **onboardingClothes** : actionsCountClothes > 0
 - bool **onboardingAppliance** : actionsCountAppliance > 0
+- bool **onboardingUpdateAction** : eventUpdateCount > 0
+- bool **onboardingDeleteAction** : eventDeleteCount > 0
+- bool **onboardingUpdateTarget** : eventDeleteCount > 0
+- bool **onboardingUpdateTeam** : eventDeleteCount > 0
 
 
 ### Badges

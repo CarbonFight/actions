@@ -14,8 +14,19 @@ async function addCO2eToStats(uid, category, co2e, actionCount, creation_time) {
     // Update stats
     await db.collection('stats').where('uid', '==', uid).limit(1).get()
     .then((query) => {
-        
+
         const userStats = query.docs[0];
+
+        // increment add/delete/update action count
+        if (actionCount == 1) {
+            userStats.ref.update({eventActionAddCount: FieldValue.increment(1)});
+        } else if (actionCount == -1) {
+            userStats.ref.update({eventActionDeleteCount: FieldValue.increment(1)});
+        } else if (actionCount == 0) {
+            userStats.ref.update({eventActionAddCount: FieldValue.increment(1)});
+        }
+
+        // update stats
         userStats.ref.update({
             actionsCountTotal: FieldValue.increment(actionCount),
             weekTotal: FieldValue.increment(co2e),
@@ -80,7 +91,7 @@ async function addCO2eToStats(uid, category, co2e, actionCount, creation_time) {
     });
 }
 
- exports.update = functions.region('europe-west6').firestore.document('/actions/{documentId}')
+exports.actionUpdate = functions.region('europe-west6').firestore.document('/actions/{documentId}')
     .onWrite(async (event) => {
 
         const previousValues =  event.before.data();
@@ -110,7 +121,32 @@ async function addCO2eToStats(uid, category, co2e, actionCount, creation_time) {
         }
     });
 
-    exports.init = functions.region('europe-west6').firestore.document('/users/{documentId}')
+exports.userUpdate = functions.region('europe-west6').firestore.document('/users/{documentId}')
+    .onUpdate(async (event) => {
+
+        const previousValues =  event.before.data();
+        const newValues =  event.after.data();
+
+        // Update stats
+        await db.collection('stats').where('uid', '==', newValues.uid).limit(1).get()
+        .then((query) => {
+
+            const userStats = query.docs[0];
+
+            // If user target is updated, increment eventUpdateTargetCount
+            if (previousValues.target != newValues.target) {
+                userStats.ref.update({eventUpdateTargetCount: FieldValue.increment(1)});
+            }
+
+            // If user team is updated, increment eventUpdateTargetCount
+            if (previousValues.team != newValues.team) {
+                userStats.ref.update({eventUpdateTeamCount: FieldValue.increment(1)});
+            }
+
+        });
+});
+
+exports.init = functions.region('europe-west6').firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
 
     const user = snap.data();
@@ -133,6 +169,12 @@ async function addCO2eToStats(uid, category, co2e, actionCount, creation_time) {
             actionsCountDigital: 0,
             actionsCountClothes: 0,
             actionsCountAppliance: 0,
+
+            eventActionAddCount: 0, 
+            eventActionDeleteCount: 0,
+            eventActionAddCount: 0,
+            eventUpdateTargetCount: 0,
+            eventUpdateTeamCount: 0,
 
             weekTotalPerDay: [0, 0, 0, 0, 0, 0, 0],
             weekTotal: 0,
