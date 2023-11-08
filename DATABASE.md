@@ -135,10 +135,8 @@ For all arrays above, [0] the actual month, [11] is the last month of the year.
 ### Badges
 
 - **uid** : UserId, users table
-- bool **badge1** : 
-- bool **has3Periodics** :
-- bool **has50Actions** :
-
+- bool **onboardingHowtoFinished** : Has finished howto
+- bool **onboardingAllChallenges** : Has finished all onboarding challenges
 
 # Exemples
 
