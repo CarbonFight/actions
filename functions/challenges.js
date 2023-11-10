@@ -6,7 +6,7 @@ const {
 } = require('./admin');
 
 
- exports.update = functions.region('europe-west6').firestore.document('/stats/{documentId}')
+ exports.update = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/stats/{documentId}')
     .onWrite(async (event) => {
 
         // Onboarding challenges
@@ -94,7 +94,7 @@ const {
         // End of onboarding challenges
     });
 
-    exports.init = functions.region('europe-west6').firestore.document('/users/{documentId}')
+exports.init = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
 
     const user = snap.data();

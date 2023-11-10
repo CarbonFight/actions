@@ -6,7 +6,7 @@ const {
 } = require('./admin');
 
 
-exports.update = functions.region('europe-west6').firestore.document('/challenges/{documentId}')
+exports.update = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/challenges/{documentId}')
     .onUpdate(async (event) => {
         const newChallenges =  event.after.data();
         // If all onboarding challenges are true, set onboardingAllChallenges to true
@@ -26,7 +26,7 @@ exports.update = functions.region('europe-west6').firestore.document('/challenge
         }
     });
 
-exports.init = functions.region('europe-west6').firestore.document('/users/{documentId}')
+exports.init = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
 
     const user = snap.data();

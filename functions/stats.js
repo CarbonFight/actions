@@ -91,7 +91,7 @@ async function addCO2eToStats(uid, category, co2e, actionCount, creation_time) {
     });
 }
 
-exports.actionUpdate = functions.region('europe-west6').firestore.document('/actions/{documentId}')
+exports.actionUpdate = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/actions/{documentId}')
     .onWrite(async (event) => {
 
         const previousValues =  event.before.data();
@@ -121,7 +121,7 @@ exports.actionUpdate = functions.region('europe-west6').firestore.document('/act
         }
     });
 
-exports.userUpdate = functions.region('europe-west6').firestore.document('/users/{documentId}')
+exports.userUpdate = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/users/{documentId}')
     .onUpdate(async (event) => {
 
         const previousValues =  event.before.data();
@@ -146,7 +146,7 @@ exports.userUpdate = functions.region('europe-west6').firestore.document('/users
         });
 });
 
-exports.init = functions.region('europe-west6').firestore.document('/users/{documentId}')
+exports.init = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
 
     const user = snap.data();
