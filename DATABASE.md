@@ -4,15 +4,9 @@
 
 **Category / Action / Option** : 3 level to determine CO2e emission factor. Exemple : Category Transportation / Action Train / Option TGV.  
 
-## Tables
 
+## Users
 
-TODO 
-- [ ]  Action périodiques à temps limité
-- [ ]  Lier périodiques et actions  
-Actions favorites
-
-### Users
 
 - DateTime **created_time** : Creation time (timestamp)
 - String **display_name** : Displayed name
@@ -28,7 +22,7 @@ Actions favorites
 - bool **skipHowto** : has finished or skipped howto
 - DateTime (list) **connection_history** : (rafacto) list of last connexions
 
-### Actions
+## Actions
 - string **uid** : UserId, users table
 - date **created_time** : Creation time (timestamp)
 - string **country** : FR
@@ -44,19 +38,11 @@ Actions favorites
 - String (list) **periodicity** (array) : array of strings with days of the week
 - string **side** : Only for main food action (ex : rice, pasta)
 
-### Team Stats
-Todo
-Mise à jour tous les jours
-
-
-### Stats
+## Stats
 
 - string **uid** : UserId, users table
 - int **score** : Actual score
 - int **sponsorshipCount** : Sponsorship count
-
-For onboarding challenges
-
 - int **actionsCountTotal** : Action count for all categories 
 - int **actionsCountTransport**
 - int **actionsCountServices**
@@ -67,13 +53,11 @@ For onboarding challenges
 - int **actionsCountDigital**
 - int **actionsCountClothes**
 - int **actionsCountAppliance**
-
 - int **eventActionAddCount** : increment +1 when user add action
 - int **eventActionUpdateCount** : increment +1 when user update action
 - int **eventActionDeleteCount** : increment +1 when user delete action
 - int **eventUpdateTargetCount** : increment +1 when user update target
 - int **eventUpdateTeamCount** : increment +1 when user update team
-
 - int (list) **weekTotalPerDay** : total CO2e's array per day [0] the first day if the week, [6] is the last day.
 - int **weekTotal** : Total CO2e 
 - int **weekTransport** : Total CO2e for the week for category transport
@@ -85,7 +69,6 @@ For onboarding challenges
 - int **weekDigital** : Total CO2e for the week for category Digital
 - int **weekClothes** : Total CO2e for the week for category Clothes
 - int **weekAppliance** : Total CO2e for the week for category Appliance
-
 - int (list) **monthTotalPerDay** : total CO2e's array per day [0] the first day of the month, [30] is last day of the month.
 - int **monthTotal** : Total CO2e for the month
 - int **monthTransport** : Total CO2e for the month for category transport
@@ -97,11 +80,7 @@ For onboarding challenges
 - int **monthDigital** : Total CO2e for the month for category Digital
 - int **monthClothes** : Total CO2e for the month for category Clothes
 - int **monthAppliance** : Total CO2e for the month for category Appliance
-
-Stats page, year period  
-For all arrays above, [0] the actual month, [11] is the last month of the year.
-
-- int (list) **yearTotalPerDay** : total CO2e's array per day
+- int (list) **yearTotalPerDay** : total CO2e's array per day [0] the actual month, [11] is the last month of the year.
 - int **yearTotal** : Total CO2e for the year
 - int **yearTransport** : Total CO2e for the year for category transport
 - int **yearServices** : Total CO2e for the year for category services
@@ -113,8 +92,7 @@ For all arrays above, [0] the actual month, [11] is the last month of the year.
 - int **yearClothes** : Total CO2e for the year for category Clothes
 - int **yearAppliance** : Total CO2e for the year for category Appliance
 
-
-### Challenges
+## Challenges
 
 - string **uid** : UserId, users table
 - bool **onboardingTransport** : actionsCountTransport > 0
@@ -132,37 +110,11 @@ For all arrays above, [0] the actual month, [11] is the last month of the year.
 - bool **onboardingUpdateTeam** : eventDeleteCount > 0
 
 
-### Badges
+## Badges
 
 - **uid** : UserId, users table
 - bool **onboardingHowtoFinished** : Has finished howto
 - bool **onboardingAllChallenges** : Has finished all onboarding challenges
 
-# Exemples
 
-## Trajet en voiture
-uid:"zezrzerzerzerfs12"
-created_time: (dateTime)
-country : "FR"
-category : "transport"
-action : "car"
-option : "Thermique"
-co2e: 17850
-emission_factor: 119
-peopleSharing : 2
-count: 150
-roundtrip : true
-isPeriodic: false
-
-
-## 2 cafés tous les jours
-uid:"zezrzerzerzerfs12"
-created_time: (dateTime)
-country : "FR"
-category : "food"
-action : "coffee"
-co2e: 200
-emission_factor: 100
-count: 2
-isPeriodic: true
-periodicity: ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"]
+## Team Stats
