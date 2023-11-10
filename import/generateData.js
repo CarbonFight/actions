@@ -156,6 +156,24 @@ async function viderCollectionChallenges() {
   }
 }
 
+async function viderCollectionBadges() {
+  const actionsCollection = firestore.collection('badges');
+
+  try {
+    const snapshot = await actionsCollection.get();
+    const deletePromises = [];
+
+    snapshot.forEach((doc) => {
+      deletePromises.push(doc.ref.delete());
+    });
+
+    await Promise.all(deletePromises);
+    console.log("La collection 'badges' a été vidée avec succès.");
+  } catch (error) {
+    console.error("Erreur lors de la suppression des documents de la collection 'badges': ", error);
+  }
+}
+
 
 
 
@@ -258,6 +276,7 @@ async function ajouterUtilisateursDeTest() {
   await viderCollectionActions();
   await viderCollectionStats();
   await viderCollectionChallenges();
+  await viderCollectionBadges();
 
   for (let i = 1; i <= userCount; i++) {
     const uid = generateUUID();
