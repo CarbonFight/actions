@@ -68,7 +68,7 @@ node_modules/
 
 */functions/package-lock.json
 credentials.json
-node_modules/
-dumps
+dumps/*
 !dumps/.gitkeep
+
 serviceAccountKey.json
