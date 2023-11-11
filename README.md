@@ -22,14 +22,13 @@ Download you service account json file from Google Firebase.
 # Copy account json file
 cp <yourFile> import/serviceAccountKey.json
 
-# Create empty dump folder
-mkdir dumps
-
 # Configure Google Cloud CLI
 gcloud auth login
 gcloud components update
 gcloud config set project actions-dd2b5
 ```
+
+💡 All files relative to backups will be stored inside the `./dumps/` folder.
 
 ## Run
 
