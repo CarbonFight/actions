@@ -8,6 +8,7 @@ help:
 
 install:
   npm --prefix ./functions install ./functions
+  npm --prefix ./functions run prepare
   npm --prefix ./import install ./import
 
 refresh ARGS='':
