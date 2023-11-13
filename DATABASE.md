@@ -2,11 +2,9 @@
 
 **CO2e** or **CO2eq** : Carbon dioxide equivalent (CO 2e or CO 2eq or CO 2-e) is calculated from GWP. For any gas, it is the mass of CO 2 that would warm the earth as much as the mass of that gas. (Wikipedia)
 
-**Category / Action / Option** : 3 level to determine CO2e emission factor. Exemple : Category Transportation / Action Train / Option TGV.  
-
+**Category / Action / Option** : 3 level to determine CO2e emission factor. Exemple : Category Transportation / Action Train / Option TGV.
 
 ## Users
-
 
 - DateTime **created_time** : Creation time (timestamp)
 - String **display_name** : Displayed name
@@ -23,6 +21,7 @@
 - DateTime (list) **connection_history** : (rafacto) list of last connexions
 
 ## Actions
+
 - string **uid** : UserId, users table
 - date **created_time** : Creation time (timestamp)
 - string **country** : FR
@@ -109,12 +108,10 @@
 - bool **onboardingUpdateTarget** : eventDeleteCount > 0
 - bool **onboardingUpdateTeam** : eventDeleteCount > 0
 
-
 ## Badges
 
 - **uid** : UserId, users table
 - bool **onboardingHowtoFinished** : Has finished howto
 - bool **onboardingAllChallenges** : Has finished all onboarding challenges
-
 
 ## Team Stats
