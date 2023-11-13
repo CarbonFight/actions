@@ -1,3 +1,3 @@
-exports.validateStatsModel = function(statsObject){
+exports.validateStatsModel = function (statsObject) {
     return true
 }

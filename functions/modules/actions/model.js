@@ -1,5 +1,3 @@
-exports.createActionModel = function(){
-    return(
-        {}
-    )
+exports.createActionModel = function () {
+    return {}
 }

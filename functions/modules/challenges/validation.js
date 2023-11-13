@@ -1,9 +1,10 @@
-exports.validateChallengeModel = function(challengeObject){
+exports.validateChallengeModel = function (challengeObject) {
     return true
 }
 
-exports.validateOnboardingChallenge = function(badgeObject){
-    return badgeObject.onboardingTransport &&
+exports.validateOnboardingChallenge = function (badgeObject) {
+    return (
+        badgeObject.onboardingTransport &&
         badgeObject.onboardingServices &&
         badgeObject.onboardingObjects &&
         badgeObject.onboardingLodging &&
@@ -12,4 +13,5 @@ exports.validateOnboardingChallenge = function(badgeObject){
         badgeObject.onboardingDigital &&
         badgeObject.onboardingClothes &&
         badgeObject.onboardingAppliance
+    )
 }
