@@ -37,7 +37,7 @@ exports.init = functions
         if (validateUser(user)) {
             // Create default values for stats table
             try {
-                await db.collection('badges').add(createBadgeModel(uid))
+                await db.collection('badges').add(createBadgeModel(user.uid))
             } catch (error) {
                 throw new Error(`Init user badges failed, ${error}`)
             }
