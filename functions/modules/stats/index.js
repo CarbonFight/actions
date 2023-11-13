@@ -1,10 +1,11 @@
 const functions = require('firebase-functions');
 const { FieldValue } = require('firebase-admin/firestore');
-const dates = require('./dates');
+
+const {createStatsModel} = require("./model");
 
 const {
   db,
-} = require('./admin');
+} = require('../../admin-setup');
 
 // Add co2e to stats
 
@@ -32,7 +33,7 @@ async function addCO2eToStats(uid, category, co2e, actionCount, creation_time) {
             weekTotal: FieldValue.increment(co2e),
             monthTotal: FieldValue.increment(co2e),
             yearTotal: FieldValue.increment(co2e)});
-    
+
         if (category == "transport") {
             userStats.ref.update({
                 actionsCountTransport: FieldValue.increment(actionCount),
@@ -156,62 +157,7 @@ exports.init = functions.region('europe-west6').runWith({minInstances: 1,}).fire
     if (typeof uid !== 'undefined' && uid) {
         // Create default values for stats table
         try {
-        await db.collection('stats').add({
-            uid: uid,
-
-            actionsCountTotal: 0,
-            actionsCountTransport: 0,
-            actionsCountServices: 0,
-            actionsCountObjects: 0,
-            actionsCountLodging: 0,
-            actionsCountFurniture: 0,
-            actionsCountFood: 0,
-            actionsCountDigital: 0,
-            actionsCountClothes: 0,
-            actionsCountAppliance: 0,
-
-            eventActionAddCount: 0, 
-            eventActionDeleteCount: 0,
-            eventActionAddCount: 0,
-            eventUpdateTargetCount: 0,
-            eventUpdateTeamCount: 0,
-
-            weekTotalPerDay: [0, 0, 0, 0, 0, 0, 0],
-            weekTotal: 0,
-            weekTransport: 0,
-            weekServices: 0,
-            weekObjects: 0,
-            weekLodging: 0,
-            weekFurniture: 0,
-            weekFood: 0,
-            weekDigital: 0,
-            weekClothes: 0,
-            weekAppliance: 0,
-
-            monthTotalPerDay: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            monthTotal: 0,
-            monthTransport: 0,
-            monthServices: 0,
-            monthObjects: 0,
-            monthLodging: 0,
-            monthFurniture: 0,
-            monthFood: 0,
-            monthDigital: 0,
-            monthClothes: 0,
-            monthAppliance: 0,
-
-            yearTotalPerDay: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            yearTotal: 0,
-            yearTransport: 0,
-            yearServices: 0,
-            yearObjects: 0,
-            yearLodging: 0,
-            yearFurniture: 0,
-            yearFood: 0,
-            yearDigital: 0,
-            yearClothes: 0,
-            yearAppliance: 0
-        });
+        await db.collection('stats').add(createStatsModel(uid));
         } catch (error) {
         throw new Error(`Init user stats failed, ${error}`);
         }
@@ -220,7 +166,7 @@ exports.init = functions.region('europe-west6').runWith({minInstances: 1,}).fire
 
 exports.flush = functions.region('europe-west6').firestore.document('/users/{documentId}')
     .onDelete(async (snap) => {
-    
+
     const user = snap.data();
     const { uid } = user;
 
