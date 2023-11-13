@@ -1,3 +1,3 @@
-exports.validateBadgeModel = function(badgeObject){
+exports.validateBadgeModel = function (badgeObject) {
     return true
 }

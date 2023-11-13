@@ -1,10 +1,10 @@
-const adminSetup = require('firebase-admin');
+const adminSetup = require('firebase-admin')
 
-adminSetup.initializeApp();
-const db = adminSetup.firestore();
+adminSetup.initializeApp()
+const db = adminSetup.firestore()
 
-db.settings({ ignoreUndefinedProperties: true });
+db.settings({ ignoreUndefinedProperties: true })
 
 module.exports = {
-  db,
-};
+    db,
+}

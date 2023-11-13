@@ -1,3 +1,3 @@
-exports.validateUser = function(uid){
+exports.validateUser = function (uid) {
     return typeof uid !== 'undefined' && uid
 }

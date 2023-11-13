@@ -4,8 +4,8 @@
 
 ## What is it ?
 
-- Model of a user.
+-   Model of a user.
 
 ## How it works ?
 
-- Handled by Firebase.
+-   Handled by Firebase.

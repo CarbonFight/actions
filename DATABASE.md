@@ -28,7 +28,7 @@
 - string **category** : transport/food/energy
 - string **action** : For transport : train, bus, car, etc
 - string **option** : For Train action : TGV / RER / Tramway / etc
-- int **co2e** : calculated CO2e 
+- int **co2e** : calculated CO2e
 - int **count** : parameter for calculation (ex : 4000 KWH), portions for food
 - double **emission_factor** : Emission factor returned by the API
 - int **peopleSharing** : people in the house (energy) or in the car
@@ -42,7 +42,7 @@
 - string **uid** : UserId, users table
 - int **score** : Actual score
 - int **sponsorshipCount** : Sponsorship count
-- int **actionsCountTotal** : Action count for all categories 
+- int **actionsCountTotal** : Action count for all categories
 - int **actionsCountTransport**
 - int **actionsCountServices**
 - int **actionsCountObjects**
@@ -58,7 +58,7 @@
 - int **eventUpdateTargetCount** : increment +1 when user update target
 - int **eventUpdateTeamCount** : increment +1 when user update team
 - int (list) **weekTotalPerDay** : total CO2e's array per day [0] the first day if the week, [6] is the last day.
-- int **weekTotal** : Total CO2e 
+- int **weekTotal** : Total CO2e
 - int **weekTransport** : Total CO2e for the week for category transport
 - int **weekServices** : Total CO2e for the week for category services
 - int **weekObjects** : Total CO2e for the week for category objects

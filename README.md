@@ -26,6 +26,7 @@ npm --prefix ./import install ./import
 ```
 
 ## Configure
+
 Download you service account json file from Google Firebase.  
 A file named `serviceAccountKey.json` should exist in `imports/` folder.
 
@@ -47,10 +48,11 @@ gcloud config set project actions-dd2b5
 ## Refresh emulator (Firestore / Firebase) data
 
 You can run a bash script that will :
-  - Generate fake data into firestore
-  - Dump firestore database
-  - Download dump into local firebase emulator
-  - Launch firebase emulator
+
+- Generate fake data into firestore
+- Dump firestore database
+- Download dump into local firebase emulator
+- Launch firebase emulator
 
 Set permissions for the bash script :
 
@@ -82,7 +84,7 @@ Or run it manually:
 firebase emulators:start --import ./dumps
 ```
 
-## Need help ? 
+## Need help ?
 
 > **Where are stored information about the data structure?**
 
