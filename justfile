@@ -1,10 +1,8 @@
 set dotenv-load
 
-[private]
 default:
   @just help
 
-[private]
 help:
   @just --list
 
@@ -13,10 +11,10 @@ install:
   npm --prefix ./import install ./import
 
 refresh ARGS='':
-  ./refresh_emulator.bash
+  ./refresh_emulator.bash {{ARGS}}
 
 dev ARGS='':
-  firebase emulators:start --import ./dumps
+  firebase emulators:start --import ./dumps {{ARGS}}
 
 test ARGS='':
-  echo "Missing setup for unit testing."
+  echo "Missing setup for unit testing." {{ARGS}}
