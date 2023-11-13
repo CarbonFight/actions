@@ -1,3 +1,3 @@
-exports.stats = require('./stats');
-exports.challenges = require('./challenges');
-exports.badges = require('./badges');
+exports.stats = require('./modules/stats');
+exports.challenges = require('./modules/challenges');
+exports.badges = require('./modules/badges');

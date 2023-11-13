@@ -1,30 +1,36 @@
 const functions = require('firebase-functions');
-const isChampsValid = require("./dataValidator");
-const isParametersValidOnCreate = require("./dataValidator");
-const map = require("./dataMapper");
-const updateStats = require("./stats");
+const map = require("../../utils/dataMapper");
+const updateStats = require("../stats");
+const { isParametersValidOnCreate, validateTransportAction, validateFoodAction, validateEnergyAction } = require("./validation");
 
 exports.update = functions
   .region('europe-west6')
   .firestore.document('/actions/{documentId}')
   .onUpdate(async (change) => {
     const data = change.after.data();
-    const categorie = data.category;
+    const category = data.category;
     try {
       const co2eBefore = change.before.data().co2e;
       const co2eCurrent = change.after.data().co2e;
       if (co2eCurrent !== co2eBefore) {
         const co2e = co2eCurrent - co2eBefore;
-        await updateStats(categorie, data.userId, co2e);
+        await updateStats(category, data.userId, co2e);
       } else {
-        const isValid = isChampsValid(categorie, data);
+          let isValid = false
+          if (category === 'transport') {
+            validateTransportAction(data)
+          } else if (category === 'food') {
+            validateFoodAction(data)
+          } else if (category === 'energy') {
+            validateEnergyAction(data)
+          }
         if (!isValid) {
           change.after.ref.delete();
           throw new Error(`Action has been deleted, parameter missing in document :  ${JSON.stringify(change.after.data())}`);
         }
       }
     } catch (error) {
-      throw new Error(`${categorie} calculation failed, ${error}`);
+      throw new Error(`${category} calculation failed, ${error}`);
     }
   });
 
@@ -34,16 +40,16 @@ exports.create = functions
 .onCreate(async (snap) => {
   try {
     const data = snap.data();
-    const categorie = data.category;
-    const isValid = isParametersValidOnCreate(dcategorie, data);
+    const category = data.category;
+    const isValid = isParametersValidOnCreate(category, data);
     if (isValid) {
-      const value = map(categorie, data);
+      const value = map(category, data);
       await snap.ref.set(value);
     } else {
       await snap.ref.delete();
       throw new Error(`Action has been deleted, parameter missing in document :  ${JSON.stringify(snap.data())}`);
     }
-    await updateStats(categorie, data.userId);
+    await updateStats(category, data.userId);
   } catch (error) {
     throw new Error(`${categorie} calculation failed, ${error}`);
   }
@@ -55,10 +61,10 @@ exports.delete = functions
 .onDelete(async (snap) => {
   try {
     const data = snap.data();
-    const categorie = data.category;
-    await updateStats(categorie, data.userId);
+    const category = data.category;
+    await updateStats(category, data.userId);
   } catch (error) {
-    throw new Error(`${categorie} delete failed, ${error}`);
+    throw new Error(`${snap.data().category} delete failed, ${error}`);
   }
 });
 

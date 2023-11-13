@@ -1,10 +1,10 @@
 const functions = require('firebase-functions');
-const { FieldValue } = require('firebase-admin/firestore');
+
+const { createChallengeModel } = require("./model");
 
 const {
   db,
-} = require('./admin');
-
+} = require('../../admin-setup');
 
  exports.update = functions.region('europe-west6').runWith({minInstances: 1,}).firestore.document('/stats/{documentId}')
     .onWrite(async (event) => {
@@ -30,7 +30,7 @@ const {
             .then((query) => {
                 const userChallenges = query.docs[0];
                 userChallenges.ref.update({onboardingObjects: true})});
-        } 
+        }
         if (newStats.actionsCountLodging > 0) {
             await db.collection('challenges').where('uid', '==', newStats.uid).limit(1).get()
             .then((query) => {
@@ -42,7 +42,7 @@ const {
             .then((query) => {
                 const userChallenges = query.docs[0];
                 userChallenges.ref.update({onboardingFurniture: true})});
-        } 
+        }
         if (newStats.actionsCountFood > 0) {
             await db.collection('challenges').where('uid', '==', newStats.uid).limit(1).get()
             .then((query) => {
@@ -104,22 +104,7 @@ exports.init = functions.region('europe-west6').runWith({minInstances: 1,}).fire
     if (typeof uid !== 'undefined' && uid) {
         // Create default values for stats table
         try {
-        await db.collection('challenges').add({
-            uid: uid,
-            onboardingTransport: false,
-            onboardingServices: false,
-            onboardingObjects: false,
-            onboardingLodging: false,
-            onboardingFurniture: false,
-            onboardingFood: false,
-            onboardingDigital: false,
-            onboardingClothes: false,
-            onboardingAppliance: false,
-            onboardingUpdateAction: false,
-            onboardingDeleteAction: false,
-            onboardingUpdateTarget: false,
-            onboardingUpdateTeam: false
-        });
+        await db.collection('challenges').add(createChallengeModel(uid));
         } catch (error) {
         throw new Error(`Init user challenges failed, ${error}`);
         }
@@ -128,7 +113,7 @@ exports.init = functions.region('europe-west6').runWith({minInstances: 1,}).fire
 
 exports.flush = functions.region('europe-west6').firestore.document('/users/{documentId}')
     .onDelete(async (snap) => {
-    
+
     const user = snap.data();
     const { uid } = user;
 
