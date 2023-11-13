@@ -47,10 +47,10 @@ gcloud config set project actions-dd2b5
 ## Refresh emulator (Firestore / Firebase) data
 
 You can run a bash script that will :
-- Generate fake data into firestore
-- Dump firestore database
-- Download dump into local firebase emulator
-- Launch firebase emulator
+  - Generate fake data into firestore
+  - Dump firestore database
+  - Download dump into local firebase emulator
+  - Launch firebase emulator
 
 Set permissions for the bash script :
 
