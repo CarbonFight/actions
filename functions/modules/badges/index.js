@@ -32,10 +32,9 @@ exports.init = functions
     .firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
         const user = snap.data()
-        const { uid } = user
 
         // If user is not a fake account from stores
-        if (validateUser(uid)) {
+        if (validateUser(user)) {
             // Create default values for stats table
             try {
                 await db.collection('badges').add(createBadgeModel(uid))
