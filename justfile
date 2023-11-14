@@ -14,8 +14,11 @@ install:
 refresh ARGS='':
   ./refresh_emulator.bash {{ARGS}}
 
-dev ARGS='':
+start ARGS='':
   firebase emulators:start --import ./dumps {{ARGS}}
 
+dev ARGS='':
+  firebase emulators:start --only firestore,database {{ARGS}}
+
 test ARGS='':
-  echo "Missing setup for unit testing." {{ARGS}}
+  cd functions && npm run test {{ARGS}}
