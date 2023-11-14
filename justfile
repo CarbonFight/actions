@@ -20,5 +20,8 @@ start ARGS='':
 dev ARGS='':
   firebase emulators:start --only firestore,database {{ARGS}}
 
+test-init:
+  gcloud auth application-default login
+
 test ARGS='':
   cd functions && npm run test {{ARGS}}
