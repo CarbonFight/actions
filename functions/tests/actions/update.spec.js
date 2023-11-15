@@ -2,7 +2,7 @@ const { update } = require("../../modules/actions");
 const usersData= require("../../data/users.dataset");
 const actionsData= require("../../data/actions.dataset");
 const { mockedFunctions, setup } = require("../_setup");
-const { generateDocChange } = require("../_utils");
+const { generateDocChange } = require("../utils/change");
 
 const userPath = 'users/'+usersData[0].uid
 const actionPath = 'actions/'+actionsData[0].uid
