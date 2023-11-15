@@ -9,7 +9,7 @@
         "deploy": "firebase deploy --only functions",
         "logs": "firebase functions:log",
         "data": "node firestore_export.js",
-        "test": "jest",
+        "test": "jest --detectOpenHandles",
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "prepare": "cd .. && husky install functions/.husky"
@@ -28,6 +28,8 @@
         "swagger-ui-express": "^5.0.0"
     },
     "devDependencies": {
+        "@firebase/rules-unit-testing": "^3.0.1",
+        "@firebase/testing": "^0.20.11",
         "eslint": "^8.53.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-config-prettier": "^9.0.0",

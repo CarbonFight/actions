@@ -76,7 +76,7 @@ Or run it manually:
 ## Run the emulator
 
 ```bash
-just dev
+just start
 ```
 
 Or run it manually:
@@ -84,6 +84,26 @@ Or run it manually:
 ```bash
 firebase emulators:start --import ./dumps
 ```
+
+## Run the emulator in dev mode / to run unit testing
+
+```bash
+just dev
+```
+
+Then in another console, you can run : 
+
+```bash
+just test
+```
+
+### GCloud credential issue.
+
+> ⚠ If you see the GCloud error `Could not load the default credentials.` you can run the command: 
+```bash
+   just test-init
+```
+> Then, connect to GCloud using the email used for this project.
 
 ## Need help ?
 
