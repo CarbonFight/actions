@@ -1,4 +1,4 @@
-const { mapEntries } = require('radash');
+const { clone, mapEntries } = require('radash');
 
 function mutateObject(obj, options = []) {
     function mutateValue(value) {
@@ -46,7 +46,7 @@ function mutateObject(obj, options = []) {
         }
     }
 
-    const mutatedObject = { ...obj };
+    const mutatedObject = clone(obj);
 
     mapEntries(mutatedObject, (key, value) => {
         mutateKey(key);

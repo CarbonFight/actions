@@ -13,7 +13,6 @@ module.exports = {
         roundtrip: true,
         isPeriodic: false,
     },
-
     metroTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
         created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
