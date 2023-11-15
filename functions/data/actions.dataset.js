@@ -2,7 +2,7 @@
 module.exports = [
     {
         action: "gas",
-        category: "lodging",
+        category: "energy",
         co2e: 239,
         count: 1,
         country: "FR",

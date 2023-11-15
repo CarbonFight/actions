@@ -7,6 +7,7 @@ const {
     validateFoodAction,
     validateEnergyAction,
 } = require('./validation')
+const Logger = require('../../logger-setup')
 
 exports.update = functions
     .region('europe-west6')
@@ -19,15 +20,16 @@ exports.update = functions
             const co2eCurrent = change.after.data().co2e
             if (co2eCurrent !== co2eBefore) {
                 const co2e = co2eCurrent - co2eBefore
-                await updateStats(category, data.userId, co2e)
+                Logger.error('updateStats is not triggered safely.')
+                //await updateStats(category, data.userId, co2e)
             } else {
                 let isValid = false
                 if (category === 'transport') {
-                    validateTransportAction(data)
+                    isValid = validateTransportAction(data)
                 } else if (category === 'food') {
-                    validateFoodAction(data)
+                    isValid = validateFoodAction(data)
                 } else if (category === 'energy') {
-                    validateEnergyAction(data)
+                    isValid = validateEnergyAction(data)
                 }
                 if (!isValid) {
                     change.after.ref.delete()
