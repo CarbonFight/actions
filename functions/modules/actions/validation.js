@@ -1,59 +1,82 @@
-exports.validateActionModel = function (actionObject) {
-    return true
-}
+const { object, string, number, boolean } = require('zod');
 
-exports.validateTransportAction = function (actionObject) {
-    return (
-        typeof actionObject.powertype !== 'undefined' &&
-        typeof actionObject.roundTrip !== 'undefined' &&
-        typeof actionObject.created_time !== 'undefined' &&
-        typeof actionObject.distance !== 'undefined' &&
-        typeof actionObject.day !== 'undefined' &&
-        typeof actionObject.userId !== 'undefined' &&
-        typeof actionObject.transport !== 'undefined' &&
-        typeof actionObject.isPeriodic !== 'undefined' &&
-        typeof actionObject.passengers !== 'undefined' &&
-        typeof actionObject.periodicity !== 'undefined'
-    )
-}
+const actionSchema = object({
+    created_time: string(),
+    day: string(),
+    userId: string(),
+    isPeriodic: boolean(),
+    periodicity: string(),
+});
 
-exports.validateFoodAction = function (actionObject) {
-    return (
-        typeof actionObject.mainComponent !== 'undefined' &&
-        typeof actionObject.sideComponent !== 'undefined' &&
-        typeof actionObject.created_time !== 'undefined' &&
-        typeof actionObject.portions !== 'undefined' &&
-        typeof actionObject.day !== 'undefined' &&
-        typeof actionObject.userId !== 'undefined' &&
-        typeof actionObject.food !== 'undefined' &&
-        typeof actionObject.isPeriodic !== 'undefined' &&
-        typeof actionObject.periodicity !== 'undefined'
-    )
-}
+const transportActionSchema = actionSchema.merge(
+    object({
+        powertype: string(),
+        roundTrip: boolean(),
+        distance: number(),
+        transport: string(),
+        passengers: number(),
+    })
+);
 
-exports.validateEnergyAction = function (actionObject) {
-    return (
-        typeof actionObject.powertype !== 'undefined' &&
-        typeof actionObject.periodicity !== 'undefined' &&
-        typeof actionObject.created_time !== 'undefined' &&
-        typeof actionObject.volume !== 'undefined' &&
-        typeof actionObject.day !== 'undefined' &&
-        typeof actionObject.userId !== 'undefined' &&
-        typeof actionObject.energy !== 'undefined' &&
-        typeof actionObject.isPeriodic !== 'undefined' &&
-        typeof actionObject.peopleSharing !== 'undefined'
-    )
-}
+const foodActionSchema = actionSchema.merge(
+    object({
+        mainComponent: string(),
+        sideComponent: string(),
+        portions: number(),
+        food: string(),
+    })
+);
 
-exports.isParametersValidOnCreate = function (category, data) {
-    const userId = typeof data.userId !== 'undefined'
+const energyActionSchema = actionSchema.merge(
+    object({
+        powertype: string(),
+        volume: number(),
+        energy: string(),
+        peopleSharing: number(),
+    })
+);
+
+const isTransportParametersValid = (data) => transportActionSchema.pick({
+    userId: data.userId,
+    transport: data.transport
+}).safeParse(data).success;
+
+const isFoodParametersValid = (data) => foodActionSchema.pick({
+    userId: data.userId,
+    food: data.food
+}).safeParse(data).success;
+
+const isEnergyParametersValid = (data) => energyActionSchema.pick({
+    userId: data.userId,
+    energy: data.energy
+}).safeParse(data).success;
+
+exports.validateActionModel = function(actionObject) {
+    return actionSchema.safeParse(actionObject).success;
+};
+
+exports.validateTransportAction = function(actionObject) {
+    return transportActionSchema.safeParse(actionObject).success;
+};
+
+exports.validateFoodAction = function(actionObject) {
+    return foodActionSchema.safeParse(actionObject).success;
+};
+
+exports.validateEnergyAction = function(actionObject) {
+    return energyActionSchema.safeParse(actionObject).success;
+};
+
+exports.isParametersValidOnCreate = function(category, data) {
+    const userId = typeof data.userId !== 'undefined';
+
     if (category === 'transport') {
-        return userId && typeof data.transport !== 'undefined'
+        return userId && isTransportParametersValid(data);
     } else if (category === 'food') {
-        return userId && typeof data.food !== 'undefined'
+        return userId && isFoodParametersValid(data);
     } else if (category === 'energy') {
-        return userId && typeof data.energy !== 'undefined'
+        return userId && isEnergyParametersValid(data);
     } else {
-        return false
+        return false;
     }
-}
+};

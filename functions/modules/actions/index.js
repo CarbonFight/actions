@@ -21,6 +21,8 @@ exports.update = functions
             if (co2eCurrent !== co2eBefore) {
                 const co2e = co2eCurrent - co2eBefore
                 Logger.error('updateStats is not triggered safely.')
+                //TODO: remove
+                //validateTransportAction(data)
                 //await updateStats(category, data.userId, co2e)
             } else {
                 let isValid = false
@@ -50,7 +52,6 @@ exports.create = functions
     .firestore.document('/actions/{documentId}')
     .onCreate(async (snap) => {
         try {
-            console.log('-------',snap)
             const data = snap.data()
             const category = data.category
             const isValid = isParametersValidOnCreate(category, data)
@@ -81,7 +82,8 @@ exports.delete = functions
         try {
             const data = snap.data()
             const category = data.category
-            await updateStats(category, data.userId)
+            Logger.error('updateStats is not triggered safely.')
+            //await updateStats(category, data.userId, co2e)
         } catch (error) {
             throw new Error(`${snap.data().category} delete failed, ${error}`)
         }
