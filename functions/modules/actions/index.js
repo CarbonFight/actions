@@ -50,6 +50,7 @@ exports.create = functions
     .firestore.document('/actions/{documentId}')
     .onCreate(async (snap) => {
         try {
+            console.log('-------',snap)
             const data = snap.data()
             const category = data.category
             const isValid = isParametersValidOnCreate(category, data)
@@ -64,7 +65,8 @@ exports.create = functions
                     )}`,
                 )
             }
-            await updateStats(category, data.userId)
+            await Logger.error('updateStats is not triggered safely.')
+            //updateStats(category, data.userId)
         } catch (error) {
             throw new Error(
                 `${snap.data().category} calculation failed, ${error}`,
