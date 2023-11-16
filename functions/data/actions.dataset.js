@@ -1,24 +1,72 @@
-
-module.exports = [
-    {
-        action: "gas",
-        category: "energy",
-        co2e: 239,
-        count: 1,
+module.exports = {
+    carTrip: {
+        uid: "tm8nhYrYSPFOKJgdonAt",
+        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
         country: "FR",
-        created_time: new Date("Mon Nov 13 2023 16:39:51 GMT+0100 (Central European Standard Time)"),
-        emission_factor: 239,
+        category: "transport",
+        action: "car",
+        option: "Thermique",
+        co2e: 595,
+        count: 10,
+        emission_factor: 119,
+        peopleSharing: 2,
+        roundtrip: true,
+        isPeriodic: false,
+    },
+    metroTrip: {
+        uid: "tm8nhYrYSPFOKJgdonAt",
+        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        country: "FR",
+        category: "transport",
+        action: "metro",
+        option: "Paris",
+        co2e: 20,
+        count: 10,
+        emission_factor: 2,
+        roundtrip: false,
+        isPeriodic: false,
+    },
+
+    fishRiceVegetablesMeal: {
+        uid: "tm8nhYrYSPFOKJgdonAt",
+        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        country: "FR",
+        category: "food",
+        action: "main",
+        option: "Poisson",
+        co2e: 767,
+        count: 1,
+        emission_factor: 100,
+        side: ["Riz", "Légumes"],
+        isPeriodic: false,
+    },
+
+    electricityContract: {
+        uid: "tm8nhYrYSPFOKJgdonAt",
+        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        country: "FR",
+        category: "energy",
+        action: "electricity",
+        option: "Mix Français",
+        co2e: 21,
+        count: 2244,
+        emission_factor: 17,
+        peopleSharing: 4,
         isPeriodic: true,
-        option: "Gaz naturel",
-        periodicity: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-        ],
-        uid: "cbc92751ecf08adc6467fae05b93486f"
-    }
-]
+        periodicity: ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+    },
+
+    dailyEspressoCoffees: {
+        uid: "tm8nhYrYSPFOKJgdonAt",
+        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        country: "FR",
+        category: "food",
+        action: "coffee",
+        option: "Expresso",
+        co2e: 200,
+        count: 2,
+        emission_factor: 100,
+        isPeriodic: true,
+        periodicity: ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+    },
+};

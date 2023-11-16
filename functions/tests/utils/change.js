@@ -1,4 +1,4 @@
-const { mockedFunctions } = require("./_setup");
+const { mockedFunctions } = require("../_setup");
 
 module.exports.generateDocChange = function(data){
     const {path, before, after} = data
