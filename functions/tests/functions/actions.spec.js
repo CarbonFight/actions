@@ -1,5 +1,6 @@
 const usersData= require("../../data/users.dataset");
 const actionsData= require("../../data/actions.dataset");
+const mockLogger = require("../../logger-setup");
 const { mockedFunctions, setup, deleteCollectionsContent } = require("../_setup");
 const { generateDocChange, generateDocSnapshot} = require("../utils/change");
 const { slightlyMutate } = require("../utils/mutate");
@@ -9,8 +10,15 @@ const {
     delete: deleteFunction,
     update: updateFunction
 } = require("../../modules/actions");
+
 const { setUserId } = require("../utils/user");
-const {generateDeletedDocSnapshot} = require("../utils/delete");
+const { generateDeletedDocSnapshot } = require("../utils/delete");
+
+jest.mock('../../modules/stats/methods/update-stats', () => ({
+    updateStats: jest.fn().mockImplementation((obj) => {
+        mockLogger.info('Method `updateStats` has been called with object: '+JSON.stringify(obj))
+    }),
+}));
 
 const userPath = 'users/'+usersData[0].uid
 const actionPath = 'actions/'+actionsData.metroTrip.uid
@@ -46,6 +54,7 @@ describe("A function is triggered by an action", () => {
         let newData = await db.doc(actionPath).get();
         newData = newData.data()
 
+        expect(require("../../modules/stats/methods/update-stats").updateStats).toHaveBeenCalled();
         expect(newData).toBeTruthy();
     });
 
@@ -62,6 +71,7 @@ describe("A function is triggered by an action", () => {
         let newData = await db.doc(actionPath).get();
         newData = newData.data()
 
+        expect(require("../../modules/stats/methods/update-stats").updateStats).toHaveBeenCalled();
         expect(newData.co2e).toBe(afterUpdate.co2e);
     });
 
@@ -77,6 +87,7 @@ describe("A function is triggered by an action", () => {
         let newData = await db.doc(actionPath).get();
         newData = newData.data()
 
+        expect(require("../../modules/stats/methods/update-stats").updateStats).toHaveBeenCalled();
         expect(newData).toBeUndefined();
     });
 });

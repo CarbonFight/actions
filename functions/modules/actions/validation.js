@@ -1,81 +1,84 @@
-const { object, string, number, boolean } = require('zod');
+const { object, string, number, boolean, array } = require('zod');
 
-const actionSchema = object({
+const baseSchema = object({
+    uid: string(),
     created_time: string(),
-    day: string(),
-    userId: string(),
+    country: string(),
+    category: string(),
+    co2e: number(),
+    count: number(),
+    emission_factor: number(),
     isPeriodic: boolean(),
-    periodicity: string(),
 });
 
-const transportActionSchema = actionSchema.merge(
+const transportSchema = baseSchema.merge(
     object({
-        powertype: string(),
-        roundTrip: boolean(),
-        distance: number(),
-        transport: string(),
-        passengers: number(),
-    })
-);
-
-const foodActionSchema = actionSchema.merge(
-    object({
-        mainComponent: string(),
-        sideComponent: string(),
-        portions: number(),
-        food: string(),
-    })
-);
-
-const energyActionSchema = actionSchema.merge(
-    object({
-        powertype: string(),
-        volume: number(),
-        energy: string(),
+        action: string(),
+        option: string(),
         peopleSharing: number(),
+        roundtrip: boolean(),
     })
 );
 
-const isTransportParametersValid = (data) => transportActionSchema.pick({
-    userId: data.userId,
-    transport: data.transport
-}).safeParse(data).success;
+const foodSchema = baseSchema.merge(
+    object({
+        action: string(),
+        option: string(),
+        side: array(string()),
+    })
+);
 
-const isFoodParametersValid = (data) => foodActionSchema.pick({
-    userId: data.userId,
-    food: data.food
-}).safeParse(data).success;
+const energySchema = baseSchema.merge(
+    object({
+        action: string(),
+        option: string(),
+        peopleSharing: number(),
+        periodicity: array(string()),
+    })
+);
 
-const isEnergyParametersValid = (data) => energyActionSchema.pick({
-    userId: data.userId,
-    energy: data.energy
-}).safeParse(data).success;
-
-exports.validateActionModel = function(actionObject) {
-    return actionSchema.safeParse(actionObject).success;
+exports.validateActionModel = function (actionObject) {
+    return baseSchema.safeParse(actionObject).success;
 };
 
-exports.validateTransportAction = function(actionObject) {
-    return transportActionSchema.safeParse(actionObject).success;
+exports.validateTransportAction = function (actionObject) {
+    return transportSchema.safeParse(actionObject).success;
 };
 
-exports.validateFoodAction = function(actionObject) {
-    return foodActionSchema.safeParse(actionObject).success;
+exports.validateFoodAction = function (actionObject) {
+    return foodSchema.safeParse(actionObject).success;
 };
 
-exports.validateEnergyAction = function(actionObject) {
-    return energyActionSchema.safeParse(actionObject).success;
+exports.validateEnergyAction = function (actionObject) {
+    return energySchema.safeParse(actionObject).success;
 };
 
-exports.isParametersValidOnCreate = function(category, data) {
-    const userId = typeof data.userId !== 'undefined';
+exports.isParametersValidOnCreate = function (category, data) {
+    const userId = typeof data.uid !== 'undefined';
 
     if (category === 'transport') {
-        return userId && isTransportParametersValid(data);
+        return userId && transportSchema.pick({
+            uid: data.uid,
+            action: data.action,
+            option: data.option,
+            peopleSharing: data.peopleSharing,
+            roundtrip: data.roundtrip,
+        }).safeParse(data).success;
     } else if (category === 'food') {
-        return userId && isFoodParametersValid(data);
+        return userId && foodSchema.pick({
+            uid: data.uid,
+            action: data.action,
+            option: data.option,
+            side: data.side,
+        }).safeParse(data).success;
     } else if (category === 'energy') {
-        return userId && isEnergyParametersValid(data);
+        return userId && energySchema.pick({
+            uid: data.uid,
+            action: data.action,
+            option: data.option,
+            peopleSharing: data.peopleSharing,
+            periodicity: data.periodicity,
+        }).safeParse(data).success;
     } else {
         return false;
     }
