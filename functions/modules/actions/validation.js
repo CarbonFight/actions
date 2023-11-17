@@ -1,59 +1,85 @@
+const { object, string, number, boolean, array } = require('zod');
+
+const baseSchema = object({
+    uid: string(),
+    created_time: string(),
+    country: string(),
+    category: string(),
+    co2e: number(),
+    count: number(),
+    emission_factor: number(),
+    isPeriodic: boolean(),
+});
+
+const transportSchema = baseSchema.merge(
+    object({
+        action: string(),
+        option: string(),
+        peopleSharing: number(),
+        roundtrip: boolean(),
+    })
+);
+
+const foodSchema = baseSchema.merge(
+    object({
+        action: string(),
+        option: string(),
+        side: array(string()),
+    })
+);
+
+const energySchema = baseSchema.merge(
+    object({
+        action: string(),
+        option: string(),
+        peopleSharing: number(),
+        periodicity: array(string()),
+    })
+);
+
 exports.validateActionModel = function (actionObject) {
-    return true
-}
+    return baseSchema.safeParse(actionObject).success;
+};
 
 exports.validateTransportAction = function (actionObject) {
-    return (
-        typeof actionObject.powertype !== 'undefined' &&
-        typeof actionObject.roundTrip !== 'undefined' &&
-        typeof actionObject.created_time !== 'undefined' &&
-        typeof actionObject.distance !== 'undefined' &&
-        typeof actionObject.day !== 'undefined' &&
-        typeof actionObject.userId !== 'undefined' &&
-        typeof actionObject.transport !== 'undefined' &&
-        typeof actionObject.isPeriodic !== 'undefined' &&
-        typeof actionObject.passengers !== 'undefined' &&
-        typeof actionObject.periodicity !== 'undefined'
-    )
-}
+    return transportSchema.safeParse(actionObject).success;
+};
 
 exports.validateFoodAction = function (actionObject) {
-    return (
-        typeof actionObject.mainComponent !== 'undefined' &&
-        typeof actionObject.sideComponent !== 'undefined' &&
-        typeof actionObject.created_time !== 'undefined' &&
-        typeof actionObject.portions !== 'undefined' &&
-        typeof actionObject.day !== 'undefined' &&
-        typeof actionObject.userId !== 'undefined' &&
-        typeof actionObject.food !== 'undefined' &&
-        typeof actionObject.isPeriodic !== 'undefined' &&
-        typeof actionObject.periodicity !== 'undefined'
-    )
-}
+    return foodSchema.safeParse(actionObject).success;
+};
 
 exports.validateEnergyAction = function (actionObject) {
-    return (
-        typeof actionObject.powertype !== 'undefined' &&
-        typeof actionObject.periodicity !== 'undefined' &&
-        typeof actionObject.created_time !== 'undefined' &&
-        typeof actionObject.volume !== 'undefined' &&
-        typeof actionObject.day !== 'undefined' &&
-        typeof actionObject.userId !== 'undefined' &&
-        typeof actionObject.energy !== 'undefined' &&
-        typeof actionObject.isPeriodic !== 'undefined' &&
-        typeof actionObject.peopleSharing !== 'undefined'
-    )
-}
+    return energySchema.safeParse(actionObject).success;
+};
 
 exports.isParametersValidOnCreate = function (category, data) {
-    const userId = typeof data.userId !== 'undefined'
+    const userId = typeof data.uid !== 'undefined';
+
     if (category === 'transport') {
-        return userId && typeof data.transport !== 'undefined'
+        return userId && transportSchema.pick({
+            uid: data.uid,
+            action: data.action,
+            option: data.option,
+            peopleSharing: data.peopleSharing,
+            roundtrip: data.roundtrip,
+        }).safeParse(data).success;
     } else if (category === 'food') {
-        return userId && typeof data.food !== 'undefined'
+        return userId && foodSchema.pick({
+            uid: data.uid,
+            action: data.action,
+            option: data.option,
+            side: data.side,
+        }).safeParse(data).success;
     } else if (category === 'energy') {
-        return userId && typeof data.energy !== 'undefined'
+        return userId && energySchema.pick({
+            uid: data.uid,
+            action: data.action,
+            option: data.option,
+            peopleSharing: data.peopleSharing,
+            periodicity: data.periodicity,
+        }).safeParse(data).success;
     } else {
-        return false
+        return false;
     }
-}
+};

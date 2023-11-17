@@ -37,7 +37,7 @@ describe('slightlyMutate', () => {
 
     it('5. Boolean Value Mutation', () => {
         const mutatedObject = slightlyMutate(originalObject, ['hasCompletedHowto']);
-        expect(typeof mutatedObject.hasCompletedHowto === 'boolean').toBeTruthy();
+        expect(mutatedObject.hasCompletedHowto).toBe(!originalObject.hasCompletedHowto);
     });
 
     it('6. Empty Object Mutation', () => {

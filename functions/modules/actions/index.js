@@ -1,13 +1,12 @@
 const functions = require('firebase-functions')
-const map = require('../../utils/dataMapper')
-const updateStats = require('../stats')
 const {
     isParametersValidOnCreate,
     validateTransportAction,
     validateFoodAction,
     validateEnergyAction,
 } = require('./validation')
-const Logger = require('../../logger-setup')
+const { updateStats } = require("../stats/methods/update-stats");
+const { createActionModel } = require("./model");
 
 exports.update = functions
     .region('europe-west6')
@@ -20,8 +19,7 @@ exports.update = functions
             const co2eCurrent = change.after.data().co2e
             if (co2eCurrent !== co2eBefore) {
                 const co2e = co2eCurrent - co2eBefore
-                Logger.error('updateStats is not triggered safely.')
-                //await updateStats(category, data.userId, co2e)
+                await updateStats(category, data.userId, co2e)
             } else {
                 let isValid = false
                 if (category === 'transport') {
@@ -54,7 +52,7 @@ exports.create = functions
             const category = data.category
             const isValid = isParametersValidOnCreate(category, data)
             if (isValid) {
-                const value = map(category, data)
+                const value = createActionModel(category, data)
                 await snap.ref.set(value)
             } else {
                 await snap.ref.delete()
@@ -78,8 +76,7 @@ exports.delete = functions
     .onDelete(async (snap) => {
         try {
             const data = snap.data()
-            const category = data.category
-            await updateStats(category, data.userId)
+            await updateStats(data.category, data.userId, data.co2e)
         } catch (error) {
             throw new Error(`${snap.data().category} delete failed, ${error}`)
         }

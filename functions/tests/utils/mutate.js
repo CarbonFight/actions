@@ -1,11 +1,23 @@
-const { clone, mapEntries } = require('radash');
+const { clone, mapEntries } = require("radash");
 
+/**
+ * Mutates an object by applying random transformations to its values.
+ *
+ * @param {Object} obj - The object to be mutated.
+ * @param {string[]} [options=[]] - An array of keys to specify which values should be mutated.
+ * @returns {Object} - The mutated object.
+ */
 function mutateObject(obj, options = []) {
-    function mutateValue(value) {
-        const type = typeof value;
-
-        switch (type) {
+    /**
+     * Mutates a value based on its type.
+     *
+     * @param {*} value - The value to be mutated.
+     * @returns {*} - The mutated value.
+     */
+    const mutateValue = (value) => {
+        switch (typeof value) {
             case 'string': {
+                // Mutate string by replacing a random character.
                 const charArray = value.split('');
                 const randomIndex = Math.floor(Math.random() * charArray.length);
                 charArray[randomIndex] = String.fromCharCode(Math.floor(Math.random() * 26) + 97);
@@ -13,51 +25,54 @@ function mutateObject(obj, options = []) {
             }
 
             case 'number':
-                return value * (Math.random() > 0.5 ? 1.5 : 0.5);
+                // Mutate number by multiplying with a random factor between 0.5 and 1 or between 1 and 1.5.
+                return value * Math.random() > 0.5 ? Math.random() * 0.5 + 0.5 : Math.random() * 0.5 + 1;
 
             case 'boolean':
-                return Math.random() > 0.5 ? !value : value;
+                // Mutate boolean by toggling its value.
+                return !value;
 
             case 'object':
-                if (Array.isArray(value)) {
-                    return value.map((item) => mutateValue(item));
-                } else {
-                    return mutateObject(value, options);
-                }
+                // Mutate object recursively.
+                return Array.isArray(value) ? value.map(mutateValue) : mutateObject(value, options);
 
             default:
+                // Return unchanged for unsupported types.
                 return value;
         }
-    }
+    };
 
-    function mutateKey(key) {
-        const shouldMutate = options.length === 0 || options.includes(key);
-        if (shouldMutate) {
+    /**
+     * Mutates a key in the object based on options.
+     *
+     * @param {string} key - The key to be mutated.
+     */
+    const mutateKey = (key) => {
+        if (options.length === 0 || options.includes(key)) {
             const keys = key.split('.');
             let current = obj;
 
             keys.forEach((nestedKey, index) => {
-                if (index === keys.length - 1) {
-                    current[nestedKey] = mutateValue(current[nestedKey]);
-                } else {
-                    current = current[nestedKey];
-                }
+                current = index === keys.length - 1 ? (current[nestedKey] = mutateValue(current[nestedKey])) : current[nestedKey];
             });
         }
-    }
+    };
 
+    // Clone the object to avoid modifying the original object.
     const mutatedObject = clone(obj);
 
+    // Apply mutations to each entry in the object.
     mapEntries(mutatedObject, (key, value) => {
         mutateKey(key);
-        if (typeof value === 'object' && value !== null) {
-            return [key, mutateObject(value, options)];
-        } else {
-            return [key, mutateValue(value)];
-        }
+        return [key, typeof value === 'object' && value !== null ? mutateObject(value, options) : mutateValue(value)];
     });
 
     return mutatedObject;
 }
 
-module.exports.slightlyMutate = mutateObject
+/**
+ * Exports the mutateObject function as slightlyMutate.
+ *
+ * @type {function(Object, string[]=): Object}
+ */
+module.exports.slightlyMutate = mutateObject;
