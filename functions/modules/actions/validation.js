@@ -38,19 +38,19 @@ const energySchema = baseSchema.merge(
 );
 
 exports.validateActionModel = function (actionObject) {
-    return baseSchema.safeParse(actionObject).success;
+    return baseSchema.safeParse(actionObject);
 };
 
 exports.validateTransportAction = function (actionObject) {
-    return transportSchema.safeParse(actionObject).success;
+    return transportSchema.safeParse(actionObject);
 };
 
 exports.validateFoodAction = function (actionObject) {
-    return foodSchema.safeParse(actionObject).success;
+    return foodSchema.safeParse(actionObject);
 };
 
 exports.validateEnergyAction = function (actionObject) {
-    return energySchema.safeParse(actionObject).success;
+    return energySchema.safeParse(actionObject);
 };
 
 exports.isParametersValidOnCreate = function (category, data) {
@@ -63,14 +63,14 @@ exports.isParametersValidOnCreate = function (category, data) {
             option: data.option,
             peopleSharing: data.peopleSharing,
             roundtrip: data.roundtrip,
-        }).safeParse(data).success;
+        }).safeParse(data);
     } else if (category === 'food') {
         return userId && foodSchema.pick({
             uid: data.uid,
             action: data.action,
             option: data.option,
             side: data.side,
-        }).safeParse(data).success;
+        }).safeParse(data);
     } else if (category === 'energy') {
         return userId && energySchema.pick({
             uid: data.uid,
@@ -78,7 +78,7 @@ exports.isParametersValidOnCreate = function (category, data) {
             option: data.option,
             peopleSharing: data.peopleSharing,
             periodicity: data.periodicity,
-        }).safeParse(data).success;
+        }).safeParse(data);
     } else {
         return false;
     }

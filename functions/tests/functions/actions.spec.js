@@ -47,7 +47,8 @@ describe("A function is triggered by an action", () => {
 
         const actionObject = await setUserId(db, actionsData.metroTrip)
 
-        await wrapped(generateDocSnapshot({
+        await wrapped(await generateDocSnapshot({
+            db,
             data: actionObject,
             path: actionPath
         }))
@@ -63,7 +64,8 @@ describe("A function is triggered by an action", () => {
         const wrapped = mockedFunctions.wrap(updateFunction);
 
         const afterUpdate = slightlyMutate(actionsData.metroTrip, ['co2e'])
-        await wrapped(generateDocChange({
+        await wrapped(await generateDocChange({
+            db,
             path: actionPath,
             before: actionsData.metroTrip,
             after: afterUpdate

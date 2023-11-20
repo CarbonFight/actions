@@ -1,9 +1,9 @@
 const usersData= require("../../../data/users.dataset");
 const actionsData= require("../../../data/actions.dataset");
-const mockLogger = require("../../../logger-setup");
-const { mockedFunctions, setup, deleteCollectionsContent } = require("../../../tests/_setup");
+const { mockedFunctions, deleteCollectionsContent } = require("../../../tests/_setup");
 const { setUserId } = require("../../../tests/utils/user");
 const { updateStats } = require("./update-stats");
+const {dbInstance} = require("../../../db-setup");
 
 const userPath = 'users/'+usersData[0].uid
 const actionPath = 'actions/'+actionsData.metroTrip.uid
@@ -12,7 +12,7 @@ describe("A stat is updated because of an action change.", () => {
     let db = null
 
     beforeAll(async () => {
-        db = await setup()
+        db = await dbInstance()
     });
 
     afterAll(() => {
