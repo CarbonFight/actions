@@ -4,6 +4,8 @@ const { FieldValue } = require('firebase-admin/firestore')
 const { createStatsModel } = require('./model')
 
 const { db } = require('../../admin-setup')
+const { db, dbInstance} = require('../../db-setup')
+const { updateStats } = require("./methods/update-stats");
 
 // Add co2e to stats
 
@@ -113,6 +115,7 @@ exports.actionUpdate = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/actions/{documentId}')
     .onWrite(async (event) => {
+        const db = dbInstance()
         const previousValues = event.before.data()
         const newValues = event.after.data()
 

@@ -1,9 +1,10 @@
 const usersData= require("../../data/users.dataset");
 const actionsData= require("../../data/actions.dataset");
 const mockLogger = require("../../logger-setup");
-const { mockedFunctions, setup, deleteCollectionsContent } = require("../_setup");
+const { mockedFunctions, deleteCollectionsContent } = require("../_setup");
 const { generateDocChange, generateDocSnapshot} = require("../utils/change");
 const { slightlyMutate } = require("../utils/mutate");
+const { dbInstance } = require("../../db-setup");
 
 const {
     create: createFunction,
@@ -27,7 +28,7 @@ describe("A function is triggered by an action", () => {
     let db = null
 
     beforeAll(async () => {
-        db = await setup()
+        db = await dbInstance()
     });
 
     afterAll(() => {
