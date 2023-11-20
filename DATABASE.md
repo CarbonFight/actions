@@ -36,6 +36,9 @@
 - bool **isPeriodic** (bool): tells the difference between actions and periodics
 - String (list) **periodicity** (array) : array of strings with days of the week
 - string **side** : Only for main food action (ex : rice, pasta)
+- bool **newPurchase** : New purchase or second hand purchase
+- date **startDepreciation** : Date of purchase (first or second hand),
+- date **endDepreciation** : End of depreciation
 
 ## Stats
 

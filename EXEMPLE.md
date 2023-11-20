@@ -22,7 +22,7 @@ Un trajet en voiture thermique de 10 Kms, partagé à 2, aller-retour, non péri
 }
 ```
 
-Un trajet en métro, 10 arrêts, RATP, périodique tous les jours de la semaine, aller simple.
+Un trajet en métro, 10 arrêts, RATP, aller simple.
 
 ```json
 {
@@ -103,3 +103,49 @@ Deux cafés de type expresso, tous les jours sauf le dimanche.
 ```
 
 ### Action amortie
+
+Un jean, amorti sur 2 ans, acheté neuf.
+La fabrication du vêtement génère 24 Kg de CO2e. Amorti sur 2 ans, cette action amortie génère une nouvelle action avec une émission de 33g par jour.
+
+
+```json
+{
+    "uid" : "tm8nhYrYSPFOKJgdonAt",
+    "created_time" : "November 5, 2023 at 11:09:50 PM UTC+1",
+    "country" : "FR",
+    "category": "clothes",
+    "action": "Pantalon",
+    "option": "Jean",
+    "co2e": 33,
+    "count": 1,
+    "emission_factor": 24000,
+    "isPeriodic": true,
+    "periodicity" : ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+    "newPurchase" : true,
+    "startDepreciation" : "November 5, 2023 at 11:09:50 PM UTC+1",
+    "endDepreciation" : "November 5, 2025 at 11:09:50 PM UTC+1",
+}
+```
+
+Une télévision d'occasion 49 pouces, achetée 5 ans après son premier achat, amortie sur 10 ans.
+La fabrication génère 500 Kg de CO2e. Amorti sur 10 ans, cette action amortie génère une nouvelle action avec une émission de 137g par jour.
+
+
+```json
+{
+    "uid" : "tm8nhYrYSPFOKJgdonAt",
+    "created_time" : "November 5, 2023 at 11:09:50 PM UTC+1",
+    "country" : "FR",
+    "category": "digital",
+    "action": "television",
+    "option": "49 pouces",
+    "co2e": 137,
+    "count": 1,
+    "emission_factor": 500000,
+    "isPeriodic": true,
+    "periodicity" : ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+    "newPurchase" : false,
+    "startDepreciation" : "November 5, 2021 at 11:09:50 PM UTC+1",
+    "endDepreciation" : "November 5, 2026 at 11:09:50 PM UTC+1",
+}
+```
