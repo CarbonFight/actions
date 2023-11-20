@@ -6,11 +6,17 @@ const { mockedFunctions } = require("../_setup");
  * @param {Object} obj - An object containing information about the document snapshot.
  * @param {Object} obj.data - The data object to be included in the document snapshot.
  * @param {string} obj.path - The path of the document.
- * @returns {DocumentSnapshot} A Firestore document snapshot object.
+ * @param {Firestore} obj.db - The Firestore database instance.
+ * @returns {Promise<DocumentSnapshot>} A Firestore document snapshot object representing the document at the specified path.
  * @function
  */
-function generateDocSnapshot(obj) {
-    const {data, path} = obj
+async function generateDocSnapshot(obj) {
+    const { db, data, path } = obj;
+
+    // Set the document data at the specified path
+    await db.doc(path).set(data);
+
+    // Create and return a Firestore document snapshot
     return mockedFunctions.firestore.makeDocumentSnapshot(data, path);
 }
 
@@ -23,21 +29,23 @@ module.exports.generateDocSnapshot = generateDocSnapshot;
  * @param {string} data.path - The path of the document.
  * @param {Object} data.before - The data of the document before the change.
  * @param {Object} data.after - The data of the document after the change.
- * @returns {Change<DocumentSnapshot>} A Firestore document change object.
+ * @param {Firestore} data.db - The Firestore database instance.
+ * @returns {Promise<Change<DocumentSnapshot>>} A Firestore document change object representing the change that occurred.
  * @function
  */
-
-module.exports.generateDocChange = function(data) {
+module.exports.generateDocChange = async function (data) {
     /**
      * Represents a Firestore document change.
      * @typedef {Object} Change
      * @property {Function} before - Returns the document snapshot before the change.
      * @property {Function} after - Returns the document snapshot after the change.
      */
-    const { path, before, after } = data;
+    const { db, path, before, after } = data;
 
-    const beforeSnap = generateDocSnapshot({data: before, path});
-    const afterSnap = generateDocSnapshot({data: after, path});
+    // Generate document snapshots for the before and after states
+    const beforeSnap = await generateDocSnapshot({ db, data: before, path });
+    const afterSnap = await generateDocSnapshot({ db, data: after, path });
 
+    // Create and return a Firestore document change
     return mockedFunctions.makeChange(beforeSnap, afterSnap);
 };

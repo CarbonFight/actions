@@ -1,4 +1,5 @@
 const functions = require('firebase-functions')
+const Logger = require('../../logger-setup')
 const {
     isParametersValidOnCreate,
     validateTransportAction,
@@ -33,7 +34,8 @@ exports.update = functions
 
             if (!validationResult.success) {
                 await change.after.ref.delete();
-                throw new Error(validationResult.error);
+                Logger.error(validationResult)
+                throw new Error(validationResult);
             }
         }
     })
@@ -49,7 +51,8 @@ exports.create = functions
 
         if (!validationResult.success) {
             await snap.ref.delete();
-            throw new Error(validationResult.error);
+            Logger.error(validationResult)
+            throw new Error(validationResult);
         }
 
         const value = createActionModel(category, data);

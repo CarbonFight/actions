@@ -3,7 +3,6 @@ const { FieldValue } = require('firebase-admin/firestore')
 
 const { createStatsModel } = require('./model')
 
-const { db } = require('../../admin-setup')
 const { db, dbInstance} = require('../../db-setup')
 const { updateStats } = require("./methods/update-stats");
 
