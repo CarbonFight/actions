@@ -2,7 +2,7 @@ const functions = require('firebase-functions')
 
 const { createChallengeModel } = require('./model')
 
-const { db } = require('../../admin-setup')
+const { dbInstance } = require('../../db-setup')
 
 exports.update = functions
     .region('europe-west6')
@@ -13,6 +13,8 @@ exports.update = functions
         // If action count > 0, set challenge to true
         // Onboarding challenges never reset, even if count goes to 0.
         const newStats = event.after.data()
+        const db = await dbInstance()
+
         if (newStats.actionsCountTransport > 0) {
             await db
                 .collection('challenges')
@@ -164,6 +166,7 @@ exports.init = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
+        const db = dbInstance()
         const user = snap.data()
         const { uid } = user
 
@@ -182,6 +185,7 @@ exports.flush = functions
     .region('europe-west6')
     .firestore.document('/users/{documentId}')
     .onDelete(async (snap) => {
+        const db = dbInstance()
         const user = snap.data()
         const { uid } = user
 

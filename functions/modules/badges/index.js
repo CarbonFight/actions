@@ -4,13 +4,14 @@ const { createBadgeModel } = require('./model')
 const { validateOnboardingChallenge } = require('../challenges/validation')
 const { validateUser } = require('../user/validation')
 
-const { db } = require('../../admin-setup')
+const { dbInstance } = require('../../db-setup')
 
 exports.update = functions
     .region('europe-west6')
     .runWith({ minInstances: 1 })
     .firestore.document('/challenges/{documentId}')
     .onUpdate(async (event) => {
+        const db = dbInstance()
         const newChallenges = event.after.data()
         // If all onboarding challenges are true, set onboardingAllChallenges to true
         if (validateOnboardingChallenge(newChallenges)) {
@@ -31,6 +32,7 @@ exports.init = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
+        const db = dbInstance()
         const user = snap.data()
 
         // If user is not a fake account from stores
@@ -48,6 +50,7 @@ exports.flush = functions
     .region('europe-west6')
     .firestore.document('/users/{documentId}')
     .onDelete(async (snap) => {
+        const db = dbInstance()
         const user = snap.data()
         const { uid } = user
 
