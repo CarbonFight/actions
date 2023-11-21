@@ -1,34 +1,45 @@
 const admin = require('firebase-admin')
 const firebase = require("@firebase/testing");
-const fs = require("fs");
+const { readFileSync } = require("fs");
+const { FieldValue } = require("firebase-admin/firestore");
 
 const projectId = "carbonfight-test-" + new Date().getTime()
 async function dbInstanceSetup(){
+    let db = null
+
     if(process.env.NODE_ENV === 'test'){
-        process.env.GCLOUD_PROJECT = projectId
-        process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080";
+        if(firebase.apps.length){
+            db = firebase.apps[0]
+        } else {
+            process.env.GCLOUD_PROJECT = projectId
+            process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080";
 
-        const app = await firebase.initializeTestApp({
-            projectId
-        });
+            const app = await firebase.initializeTestApp({
+                projectId
+            });
 
-        let db = app.firestore();
+            db = app.firestore();
 
-        await firebase.loadFirestoreRules({
-            projectId,
-            rules: fs.readFileSync('../firestore.rules', 'utf8')
-        });
-
-        return db
+            await firebase.loadFirestoreRules({
+                projectId,
+                rules: readFileSync('../firestore.rules', 'utf8')
+            });
+        }
     } else {
-        admin.initializeApp()
-        const db = admin.firestore()
-
-        db.settings({ ignoreUndefinedProperties: true })
-
-        return db
+        try {
+            admin.initializeApp()
+            db = admin.firestore()
+            db.settings({ignoreUndefinedProperties: true})
+        }
+        catch(err){
+            admin.app()
+            db = admin.firestore()
+        }
     }
+
+    return db
 }
 
 module.exports.dbInstance = dbInstanceSetup
 module.exports.projectId = projectId
+module.exports.fieldValue = process.env.NODE_ENV === 'test' ? firebase.firestore.FieldValue : FieldValue;
