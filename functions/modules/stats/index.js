@@ -115,8 +115,10 @@ exports.actionUpdate = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/actions/{documentId}')
     .onWrite(async (event) => {
-        const previousValues = event.before.data();
-        const newValues = event.after.data();
+        const db = await dbInstance();
+
+        const previousValues = event.before?.data()
+        const newValues = event.after.data()
 
         // Action is DELETED
         // If action is deleted, we substract the co2e from the stats
