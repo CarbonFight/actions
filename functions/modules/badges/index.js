@@ -2,7 +2,7 @@ const functions = require('firebase-functions')
 
 const { createBadgeModel } = require('./model')
 const { validateOnboardingChallenge } = require('../challenges/validation')
-const { validateUser } = require('../user/validation')
+const { validateUser } = require('../users/validation')
 
 const { dbInstance } = require('../../db-setup')
 

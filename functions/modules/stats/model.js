@@ -29,7 +29,6 @@ exports.createStatsModel = function (uid) {
         dayClothes: 0,
         dayAppliance: 0,
 
-
         weekTotalPerDay: [0, 0, 0, 0, 0, 0, 0],
         weekTotal: 0,
         weekTransport: 0,
@@ -68,5 +67,7 @@ exports.createStatsModel = function (uid) {
         yearDigital: 0,
         yearClothes: 0,
         yearAppliance: 0,
-    }
-}
+
+        sponsorshipCount: 0,
+    };
+};
