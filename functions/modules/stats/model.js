@@ -18,6 +18,18 @@ exports.createStatsModel = function (uid) {
         eventUpdateTargetCount: 0,
         eventUpdateTeamCount: 0,
 
+        dayTotal: 0,
+        dayTransport: 0,
+        dayServices: 0,
+        dayObjects: 0,
+        dayLodging: 0,
+        dayFurniture: 0,
+        dayFood: 0,
+        dayDigital: 0,
+        dayClothes: 0,
+        dayAppliance: 0,
+
+
         weekTotalPerDay: [0, 0, 0, 0, 0, 0, 0],
         weekTotal: 0,
         weekTransport: 0,

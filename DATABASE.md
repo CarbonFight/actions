@@ -60,6 +60,16 @@
 - int **eventActionDeleteCount** : increment +1 when user delete action
 - int **eventUpdateTargetCount** : increment +1 when user update target
 - int **eventUpdateTeamCount** : increment +1 when user update team
+- int **dayTotal** : Total CO2e
+- int **dayTransport** : Total CO2e for the day for category transport
+- int **dayServices** : Total CO2e for the day for category services
+- int **dayObjects** : Total CO2e for the day for category objects
+- int **dayLodging** : Total CO2e for the day for category Lodging
+- int **dayFurniture** : Total CO2e for the day for category Furniture
+- int **dayFood** : Total CO2e for the day for category Food
+- int **dayDigital** : Total CO2e for the day for category Digital
+- int **dayClothes** : Total CO2e for the day for category Clothes
+- int **dayAppliance** : Total CO2e for the day for category Appliance
 - int (list) **weekTotalPerDay** : total CO2e's array per day [0] the first day if the week, [6] is the last day.
 - int **weekTotal** : Total CO2e
 - int **weekTransport** : Total CO2e for the week for category transport
