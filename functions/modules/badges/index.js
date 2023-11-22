@@ -11,7 +11,7 @@ exports.update = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/challenges/{documentId}')
     .onUpdate(async (event) => {
-        const db = dbInstance()
+        const db = await dbInstance()
         const newChallenges = event.after.data()
         // If all onboarding challenges are true, set onboardingAllChallenges to true
         if (validateOnboardingChallenge(newChallenges)) {
@@ -32,7 +32,7 @@ exports.init = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
-        const db = dbInstance()
+        const db = await dbInstance()
         const user = snap.data()
 
         // If user is not a fake account from stores
@@ -50,7 +50,7 @@ exports.flush = functions
     .region('europe-west6')
     .firestore.document('/users/{documentId}')
     .onDelete(async (snap) => {
-        const db = dbInstance()
+        const db = await dbInstance()
         const user = snap.data()
         const { uid } = user
 
