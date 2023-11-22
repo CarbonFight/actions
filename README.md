@@ -23,54 +23,14 @@ Or Manual installation:
 ```bash
 npm --prefix ./functions install ./functions
 npm --prefix ./functions run prepare
-npm --prefix ./import install ./import
 ```
 
-## Configure
-
-Download you service account json file from Google Firebase.  
-A file named `serviceAccountKey.json` should exist in `imports/` folder.
-
-```bash
-# Copy account json file
-cp <yourFile> import/serviceAccountKey.json
-```
-
-# Configure Google Cloud CLI
+## Configure Google Cloud CLI
 
 ```bash
 gcloud auth login
 gcloud components update
 gcloud config set project actions-dd2b5
-```
-
-💡 All files relative to backups will be stored inside the `./dumps/` folder.
-
-## Refresh emulator (Firestore / Firebase) data
-
-You can run a bash script that will :
-
-- Generate fake data into firestore
-- Dump firestore database
-- Download dump into local firebase emulator
-- Launch firebase emulator
-
-Set permissions for the bash script :
-
-```bash
-chmod +x ./refresh_emulator.bash
-```
-
-Then run it using:
-
-```bash
-just refresh
-```
-
-Or run it manually:
-
-```bash
-./refresh_emulator.bash
 ```
 
 ## Run the emulator
@@ -79,13 +39,9 @@ Or run it manually:
 just start
 ```
 
-Or run it manually:
+Using this command, you will be able to open firebase admin panel to see and navigate inside the application data.
 
-```bash
-firebase emulators:start --import ./dumps
-```
-
-## Run the emulator in dev mode / to run unit testing
+## Run the emulator to run unit testing
 
 ```bash
 just dev
@@ -97,15 +53,58 @@ Then in another console, you can run :
 just test
 ```
 
-### GCloud credential issue.
+Using this command, there will be no firebase admin panel available but an optimal firestore instance to run unit tests.
 
-> ⚠ If you see the GCloud error `Could not load the default credentials.` you can run the command: 
+
+## Add fake data / fixtures to the emulator
+
+Be sure you have an instance of the emulator running using `just start`.
+
+The fixture script :
+
+- Generate a fake user.
+- Give him 5 default actions.
+- Will generate a default `stats` doc, default `challenges` doc & default `badge` doc.
+- Will recalculate the carbon impact based on each of these 5 actions.
+- Will recalculate if this user will have completed challenges or completed badges.
+
+You can load fixtures using:
+
 ```bash
-   just test-init
+just import
 ```
-> Then, connect to GCloud using the email used for this project.
+
+## Run a cron locally
+
+In the app, there are CRON / periodic tasks that will run each day. 
+
+There are located inside: [./functions/modules/crons/index.js](./functions/modules/crons/index.js).
+
+You may want to test them locally to see if the modification they will do are doing the way you expect it. 
+To do so, you can run the logic of this periodic task locally.
+
+```bash
+# Run all CRON of the app
+just cron 
+# Run all CRON about the reset of stats each day
+just cron day
+```
+
+To see if there are more / missing cron task, you can check inside:
+- [./functions/modules/crons/index.js](./functions/modules/crons/index.js).
+- [./functions/modules/crons/run-cron-locally.js](./functions/modules/crons/run-cron-locally.js).
+- [./justfile](./justfile) (check for the `cron` command).
 
 ## Need help ?
+
+> **GCloud credential issue** 
+
+If you see the GCloud error `Could not load the default credentials`, you can run the command:
+```bash
+just test-init
+```
+
+Then, connect to GCloud using the email used for this project.
 
 > **Where are stored information about the data structure?**
 

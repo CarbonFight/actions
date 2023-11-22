@@ -9,13 +9,9 @@ help:
 install:
   npm --prefix ./functions install ./functions
   npm --prefix ./functions run prepare
-  npm --prefix ./import install ./import
-
-refresh ARGS='':
-  ./refresh_emulator.bash {{ARGS}}
 
 start ARGS='':
-  firebase emulators:start --import ./dumps {{ARGS}}
+  firebase emulators:start --project local-project
 
 dev ARGS='':
   firebase emulators:start --only firestore,database {{ARGS}}
@@ -25,3 +21,9 @@ test-init:
 
 test ARGS='':
   cd functions && npm run test {{ARGS}}
+
+import:
+    node ./functions/generate-fixtures-data.js
+
+cron ARGS='all':
+    node ./functions/modules/crons/run-cron-locally.js {{ARGS}}
