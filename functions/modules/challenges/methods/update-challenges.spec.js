@@ -35,36 +35,34 @@ describe("A challenge is updated because of a stat change.", () => {
     test("Challenges are checked and no challenges are completed.", async () => {
         const user = await getUser(db)
 
-        await updateChallenges(statsData.emptyStats)
+        await updateChallenges(await setUserId(db, statsData.emptyStats))
 
         let challengesList = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
-        challengesList = challengesList.docs.map(data => data.data())
+        challengesList = challengesList.docs[0].data()
 
         expect(challengesList.onboardingCompleted).toBeFalsy();
         expect(challengesList.hasEnoughSponsors).toBeFalsy();
     });
 
-    test("Challenges are checked and one challenge is completed.", async () => {
+    test("Challenges are checked and one challenge is completed : full onboarding.", async () => {
         const user = await getUser(db)
 
-        await updateChallenges(await setUserId(db, statsData.statsWithManyActions), user.uid)
+        await updateChallenges(await setUserId(db, statsData.statsWithFullOnboarding), user.uid)
 
         let challengesList = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
-        challengesList = challengesList.docs.map(data => data.data())
-
-        console.log(challengesList)
+        challengesList = challengesList.docs[0].data()
 
         expect(challengesList.onboardingCompleted).toBeTruthy();
         expect(challengesList.hasEnoughSponsors).toBeFalsy();
     });
 
-    test("Challenges are checked and 2 challenges are completed.", async () => {
+    test("Challenges are checked and 2 challenges are completed : full onboarding / 10 sponsor codes.", async () => {
         const user = await getUser(db)
 
         await updateChallenges(await setUserId(db, statsData.statsWithManyActionsAndFullOnboarding), user.uid)
 
         let challengesList = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
-        challengesList = challengesList.docs.map(data => data.data())
+        challengesList = challengesList.docs[0].data()
 
         expect(challengesList.onboardingCompleted).toBeTruthy();
         expect(challengesList.hasEnoughSponsors).toBeTruthy();

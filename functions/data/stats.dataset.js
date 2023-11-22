@@ -83,8 +83,13 @@ module.exports = {
    statsWithManyActions: {
        ...emptyStats,
        ...emptyOnboarding,
-       sponsorshipCount: 10
+       actionsCountTotal: 10
    },
+    statsWithFullOnboarding: {
+        ...emptyStats,
+        ...fullOnboarding,
+        actionsCountTotal: 10
+    },
     statsWithManyActionsAndFullOnboarding: {
         ...emptyStats,
         ...fullOnboarding,
