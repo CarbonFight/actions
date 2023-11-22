@@ -21,7 +21,7 @@ exports.init = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
-        const db = dbInstance();
+        const db = await dbInstance();
         const user = snap.data();
         const { uid } = user;
 
@@ -42,7 +42,7 @@ exports.flush = functions
     .region('europe-west6')
     .firestore.document('/users/{documentId}')
     .onDelete(async (snap) => {
-        const db = dbInstance();
+        const db = await dbInstance();
         const user = snap.data();
         const { uid } = user;
 
