@@ -1,7 +1,8 @@
 module.exports = {
     carTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
-        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        created_time: "Tue Nov 07 2023 16:47:35 GMT+0000 (Coordinated Universal Time)",
         country: "FR",
         category: "transport",
         action: "car",
@@ -15,7 +16,8 @@ module.exports = {
     },
     metroTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
-        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        id: "9a4bb9cc-357f-4ec2-9f0a-7e8e849f8fc9",
+        created_time: "Tue Nov 07 2023 16:47:35 GMT+0000 (Coordinated Universal Time)",
         country: "FR",
         category: "transport",
         action: "metro",
@@ -29,7 +31,8 @@ module.exports = {
 
     fishRiceVegetablesMeal: {
         uid: "tm8nhYrYSPFOKJgdonAt",
-        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        id: "c4128d54-4cb4-4a15-afab-b3d1464636f3",
+        created_time: "Tue Nov 07 2023 16:47:35 GMT+0000 (Coordinated Universal Time)",
         country: "FR",
         category: "food",
         action: "main",
@@ -43,7 +46,8 @@ module.exports = {
 
     electricityContract: {
         uid: "tm8nhYrYSPFOKJgdonAt",
-        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        id: "7420f743-70ae-4a5b-91e7-8765e04969c6",
+        created_time: "Tue Nov 07 2023 16:47:35 GMT+0000 (Coordinated Universal Time)",
         country: "FR",
         category: "energy",
         action: "electricity",
@@ -58,7 +62,8 @@ module.exports = {
 
     dailyEspressoCoffees: {
         uid: "tm8nhYrYSPFOKJgdonAt",
-        created_time: "November 5, 2023 at 11:09:50 PM UTC+1",
+        id: "a1445e7d-4bb9-4a08-99cc-b18a15c950f2",
+        created_time: "Tue Nov 07 2023 16:47:35 GMT+0000 (Coordinated Universal Time)",
         country: "FR",
         category: "food",
         action: "coffee",
