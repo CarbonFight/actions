@@ -25,7 +25,7 @@ describe("A challenge is updated because of a stat change.", () => {
     })
 
     beforeEach(async () => {
-        await deleteCollectionsContent(db, ['users', 'actions'])
+        await deleteCollectionsContent(db, ['users', 'actions', 'stats', 'challenges'])
         await db.doc(userPath).set(usersData[0]);
         await db.doc(actionPath).set(actionsData.metroTrip);
         await db.doc(statPath).set(statsData.emptyStats);
@@ -35,7 +35,7 @@ describe("A challenge is updated because of a stat change.", () => {
     test("Challenges are checked and no challenges are completed.", async () => {
         const user = await getUser(db)
 
-        await updateChallenges(await setUserId(db, statsData.emptyStats))
+        await updateChallenges(await setUserId(db, statsData.emptyStats), user.uid)
 
         let challengesList = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
         challengesList = challengesList.docs[0].data()
