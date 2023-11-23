@@ -22,6 +22,7 @@ const emptyStats = {
     sponsorshipCount : 0,
 
     actionsCountTotal : 0,
+    actionsPeriodicCountTotal : 0,
     actionsCountTransport : 0,
     actionsCountServices : 0,
     actionsCountObjects : 0,
@@ -88,11 +89,16 @@ module.exports = {
     statsWithFullOnboarding: {
         ...emptyStats,
         ...fullOnboarding,
-        actionsCountTotal: 10
     },
     statsWithManyActionsAndFullOnboarding: {
         ...emptyStats,
         ...fullOnboarding,
-        sponsorshipCount: 10
+        sponsorshipCount: 10,
+        actionsCountTotal: 10
+    },
+    statsWithSponsorshipAndFullOnboarding: {
+        ...emptyStats,
+        ...fullOnboarding,
+        sponsorshipCount: 10,
     }
 }
