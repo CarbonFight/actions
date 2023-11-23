@@ -28,7 +28,7 @@ describe('Update user sponsor code', () => {
         await db.doc(userPath2).set(usersData[1]);
     });
 
-    test('user not found', async () => {
+    test('error - user not found', async () => {
         const uid = 'invalid_uid';
         const sponsorCode = usersData[1].sponsorship_code;
 
@@ -36,6 +36,17 @@ describe('Update user sponsor code', () => {
             await updateUserSponsor(db, uid, sponsorCode);
         } catch (e) {
             expect(e.message).toBe(`User with uid ${uid} not found`);
+        }
+    });
+
+    test('error - user sponsor himself', async () => {
+        const uid = usersData[0].uid;
+        const sponsorCode = usersData[0].sponsorship_code;
+
+        try {
+            await updateUserSponsor(db, uid, sponsorCode);
+        } catch (e) {
+            expect(e.message).toBe(`Users cannot sponsor themselves`);
         }
     });
 

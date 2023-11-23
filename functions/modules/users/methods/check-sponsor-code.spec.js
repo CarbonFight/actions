@@ -28,7 +28,7 @@ describe('Check sponsor code', () => {
         await db.doc(userPath2).set(usersData[1]);
     });
 
-    test('sponsor code invalid', async () => {
+    test('error - sponsor code invalid', async () => {
         const sponsorCode = 'invalid_sponsor_code';
 
         try {

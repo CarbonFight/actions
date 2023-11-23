@@ -29,7 +29,7 @@ describe('Update sponsor count', () => {
         await db.doc(statPath).set(statsData[0]);
     });
 
-    test('sponsorship_code invalid', async () => {
+    test('error - sponsorship_code invalid', async () => {
         const sponsorshipCode = 'sponsorship_code';
 
         try {
@@ -39,7 +39,7 @@ describe('Update sponsor count', () => {
         }
     });
 
-    test('user stats ', async () => {
+    test('update user sponsorshipCount stats ', async () => {
         const sponsorshipCode = usersData[1].sponsorship_code;
 
         const beforeStat = (await db.doc(statPath).get()).data();

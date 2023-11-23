@@ -9,6 +9,12 @@ module.exports.updateUserSponsor = async function (db, uid, sponsor) {
         throw new Error(`User with uid ${uid} not found`);
     }
 
+    const userData = userRef.docs[0].data();
+
+    if (userData.sponsorship_code === sponsor) {
+        throw new Error(`Users cannot sponsor themselves`);
+    }
+
     await userRef.docs[0].ref.set(
         {
             sponsor,
