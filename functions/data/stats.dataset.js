@@ -1,3 +1,5 @@
+const actionsData= require("../data/actions.dataset");
+
 const emptyOnboarding = {
     onboardingTransport: false,
     onboardingServices: false,
@@ -17,11 +19,11 @@ const emptyOnboarding = {
 const fullOnboarding = Object.fromEntries(Object.keys(emptyOnboarding).map(key => [key, true]));
 
 const emptyStats = {
-    uid: "tm8nhYrYSPFOKJgdonAt",
     score : 0,
     sponsorshipCount : 0,
 
     actionsCountTotal : 0,
+    actionsPeriodicCountTotal : 0,
     actionsCountTransport : 0,
     actionsCountServices : 0,
     actionsCountObjects : 0,
@@ -88,11 +90,52 @@ module.exports = {
     statsWithFullOnboarding: {
         ...emptyStats,
         ...fullOnboarding,
-        actionsCountTotal: 10
     },
     statsWithManyActionsAndFullOnboarding: {
         ...emptyStats,
         ...fullOnboarding,
-        sponsorshipCount: 10
+        sponsorshipCount: 10,
+        actionsCountTotal: 10
+    },
+    statsWithSponsorshipAndFullOnboarding: {
+        ...emptyStats,
+        ...fullOnboarding,
+        sponsorshipCount: 10,
+    },
+    statsAfterMetroTripActionAdded: {
+        ...emptyStats,
+        eventActionAddCount: 1,
+        actionsCountTransport:  1,
+        // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
+        weekTotal: actionsData.metroTrip.co2e,
+        'weekTransport': actionsData.metroTrip.co2e,
+        monthTotal: actionsData.metroTrip.co2e,
+        'monthTransport': actionsData.metroTrip.co2e,
+        yearTotal: actionsData.metroTrip.co2e,
+        'yearTransport': actionsData.metroTrip.co2e,
+    },
+    statsAfterMetroTripActionUpdated: {
+        ...emptyStats,
+        eventActionAddCount: 1,
+        actionsCountTransport:  1,
+        // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
+        weekTotal: actionsData.metroTrip.co2e + 10,
+        'weekTransport': actionsData.metroTrip.co2e  + 10,
+        monthTotal: actionsData.metroTrip.co2e  + 10,
+        'monthTransport': actionsData.metroTrip.co2e  + 10,
+        yearTotal: actionsData.metroTrip.co2e  + 10,
+        'yearTransport': actionsData.metroTrip.co2e  + 10,
+    },
+    statsAfterMetroTripActionDeleted: {
+        ...emptyStats,
+        eventActionAddCount: 1,
+        actionsCountTransport:  0,
+        // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
+        weekTotal: 0,
+        'weekTransport': 0,
+        monthTotal: 0,
+        'monthTransport': 0,
+        yearTotal: 0,
+        'yearTransport': 0,
     }
 }
