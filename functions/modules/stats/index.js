@@ -117,8 +117,8 @@ exports.actionUpdate = functions
     .onWrite(async (event) => {
         const db = await dbInstance();
 
-        const previousValues = event.before?.data()
-        const newValues = event.after.data()
+        const previousValues = event.before?.data();
+        const newValues = event.after.data();
 
         // Action is DELETED
         // If action is deleted, we substract the co2e from the stats
@@ -167,7 +167,7 @@ exports.userUpdate = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/users/{documentId}')
     .onUpdate(async (event) => {
-        const db = dbInstance();
+        const db = await dbInstance();
 
         const previousValues = event.before.data();
         const newValues = event.after.data();
