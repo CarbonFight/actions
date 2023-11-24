@@ -16,35 +16,26 @@ function generateTarget() {
     return falso.rand(targets);
 }
 
-module.exports = [
-    {
-        connection_history: [falso.randRecentDate(), falso.randPastDate()],
-        created_time: falso.randPastDate(),
-        display_name: falso.randFullName(),
-        email: falso.randEmail(),
-        first_Name: falso.randFirstName(),
-        hasCompletedHowto: falso.randBoolean(),
-        last_Name: falso.randLastName(),
-        photo_url: falso.randAvatar(),
-        sponsor: generateSponsorCode(),
-        sponsorship_code: generateSponsorCode(),
-        target: generateTarget(),
-        team: generateTeam(),
-        uid: falso.randUuid(),
-    },
-    {
-        connection_history: [falso.randRecentDate(), falso.randPastDate()],
-        created_time: falso.randPastDate(),
-        display_name: falso.randFullName(),
-        email: falso.randEmail(),
-        first_Name: falso.randFirstName(),
-        hasCompletedHowto: falso.randBoolean(),
-        last_Name: falso.randLastName(),
-        photo_url: falso.randAvatar(),
-        sponsor: generateSponsorCode(),
-        sponsorship_code: generateSponsorCode(),
-        target: generateTarget(),
-        team: generateTeam(),
-        uid: falso.randUuid(),
-    },
-];
+module.exports.generateUser = (number = 1) => {
+    const users = [];
+
+    for (let i = 0; i < number; i++) {
+        users.push({
+            connection_history: [falso.randRecentDate(), falso.randPastDate()],
+            created_time: falso.randPastDate(),
+            display_name: falso.randFullName(),
+            email: falso.randEmail(),
+            first_Name: falso.randFirstName(),
+            hasCompletedHowto: falso.randBoolean(),
+            last_Name: falso.randLastName(),
+            photo_url: falso.randAvatar(),
+            sponsor: generateSponsorCode(),
+            sponsorship_code: generateSponsorCode(),
+            target: generateTarget(),
+            team: generateTeam(),
+            uid: falso.randUuid(),
+        });
+    }
+
+    return users;
+};

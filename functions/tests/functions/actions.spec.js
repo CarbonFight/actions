@@ -1,4 +1,4 @@
-const usersData= require("../../data/users.dataset");
+const { generateUser } = require("../../data/users.dataset");
 const actionsData= require("../../data/actions.dataset");
 const mockLogger = require("../../logger-setup");
 const { mockedFunctions, deleteCollectionsContent } = require("../_setup");
@@ -21,6 +21,7 @@ jest.mock('../../modules/stats/methods/update-stats', () => ({
     }),
 }));
 
+const usersData = generateUser()
 const userPath = 'users/'+usersData[0].uid
 const actionPath = 'actions/'+actionsData.metroTrip.uid
 

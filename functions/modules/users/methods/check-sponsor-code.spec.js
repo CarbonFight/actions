@@ -1,14 +1,15 @@
-const usersData = require('../../../data/users.dataset');
+const { generateUser } = require('../../../data/users.dataset');
 const {
     mockedFunctions,
     deleteCollectionsContent,
 } = require('../../../tests/_setup');
 const { dbInstance } = require('../../../db-setup');
 
-const { checkIfSponsorCodeExists } = require('./check-sponsor-code');
+const { getUserBySponsorshipCode } = require('./get-by-sponsorship-code');
 
-const userPath = `users/${usersData[0].uid}`;
-const userPath2 = `users/${usersData[1].uid}`;
+const [userData1, userData2] = generateUser(2);
+const userPath1 = `users/${userData1.uid}`;
+const userPath2 = `users/${userData2.uid}`;
 
 describe('Check sponsor code', () => {
     let db = null;
@@ -24,24 +25,24 @@ describe('Check sponsor code', () => {
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users']);
-        await db.doc(userPath).set(usersData[0]);
-        await db.doc(userPath2).set(usersData[1]);
+        await db.doc(userPath1).set(userData1);
+        await db.doc(userPath2).set(userData2);
     });
 
     test('error - sponsor code invalid', async () => {
         const sponsorCode = 'invalid_sponsor_code';
 
         try {
-            await checkIfSponsorCodeExists(db, sponsorCode);
+            await getUserBySponsorshipCode(db, sponsorCode);
         } catch (e) {
             expect(e.message).toBe(`Sponsor code ${sponsorCode} is invalid`);
         }
     });
 
     test('sponsor code valid', async () => {
-        const sponsorCode = usersData[1].sponsorship_code;
+        const sponsorCode = userData2.sponsorship_code;
 
-        const sponsorCodeExists = await checkIfSponsorCodeExists(
+        const sponsorCodeExists = await getUserBySponsorshipCode(
             db,
             sponsorCode
         );

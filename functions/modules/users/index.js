@@ -2,7 +2,9 @@ const functions = require('firebase-functions');
 
 const { dbInstance } = require('../../db-setup');
 
-const { checkIfSponsorCodeExists } = require('./methods/check-sponsor-code');
+const {
+    getUserBySponsorshipCode,
+} = require('./methods/get-by-sponsorship-code');
 const { updateUserSponsor } = require('./methods/update-sponsor-code');
 
 exports.userUpdate = functions
@@ -17,11 +19,11 @@ exports.userUpdate = functions
 
         if (!previousValues.sponsor && newValues.sponsor) {
             // Check if sponsor code exists
-            const codeExists = await checkIfSponsorCodeExists(
+            const userSnap = await getUserBySponsorshipCode(
                 db,
                 newValues.sponsor
             );
-            if (!codeExists) {
+            if (userSnap.empty) {
                 throw new Error(`Sponsor code ${newValues.sponsor} is invalid`);
             }
 

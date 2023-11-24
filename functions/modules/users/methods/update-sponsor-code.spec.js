@@ -1,4 +1,4 @@
-const usersData = require('../../../data/users.dataset');
+const { generateUser } = require('../../../data/users.dataset');
 const {
     mockedFunctions,
     deleteCollectionsContent,
@@ -7,8 +7,9 @@ const { dbInstance } = require('../../../db-setup');
 
 const { updateUserSponsor } = require('./update-sponsor-code');
 
-const userPath = `users/${usersData[0].uid}`;
-const userPath2 = `users/${usersData[1].uid}`;
+const [userData1, userData2] = generateUser(2);
+const userPath1 = `users/${userData1.uid}`;
+const userPath2 = `users/${userData2.uid}`;
 
 describe('Update user sponsor code', () => {
     let db = null;
@@ -24,13 +25,13 @@ describe('Update user sponsor code', () => {
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users']);
-        await db.doc(userPath).set(usersData[0]);
-        await db.doc(userPath2).set(usersData[1]);
+        await db.doc(userPath1).set(userData1);
+        await db.doc(userPath2).set(userData2);
     });
 
     test('error - user not found', async () => {
         const uid = 'invalid_uid';
-        const sponsorCode = usersData[1].sponsorship_code;
+        const sponsorCode = userData2.sponsorship_code;
 
         try {
             await updateUserSponsor(db, uid, sponsorCode);
@@ -40,8 +41,8 @@ describe('Update user sponsor code', () => {
     });
 
     test('error - user sponsor himself', async () => {
-        const uid = usersData[0].uid;
-        const sponsorCode = usersData[0].sponsorship_code;
+        const uid = userData1.uid;
+        const sponsorCode = userData1.sponsorship_code;
 
         try {
             await updateUserSponsor(db, uid, sponsorCode);
@@ -51,13 +52,13 @@ describe('Update user sponsor code', () => {
     });
 
     test('user sponsor updated', async () => {
-        const uid = usersData[0].uid;
-        const sponsorCode = usersData[1].sponsorship_code;
+        const uid = userData1.uid;
+        const sponsorCode = userData2.sponsorship_code;
 
         await updateUserSponsor(db, uid, sponsorCode);
 
-        const newData = (await db.doc(userPath).get()).data();
+        const newData = (await db.doc(userPath1).get()).data();
 
-        expect(newData.sponsor).toEqual(usersData[1].sponsorship_code);
+        expect(newData.sponsor).toEqual(userData2.sponsorship_code);
     });
 });

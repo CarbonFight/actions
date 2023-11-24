@@ -195,7 +195,7 @@ exports.userUpdate = functions
         }
 
         // If user sponsor is updated, increment sponsorCount of sponsoring User
-        if (previousValues.sponsor != newValues.sponsor) {
+        if (!previousValues.sponsor) {
             await updateSponsorCount(db, newValues.sponsor);
         }
     });

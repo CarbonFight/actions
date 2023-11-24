@@ -1,16 +1,16 @@
 const { fieldValue } = require('../../../db-setup');
 
+const {
+    getUserBySponsorshipCode,
+} = require('../../users/methods/get-by-sponsorship-code');
+
 module.exports.updateSponsorCount = async function (db, sponsorshipCode) {
-    const sponsorSnap = await db
-        .collection('users')
-        .where('sponsorship_code', '==', sponsorshipCode)
-        .limit(1)
-        .get();
-    if (sponsorSnap.empty) {
+    const userSnap = await getUserBySponsorshipCode(db, sponsorshipCode);
+    if (userSnap.empty) {
         throw new Error(`Invalid sponsorship code`);
     }
 
-    const sponsorUserUid = sponsorSnap.docs[0].data().uid;
+    const sponsorUserUid = userSnap.docs[0].data().uid;
     const statsSnap = await db
         .collection('stats')
         .where('uid', '==', sponsorUserUid)

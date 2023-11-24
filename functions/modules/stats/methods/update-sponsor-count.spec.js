@@ -1,4 +1,4 @@
-const usersData = require('../../../data/users.dataset');
+const { generateUser } = require('../../../data/users.dataset');
 const statsData = require('../../../data/stats.dataset');
 const {
     mockedFunctions,
@@ -8,8 +8,9 @@ const { dbInstance } = require('../../../db-setup');
 
 const { updateSponsorCount } = require('./update-sponsor-count');
 
-const userPath = `users/${usersData[1].uid}`;
-const statPath = `stats/${usersData[1].uid}`;
+const usersData = generateUser();
+const userPath = `users/${usersData[0].uid}`;
+const statPath = `stats/${usersData[0].uid}`;
 
 describe('Update sponsor count', () => {
     let db = null;
@@ -25,14 +26,14 @@ describe('Update sponsor count', () => {
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users', 'stats']);
-        await db.doc(userPath).set(usersData[1]);
+        await db.doc(userPath).set(usersData[0]);
         await db.doc(statPath).set({
             ...statsData.emptyStats,
-            uid: usersData[1].uid,
+            uid: usersData[0].uid,
         });
     });
 
-    test('error - sponsorship_code invalid', async () => {
+    test('error - sponsorship_code not found in db', async () => {
         const sponsorshipCode = 'sponsorship_code';
 
         try {
@@ -42,8 +43,8 @@ describe('Update sponsor count', () => {
         }
     });
 
-    test('update user sponsorshipCount stats ', async () => {
-        const sponsorshipCode = usersData[1].sponsorship_code;
+    test('increment sponsoring user sponsorshipCount in stats collection', async () => {
+        const sponsorshipCode = usersData[0].sponsorship_code;
 
         const beforeStat = (await db.doc(statPath).get()).data();
 

@@ -1,12 +1,13 @@
-const actionsData= require("../../../data/actions.dataset");
+const actionsData = require("../../../data/actions.dataset");
 const challengesData = require("../../../data/challenges.dataset");
-const statsData= require("../../../data/stats.dataset");
-const usersData= require("../../../data/users.dataset");
+const statsData = require("../../../data/stats.dataset");
+const { generateUser } = require("../../../data/users.dataset");
 const { mockedFunctions, deleteCollectionsContent } = require("../../../tests/_setup");
 const { updateChallenges } = require("./update-challenges");
 const { dbInstance } = require("../../../db-setup");
 const { getUser, setUserId } = require("../../../tests/utils/user");
 
+const usersData = generateUser();
 const userPath = 'users/'+usersData[0].uid
 const actionPath = 'actions/'+actionsData.metroTrip.uid
 const statPath = 'stats/'+statsData.emptyStats.uid
