@@ -1,3 +1,4 @@
+const dayjs = require("dayjs");
 module.exports = {
     carTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
@@ -17,7 +18,7 @@ module.exports = {
     metroTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
         id: "9a4bb9cc-357f-4ec2-9f0a-7e8e849f8fc9",
-        created_time: "Tue Nov 07 2023 16:47:35 GMT+0000 (Coordinated Universal Time)",
+        created_time: dayjs('2023-11-21').toDate(),
         country: "FR",
         category: "transport",
         action: "metro",
