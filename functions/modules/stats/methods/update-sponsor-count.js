@@ -2,7 +2,7 @@ const { fieldValue } = require('../../../db-setup');
 
 const {
     getUserBySponsorshipCode,
-} = require('../../users/methods/get-by-sponsorship-code');
+} = require('../../users/methods/get-user-by-sponsorship-code');
 
 module.exports.updateSponsorCount = async function (db, sponsorshipCode) {
     const userSnap = await getUserBySponsorshipCode(db, sponsorshipCode);

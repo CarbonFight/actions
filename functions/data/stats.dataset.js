@@ -21,6 +21,7 @@ const fullOnboarding = Object.fromEntries(Object.keys(emptyOnboarding).map(key =
 const emptyStats = {
     score : 0,
     sponsorshipCount : 0,
+    countConsecutiveDays: 0,
 
     actionsCountTotal : 0,
     actionsPeriodicCountTotal : 0,

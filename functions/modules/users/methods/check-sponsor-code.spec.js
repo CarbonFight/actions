@@ -5,7 +5,7 @@ const {
 } = require('../../../tests/_setup');
 const { dbInstance } = require('../../../db-setup');
 
-const { getUserBySponsorshipCode } = require('./get-by-sponsorship-code');
+const { getUserBySponsorshipCode } = require('./get-user-by-sponsorship-code');
 
 const userData1 = generateUser();
 const userPath1 = `users/${userData1.uid}`;

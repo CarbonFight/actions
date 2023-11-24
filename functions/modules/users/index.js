@@ -4,8 +4,10 @@ const { dbInstance } = require('../../db-setup');
 
 const {
     getUserBySponsorshipCode,
-} = require('./methods/get-by-sponsorship-code');
+} = require('./methods/get-user-by-sponsorship-code');
 const { updateUserSponsor } = require('./methods/update-sponsor-code');
+const { getStatsByUid } = require("../stats/methods/get-stats-by-uid");
+const { daysInStreak } = require("./methods/days-in-streak");
 
 exports.userUpdate = functions
     .region('europe-west6')
@@ -29,5 +31,18 @@ exports.userUpdate = functions
 
             // Set sponsor to user
             await updateUserSponsor(db, uid, newValues.sponsor);
+        }
+
+        if(previousValues.connection_history.length < newValues.connection_history.length){
+            const userStats = await getStatsByUid(db, uid)
+            const userStatsData = userStats.data()
+            if(userStatsData) {
+                const streak = daysInStreak(newValues.connection_history.map(timestamp => new Date(timestamp.seconds*1000)))
+                if(userStatsData.countConsecutiveDays !== streak){
+                    await userStats.ref.update({
+                        countConsecutiveDays: streak
+                    })
+                }
+            }
         }
     });

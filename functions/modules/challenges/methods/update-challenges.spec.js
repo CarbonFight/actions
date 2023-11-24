@@ -5,7 +5,7 @@ const { generateUser } = require("../../../data/users.dataset");
 const { mockedFunctions, deleteCollectionsContent } = require("../../../tests/_setup");
 const { updateChallenges } = require("./update-challenges");
 const { dbInstance } = require("../../../db-setup");
-const { getUser, setUserId } = require("../../../tests/utils/user");
+const { getUser, setUserId, setUserContent} = require("../../../tests/utils/user");
 const {challengesList} = require("./validate-challenges");
 
 const userData = generateUser();
@@ -37,7 +37,7 @@ describe("A challenge is updated because of a stat change.", () => {
     test("Challenges are checked and no challenges are completed.", async () => {
         const user = await getUser(db)
 
-        await updateChallenges(await setUserId(db, statsData.emptyStats), user.uid)
+        await updateChallenges(db, user.uid, await setUserId(db, statsData.emptyStats))
 
         let challengesDoc = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
         challengesDoc = challengesDoc.docs[0].data()
@@ -50,33 +50,35 @@ describe("A challenge is updated because of a stat change.", () => {
     test("Challenges are checked and one challenge is completed : full onboarding.", async () => {
         const user = await getUser(db)
 
-        await updateChallenges(await setUserId(db, statsData.statsWithFullOnboarding), user.uid)
+        await updateChallenges(db, user.uid, await setUserId(db, statsData.statsWithFullOnboarding))
 
         let challengesDoc = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
         challengesDoc = challengesDoc.docs[0].data()
 
         expect(challengesDoc.onboardingCompleted).toBeTruthy();
         expect(challengesDoc.hasEnoughSponsors).toBeFalsy();
+        expect(challengesDoc.actionLvl1).toBeFalsy();
         expect(challengesDoc.score).toBe(challengesList.onboardingCompleted.score);
     });
 
     test("Challenges are checked and 2 challenges are completed : full onboarding / 10 sponsor codes.", async () => {
         const user = await getUser(db)
 
-        await updateChallenges(await setUserId(db, statsData.statsWithSponsorshipAndFullOnboarding), user.uid)
+        await updateChallenges(db, user.uid, await setUserId(db, statsData.statsWithSponsorshipAndFullOnboarding))
 
         let challengesDoc = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
         challengesDoc = challengesDoc.docs[0].data()
 
         expect(challengesDoc.onboardingCompleted).toBeTruthy();
         expect(challengesDoc.hasEnoughSponsors).toBeTruthy();
+        expect(challengesDoc.actionLvl1).toBeFalsy();
         expect(challengesDoc.score).toBe(challengesList.onboardingCompleted.score + challengesList.hasEnoughSponsors.score);
     });
 
-    test("Challenges are checked and 2 challenges are completed : full onboarding / 10 sponsor codes / 10 actions added.", async () => {
+    test("Challenges are checked and 3 challenges are completed : full onboarding / 10 sponsor codes / 10 actions added.", async () => {
         const user = await getUser(db)
 
-        await updateChallenges(await setUserId(db, statsData.statsWithManyActionsAndFullOnboarding), user.uid)
+        await updateChallenges(db, user.uid, await setUserId(db, statsData.statsWithManyActionsAndFullOnboarding))
 
         let challengesDoc = await db.collection('challenges').where('uid', '==', user.uid).limit(1).get();
         challengesDoc = challengesDoc.docs[0].data()

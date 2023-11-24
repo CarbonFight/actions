@@ -10,10 +10,13 @@ exports.update = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/stats/{documentId}')
     .onWrite(async (event) => {
+        const db = await dbInstance();
         const newStats = event.after.data();
         const uid = newStats.uid;
 
-        await updateChallenges(newStats, uid);
+        console.log(')))))))))))))))))))))) challenges')
+
+        await updateChallenges(db, newStats, uid);
     });
 
 exports.init = functions

@@ -3,6 +3,7 @@ exports.createStatsModel = function (uid) {
         uid: uid,
         score : 0,
         sponsorshipCount : 0,
+        countConsecutiveDays: 0,
 
         actionsCountTotal : 0,
         actionsPeriodicCountTotal : 0,

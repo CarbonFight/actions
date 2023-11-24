@@ -8,7 +8,7 @@ const {
 } = require("../../stats");
 const { dbInstance } = require("../../../db-setup");
 const { generateDocChange, generateDocSnapshot } = require("../../../tests/utils/change");
-const {setUserId} = require("../../../tests/utils/user");
+const { setUserId } = require("../../../tests/utils/user");
 
 const userData = generateUser();
 const userPath = 'users/'+userData.uid
