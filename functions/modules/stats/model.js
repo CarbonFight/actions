@@ -33,7 +33,6 @@ exports.createStatsModel = function (uid) {
         dayClothes: 0,
         dayAppliance: 0,
 
-
         weekTotalPerDay : [0],
         weekTotal : 0,
         weekTransport : 0,

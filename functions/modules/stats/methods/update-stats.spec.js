@@ -1,4 +1,4 @@
-const usersData= require("../../../data/users.dataset");
+const { generateUser } = require('../../../data/users.dataset');
 const actionsData= require("../../../data/actions.dataset");
 const statsData= require("../../../data/stats.dataset");
 const { mockedFunctions, setup, deleteCollectionsContent } = require("../../../tests/_setup");
@@ -10,24 +10,25 @@ const { dbInstance } = require("../../../db-setup");
 const { generateDocChange, generateDocSnapshot } = require("../../../tests/utils/change");
 const {setUserId} = require("../../../tests/utils/user");
 
-const userPath = 'users/'+usersData[0].uid
+const userData = generateUser();
+const userPath = 'users/'+userData.uid
 const actionPath = 'actions/'+actionsData.metroTrip.uid
 
 describe("A stat is updated because of an action change.", () => {
     let db = null
 
     beforeAll(async () => {
-        db = await dbInstance()
+        db = await dbInstance();
     });
 
     afterAll(() => {
-        mockedFunctions.cleanup()
-        db.terminate()
-    })
+        mockedFunctions.cleanup();
+        db.terminate();
+    });
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users', 'actions'])
-        await db.doc(userPath).set(usersData[0]);
+        await db.doc(userPath).set(userData);
     });
 
     test("Stats is initialized after user is created", async () => {
@@ -35,11 +36,11 @@ describe("A stat is updated because of an action change.", () => {
 
         await wrapped(await generateDocSnapshot({
             db,
-            data: usersData[0],
+            data: userData,
             path: userPath
         }))
 
-        const newData = await getStatByUid(db, usersData[0].uid)
+        const newData = await getStatByUid(db, userData.uid)
 
         expect(newData).toBeTruthy();
     });
@@ -104,7 +105,7 @@ describe("A stat is updated because of an action change.", () => {
     //
     //     await wrapped(await generateDocSnapshot({
     //         db,
-    //         data: usersData[0],
+    //         data: userData,
     //         path: userPath
     //     }))
     //

@@ -118,8 +118,9 @@
 - bool **onboardingAppliance** : actionsCountAppliance > 0
 - bool **onboardingUpdateAction** : eventUpdateCount > 0
 - bool **onboardingDeleteAction** : eventDeleteCount > 0
-- bool **onboardingUpdateTarget** : eventDeleteCount > 0
-- bool **onboardingUpdateTeam** : eventDeleteCount > 0
+- bool **onboardingUpdateTarget** : eventUpdateTargetCount > 0
+- bool **onboardingUpdateTeam** : eventUpdateTeamCount > 0
+- bool **hasEnoughSponsors** : sponsorshipCount >= 10
 
 ## Badges
 

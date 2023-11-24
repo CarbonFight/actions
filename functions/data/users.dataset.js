@@ -1,13 +1,13 @@
 const falso = require('@ngneat/falso');
 
 function generateSponsorCode() {
-    return Array.from({length: 8}, () =>
+    return Array.from({ length: 8 }, () =>
         String.fromCharCode(Math.floor(Math.random() * 26) + 65)
-    ).join("-");
+    ).join('-');
 }
 
 function generateTeam() {
-    const teams = ["earth", "sky", "forest"];
+    const teams = ['earth', 'sky', 'forest'];
     return falso.rand(teams);
 }
 
@@ -16,23 +16,18 @@ function generateTarget() {
     return falso.rand(targets);
 }
 
-module.exports = [
-    {
-        connection_history: [
-            falso.randRecentDate(),
-            falso.randPastDate(),
-        ],
-        created_time: falso.randPastDate(),
-        display_name: falso.randFullName(),
-        email: falso.randEmail(),
-        first_Name: falso.randFirstName(),
-        hasCompletedHowto: falso.randBoolean(),
-        last_Name: falso.randLastName(),
-        photo_url: falso.randAvatar(),
-        sponsor: generateSponsorCode(),
-        sponsorship_code: generateSponsorCode(),
-        target: generateTarget(),
-        team: generateTeam(),
-        uid: falso.randUuid(),
-    },
-]
+module.exports.generateUser = () => ({
+    connection_history: [falso.randRecentDate(), falso.randPastDate()],
+    created_time: falso.randPastDate(),
+    display_name: falso.randFullName(),
+    email: falso.randEmail(),
+    first_Name: falso.randFirstName(),
+    hasCompletedHowto: falso.randBoolean(),
+    last_Name: falso.randLastName(),
+    photo_url: falso.randAvatar(),
+    sponsor: generateSponsorCode(),
+    sponsorship_code: generateSponsorCode(),
+    target: generateTarget(),
+    team: generateTeam(),
+    uid: falso.randUuid(),
+});

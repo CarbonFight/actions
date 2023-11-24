@@ -1,4 +1,4 @@
-const usersData= require("../../data/users.dataset");
+const { generateUser } = require("../../data/users.dataset");
 const actionsData= require("../../data/actions.dataset");
 const mockLogger = require("../../logger-setup");
 const { mockedFunctions, deleteCollectionsContent } = require("../_setup");
@@ -21,7 +21,8 @@ jest.mock('../../modules/stats/methods/update-stats', () => ({
     }),
 }));
 
-const userPath = 'users/'+usersData[0].uid
+const userData = generateUser()
+const userPath = 'users/'+userData.uid
 const actionPath = 'actions/'+actionsData.metroTrip.uid
 
 describe("A function is triggered by an action", () => {
@@ -38,7 +39,7 @@ describe("A function is triggered by an action", () => {
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users', 'actions'])
-        await db.doc(userPath).set(usersData[0]);
+        await db.doc(userPath).set(userData);
         await db.doc(actionPath).set(actionsData.metroTrip);
     });
 
