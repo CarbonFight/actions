@@ -1,10 +1,10 @@
 const functions = require('firebase-functions')
 
 const { createBadgeModel } = require('./model')
-const { validateOnboardingChallenge } = require('../challenges/validation')
 const { validateUser } = require('../users/validation')
 
 const { dbInstance } = require('../../db-setup')
+const Logger = require('../../logger-setup')
 
 exports.update = functions
     .region('europe-west6')
@@ -12,19 +12,10 @@ exports.update = functions
     .firestore.document('/challenges/{documentId}')
     .onUpdate(async (event) => {
         const db = await dbInstance()
-        const newChallenges = event.after.data()
-        // If all onboarding challenges are true, set onboardingAllChallenges to true
-        if (validateOnboardingChallenge(newChallenges)) {
-            await db
-                .collection('badges')
-                .where('uid', '==', newChallenges.uid)
-                .limit(1)
-                .get()
-                .then((query) => {
-                    const userBadges = query.docs[0]
-                    userBadges.ref.update({ onboardingAllChallenges: true })
-                })
-        }
+        const challengesList = event.after.data()
+
+        //TODO: Give Badges accordingly.
+        Logger.info('Badges should be given accordingly. Data: '+challengesList)
     })
 
 exports.init = functions
