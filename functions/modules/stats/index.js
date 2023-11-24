@@ -1,15 +1,17 @@
-const functions = require('firebase-functions')
-const { createStatsModel } = require('./model')
-const { dbInstance } = require('../../db-setup')
-const { updateStats } = require("./methods/update-stats");
+const functions = require('firebase-functions');
+const { createStatsModel } = require('./model');
+const { dbInstance } = require('../../db-setup');
+const { updateStats } = require('./methods/update-stats');
+const { updateSponsorCount } = require('./methods/update-sponsor-count');
+const { fieldValue } = require('../../db-setup');
 
 exports.actionUpdate = functions
     .region('europe-west6')
     .runWith({ minInstances: 1 })
     .firestore.document('/actions/{documentId}')
     .onWrite(async (event) => {
-        const previousValues = event.before?.data()
-        const newValues = event.after.data()
+        const previousValues = event.before?.data();
+        const newValues = event.after.data();
 
         // NEW action
         if (!previousValues) {
@@ -41,12 +43,12 @@ exports.userUpdate = functions
 
         // If user target is updated, increment eventUpdateTargetCount
         if (previousValues.target != newValues.target) {
-            updates.eventUpdateTargetCount = FieldValue.increment(1);
+            updates.eventUpdateTargetCount = fieldValue.increment(1);
         }
 
         // If user team is updated, increment eventUpdateTargetCount
         if (previousValues.team != newValues.team) {
-            updates.eventUpdateTeamCount = FieldValue.increment(1);
+            updates.eventUpdateTeamCount = fieldValue.increment(1);
         }
 
         // Perform update
@@ -90,11 +92,13 @@ exports.userDelete = functions
     .firestore.document('/users/{documentId}')
     .onDelete(async (snap) => {
         const db = await dbInstance();
-        const user = snap.data()
+        const user = snap.data();
 
         try {
             // Deletes all Stats for User
-            const userStats = db.collection('stats').where('uid', '==', user.uid)
+            const userStats = db
+                .collection('stats')
+                .where('uid', '==', user.uid);
             userStats.get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     doc.ref.delete();
