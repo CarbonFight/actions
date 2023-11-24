@@ -8,8 +8,8 @@ const { setUserId } = require('../../../tests/utils/user');
 const { updateStats } = require('./update-stats');
 const { dbInstance } = require('../../../db-setup');
 
-const usersData = generateUser();
-const userPath = 'users/' + usersData[0].uid;
+const userData = generateUser();
+const userPath = 'users/' + userData.uid;
 const actionPath = 'actions/' + actionsData.metroTrip.uid;
 
 describe('A stat is updated because of an action change.', () => {
@@ -26,7 +26,7 @@ describe('A stat is updated because of an action change.', () => {
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users', 'actions']);
-        await db.doc(userPath).set(usersData[0]);
+        await db.doc(userPath).set(userData);
         await db.doc(actionPath).set(actionsData.metroTrip);
     });
 

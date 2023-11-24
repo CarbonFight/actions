@@ -7,8 +7,9 @@ const { dbInstance } = require('../../../db-setup');
 
 const { updateUserSponsor } = require('./update-sponsor-code');
 
-const [userData1, userData2] = generateUser(2);
+const userData1 = generateUser();
 const userPath1 = `users/${userData1.uid}`;
+const userData2 = generateUser();
 const userPath2 = `users/${userData2.uid}`;
 
 describe('Update user sponsor code', () => {

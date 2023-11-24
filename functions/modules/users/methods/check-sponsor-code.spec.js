@@ -7,8 +7,9 @@ const { dbInstance } = require('../../../db-setup');
 
 const { getUserBySponsorshipCode } = require('./get-by-sponsorship-code');
 
-const [userData1, userData2] = generateUser(2);
+const userData1 = generateUser();
 const userPath1 = `users/${userData1.uid}`;
+const userData2 = generateUser();
 const userPath2 = `users/${userData2.uid}`;
 
 describe('Check sponsor code', () => {

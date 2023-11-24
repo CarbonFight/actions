@@ -8,9 +8,9 @@ const { dbInstance } = require('../../../db-setup');
 
 const { updateSponsorCount } = require('./update-sponsor-count');
 
-const usersData = generateUser();
-const userPath = `users/${usersData[0].uid}`;
-const statPath = `stats/${usersData[0].uid}`;
+const userData = generateUser();
+const userPath = `users/${userData.uid}`;
+const statPath = `stats/${userData.uid}`;
 
 describe('Update sponsor count', () => {
     let db = null;
@@ -26,10 +26,10 @@ describe('Update sponsor count', () => {
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users', 'stats']);
-        await db.doc(userPath).set(usersData[0]);
+        await db.doc(userPath).set(userData);
         await db.doc(statPath).set({
             ...statsData.emptyStats,
-            uid: usersData[0].uid,
+            uid: userData.uid,
         });
     });
 
@@ -44,7 +44,7 @@ describe('Update sponsor count', () => {
     });
 
     test('increment sponsoring user sponsorshipCount in stats collection', async () => {
-        const sponsorshipCode = usersData[0].sponsorship_code;
+        const sponsorshipCode = userData.sponsorship_code;
 
         const beforeStat = (await db.doc(statPath).get()).data();
 

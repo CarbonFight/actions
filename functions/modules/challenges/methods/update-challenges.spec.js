@@ -7,8 +7,8 @@ const { updateChallenges } = require("./update-challenges");
 const { dbInstance } = require("../../../db-setup");
 const { getUser, setUserId } = require("../../../tests/utils/user");
 
-const usersData = generateUser();
-const userPath = 'users/'+usersData[0].uid
+const userData = generateUser();
+const userPath = 'users/'+userData.uid
 const actionPath = 'actions/'+actionsData.metroTrip.uid
 const statPath = 'stats/'+statsData.emptyStats.uid
 const challengePath = 'challenges/'+challengesData.allEmpty.uid
@@ -27,7 +27,7 @@ describe("A challenge is updated because of a stat change.", () => {
 
     beforeEach(async () => {
         await deleteCollectionsContent(db, ['users', 'actions', 'stats', 'challenges'])
-        await db.doc(userPath).set(usersData[0]);
+        await db.doc(userPath).set(userData);
         await db.doc(actionPath).set(actionsData.metroTrip);
         await db.doc(statPath).set(statsData.emptyStats);
         await db.doc(challengePath).set(await setUserId(db, challengesData.allEmpty));
