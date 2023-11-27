@@ -1,10 +1,10 @@
-const { object, string, number, boolean, array, coerce } = require('zod');
+const { object, string, number, boolean, array } = require('zod');
 
 const Logger = require('../../logger-setup');
 
 const baseSchema = object({
     uid: string(),
-    created_time: coerce.date(),
+    created_time: object({}),
     country: string(),
     category: string(),
     co2e: number(),
@@ -26,7 +26,7 @@ const foodSchema = baseSchema.merge(
     object({
         action: string(),
         option: string(),
-        side: array(string()),
+        side: array(string()).optional(),
     })
 );
 

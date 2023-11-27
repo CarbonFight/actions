@@ -1,4 +1,4 @@
-const { object, string, number, boolean, array, coerce } = require('zod');
+const { object, string, number, boolean, array } = require('zod');
 const logger = require('../../logger-setup');
 
 exports.validateUser = (userObject) => {
@@ -24,7 +24,7 @@ const userSchema = object({
     target: number(),
     skipHowto: boolean(),
     connection_history: array(string()),
-    created_time: coerce.date(),
+    created_time: object({}),
 });
 
 exports.validateUserSchema = (userObject) => userSchema.safeParse(userObject);

@@ -12,7 +12,7 @@ const { updateUserSponsor } = require('./methods/update-sponsor-code');
 
 exports.userCreate = functions
     .region('europe-west6')
-    .firestore.document('/actions/{documentId}')
+    .firestore.document('/users/{documentId}')
     .onCreate(async (snap) => {
         const data = snap.data();
 

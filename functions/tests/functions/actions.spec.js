@@ -116,8 +116,8 @@ describe('A function is triggered by an action', () => {
     test('An action with modified `co2e` is not correctly updated: missing 1 field (poor mobile connection)', async () => {
         const wrapped = mockedFunctions.wrap(updateFunction);
 
-        const afterUpdate = slightlyMutate(actionsData.metroTrip, ['co2e']);
-        delete afterUpdate.co2e;
+        const afterUpdate = slightlyMutate(actionsData.metroTrip, ['count']);
+        delete afterUpdate.count;
 
         const result = await wrapped(
             await generateDocChange({
@@ -136,7 +136,7 @@ describe('A function is triggered by an action', () => {
                 code: 'invalid_type',
                 expected: 'number',
                 received: 'undefined',
-                path: ['co2e'],
+                path: ['count'],
                 message: 'Required',
             },
         ]);

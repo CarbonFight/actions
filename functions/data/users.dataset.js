@@ -22,7 +22,7 @@ module.exports.generateUser = () => ({
         dayjs(falso.randRecentDate()).format('DD/MM/YYYY'),
         dayjs(falso.randPastDate()).format('DD/MM/YYYY'),
     ],
-    created_time: dayjs(falso.randPastDate()).unix(),
+    created_time: falso.randPastDate(),
     display_name: falso.randFullName(),
     email: falso.randEmail(),
     first_Name: falso.randFirstName(),
