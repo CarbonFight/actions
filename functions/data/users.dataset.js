@@ -1,4 +1,5 @@
 const falso = require('@ngneat/falso');
+const dayjs = require('dayjs');
 
 function generateSponsorCode() {
     return Array.from({ length: 8 }, () =>
@@ -17,12 +18,15 @@ function generateTarget() {
 }
 
 module.exports.generateUser = () => ({
-    connection_history: [falso.randRecentDate(), falso.randPastDate()],
-    created_time: falso.randPastDate(),
+    connection_history: [
+        dayjs(falso.randRecentDate()).format('DD/MM/YYYY'),
+        dayjs(falso.randPastDate()).format('DD/MM/YYYY'),
+    ],
+    created_time: dayjs(falso.randPastDate()).unix(),
     display_name: falso.randFullName(),
     email: falso.randEmail(),
     first_Name: falso.randFirstName(),
-    hasCompletedHowto: falso.randBoolean(),
+    skipHowto: falso.randBoolean(),
     last_Name: falso.randLastName(),
     photo_url: falso.randAvatar(),
     sponsor: generateSponsorCode(),

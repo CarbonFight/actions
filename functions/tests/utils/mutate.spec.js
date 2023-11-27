@@ -1,4 +1,4 @@
-const { slightlyMutate } = require("./mutate");
+const { slightlyMutate } = require('./mutate');
 
 const originalObject = {
     first_Name: 'John',
@@ -7,7 +7,7 @@ const originalObject = {
         label: 'Hearth Team',
         value: 'hearth',
     },
-    hasCompletedHowto: false,
+    skipHowto: false,
 };
 
 describe('slightlyMutate', () => {
@@ -17,7 +17,11 @@ describe('slightlyMutate', () => {
     });
 
     it('2. Specific Key Mutation', () => {
-        const mutatedObject = slightlyMutate(originalObject, ['first_Name', 'team.label', 'hasCompletedHowto']);
+        const mutatedObject = slightlyMutate(originalObject, [
+            'first_Name',
+            'team.label',
+            'skipHowto',
+        ]);
         expect(mutatedObject).not.toEqual(originalObject);
         expect(mutatedObject.target).toEqual(originalObject.target);
     });
@@ -25,19 +29,25 @@ describe('slightlyMutate', () => {
     it('3. String Value Mutation', () => {
         const mutatedObject = slightlyMutate(originalObject, ['first_Name']);
         expect(mutatedObject.first_Name).not.toEqual(originalObject.first_Name);
-        expect(mutatedObject.first_Name.length).toEqual(originalObject.first_Name.length);
+        expect(mutatedObject.first_Name.length).toEqual(
+            originalObject.first_Name.length
+        );
     });
 
     it('4. Number Value Mutation', () => {
         const mutatedObject = slightlyMutate(originalObject, ['target']);
         expect(mutatedObject.target).not.toEqual(originalObject.target);
-        expect(mutatedObject.target).toBeGreaterThanOrEqual(mutatedObject.target*-1.5);
-        expect(mutatedObject.target).toBeLessThanOrEqual(mutatedObject.target*1.5);
+        expect(mutatedObject.target).toBeGreaterThanOrEqual(
+            mutatedObject.target * -1.5
+        );
+        expect(mutatedObject.target).toBeLessThanOrEqual(
+            mutatedObject.target * 1.5
+        );
     });
 
     it('5. Boolean Value Mutation', () => {
-        const mutatedObject = slightlyMutate(originalObject, ['hasCompletedHowto']);
-        expect(mutatedObject.hasCompletedHowto).toBe(!originalObject.hasCompletedHowto);
+        const mutatedObject = slightlyMutate(originalObject, ['skipHowto']);
+        expect(mutatedObject.skipHowto).toBe(!originalObject.skipHowto);
     });
 
     it('6. Empty Object Mutation', () => {

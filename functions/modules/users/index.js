@@ -1,11 +1,29 @@
 const functions = require('firebase-functions');
 
 const { dbInstance } = require('../../db-setup');
+const Logger = require('../../logger-setup');
+
+const { validateUserSchema } = require('./validation');
 
 const {
     getUserBySponsorshipCode,
 } = require('./methods/get-by-sponsorship-code');
 const { updateUserSponsor } = require('./methods/update-sponsor-code');
+
+exports.userCreate = functions
+    .region('europe-west6')
+    .firestore.document('/actions/{documentId}')
+    .onCreate(async (snap) => {
+        const data = snap.data();
+
+        const validationResult = validateUserSchema(data);
+
+        if (!validationResult.success) {
+            await snap.ref.delete();
+            Logger.error(validationResult);
+            return validationResult.error;
+        }
+    });
 
 exports.userUpdate = functions
     .region('europe-west6')
