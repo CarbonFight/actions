@@ -80,7 +80,7 @@
 - int **weekDigital** : Total CO2e for the week for category Digital
 - int **weekClothes** : Total CO2e for the week for category Clothes
 - int **weekAppliance** : Total CO2e for the week for category Appliance
-- double (list) **graphTotal** : total CO2e's array per day [0] the first day of the month, [30] is last day of the month, in KGs
+- double (list) **graphTotal** : total CO2e's array per day. [0] is 30 days ago, [30] is today, in KGs
 - int **monthTotal** : Total CO2e for the month
 - int **monthTransport** : Total CO2e for the month for category transport
 - int **monthServices** : Total CO2e for the month for category services
