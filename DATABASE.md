@@ -70,7 +70,6 @@
 - int **dayDigital** : Total CO2e for the day for category Digital
 - int **dayClothes** : Total CO2e for the day for category Clothes
 - int **dayAppliance** : Total CO2e for the day for category Appliance
-- int (list) **weekTotalPerDay** : total CO2e's array per day [0] the first day if the week, [6] is the last day.
 - int **weekTotal** : Total CO2e
 - int **weekTransport** : Total CO2e for the week for category transport
 - int **weekServices** : Total CO2e for the week for category services
@@ -81,7 +80,7 @@
 - int **weekDigital** : Total CO2e for the week for category Digital
 - int **weekClothes** : Total CO2e for the week for category Clothes
 - int **weekAppliance** : Total CO2e for the week for category Appliance
-- int (list) **monthTotalPerDay** : total CO2e's array per day [0] the first day of the month, [30] is last day of the month.
+- double (list) **graphTotal** : total CO2e's array per day [0] the first day of the month, [30] is last day of the month, in KGs
 - int **monthTotal** : Total CO2e for the month
 - int **monthTransport** : Total CO2e for the month for category transport
 - int **monthServices** : Total CO2e for the month for category services
@@ -92,7 +91,6 @@
 - int **monthDigital** : Total CO2e for the month for category Digital
 - int **monthClothes** : Total CO2e for the month for category Clothes
 - int **monthAppliance** : Total CO2e for the month for category Appliance
-- int (list) **yearTotalPerDay** : total CO2e's array per day [0] the actual month, [11] is the last month of the year.
 - int **yearTotal** : Total CO2e for the year
 - int **yearTransport** : Total CO2e for the year for category transport
 - int **yearServices** : Total CO2e for the year for category services
