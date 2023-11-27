@@ -16,7 +16,7 @@
 - String **sponsorship_code** : Sponsorship code XXXX-XXXX
 - String **sponsor** : Code from sponsor XXXX-XXXX
 - string **team** : Team
-- int **target** : Target (Goal) parameter of the user
+- double **target** : Target (Goal) parameter of the user. In Tonnes per year
 - bool **skipHowto** : has finished or skipped howto
 - DateTime (list) **connection_history** : (rafacto) list of last connexions
 
