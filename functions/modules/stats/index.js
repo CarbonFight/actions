@@ -51,14 +51,16 @@ exports.userUpdate = functions
             updates.eventUpdateTeamCount = fieldValue.increment(1);
         }
 
-        // Perform update
-        const statsRef = await db
-            .collection('stats')
-            .where('uid', '==', newValues.uid)
-            .limit(1)
-            .get();
-        if (!statsRef.empty) {
-            await statsRef.docs[0].ref.update(updates);
+        if (Object.keys(updates).length > 0) {
+            // Perform update
+            const statsRef = await db
+                .collection('stats')
+                .where('uid', '==', newValues.uid)
+                .limit(1)
+                .get();
+            if (!statsRef.empty) {
+                await statsRef.docs[0].ref.update(updates);
+            }
         }
 
         // If user sponsor is updated, increment sponsorCount of sponsoring User
