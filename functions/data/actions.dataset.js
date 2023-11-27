@@ -3,7 +3,7 @@ module.exports = {
     carTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
         id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-        created_time: dayjs().toDate(),
+        created_time: dayjs().subtract(4, 'day').toDate(),
         country: "FR",
         category: "transport",
         action: "car",
@@ -18,7 +18,7 @@ module.exports = {
     metroTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
         id: "9a4bb9cc-357f-4ec2-9f0a-7e8e849f8fc9",
-        created_time: dayjs().subtract(4, 'day').toDate(),
+        created_time: dayjs().toDate(),
         country: "FR",
         category: "transport",
         action: "metro",
@@ -29,7 +29,6 @@ module.exports = {
         roundtrip: false,
         isPeriodic: false,
     },
-
     fishRiceVegetablesMeal: {
         uid: "tm8nhYrYSPFOKJgdonAt",
         id: "c4128d54-4cb4-4a15-afab-b3d1464636f3",
