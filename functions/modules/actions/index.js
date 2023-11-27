@@ -14,17 +14,14 @@ exports.update = functions
         const co2eBefore = change.before.data().co2e;
         const co2eCurrent = change.after.data().co2e;
 
-        const validationResult = isParametersValidOnCreate(category, data);
+        if (co2eCurrent === co2eBefore) {
+          const validationResult = isParametersValidOnCreate(category, data);
 
-        if (!validationResult.success) {
-            await change.after.ref.delete();
-            Logger.error(validationResult);
-            return validationResult.error;
-        }
-
-        if (co2eCurrent !== co2eBefore) {
-            const co2e = co2eCurrent - co2eBefore;
-            await updateStats(category, data.userId, co2e);
+          if (!validationResult.success) {
+              await change.after.ref.delete();
+              Logger.error(validationResult);
+              return validationResult.error;
+          }
         }
     });
 
@@ -45,8 +42,6 @@ exports.create = functions
 
         const value = createActionModel(category, data);
         await snap.ref.set(value);
-
-        await updateStats(category, data.userId);
     });
 
 exports.delete = functions
@@ -54,8 +49,7 @@ exports.delete = functions
     .firestore.document('/actions/{documentId}')
     .onDelete(async (snap) => {
         try {
-            const data = snap.data();
-            await updateStats(data.category, data.userId, data.co2e);
+            const data = snap.data()
         } catch (error) {
             throw new Error(`${snap.data().category} delete failed, ${error}`);
         }

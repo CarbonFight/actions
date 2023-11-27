@@ -63,9 +63,6 @@ describe('A function is triggered by an action', () => {
 
         const newData = (await db.doc(actionPath).get()).data();
 
-        expect(
-            require('../../modules/stats/methods/update-stats').updateStats
-        ).toHaveBeenCalled();
         expect(newData).toBeTruthy();
     });
 
@@ -113,9 +110,6 @@ describe('A function is triggered by an action', () => {
         let newData = await db.doc(actionPath).get();
         newData = newData.data();
 
-        expect(
-            require('../../modules/stats/methods/update-stats').updateStats
-        ).toHaveBeenCalled();
         expect(newData.co2e).toBe(afterUpdate.co2e);
     });
 
@@ -162,9 +156,6 @@ describe('A function is triggered by an action', () => {
         let newData = await db.doc(actionPath).get();
         newData = newData.data();
 
-        expect(
-            require('../../modules/stats/methods/update-stats').updateStats
-        ).toHaveBeenCalled();
         expect(newData).toBeUndefined();
     });
 });

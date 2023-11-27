@@ -28,7 +28,7 @@ const mockedFunctions = fireTest({
 async function init() {
   await deleteCollectionsContent(db, ['users', 'actions', 'stats', 'challenges', 'badges'])
 
-  const user = usersData[0]
+  const user = usersData.generateUser()
   await db.doc('users/'+user.uid).set(user)
 
   const wrapped = mockedFunctions.wrap(createAction);
