@@ -11,6 +11,16 @@ function formatDateForDB(date) {
 }
 
 /**
+ * Checks if a given date is current day.
+ *
+ * @param {Date} date - The date to be checked.
+ * @returns {boolean} - True if the date is current day, otherwise false.
+ */
+function isCurrentDay(date) {
+    return dayjs(date).diff(dayjs(), 'days') === 0;
+}
+
+/**
  * Checks if a given date falls within the current week.
  *
  * @param {Date} date - The date to be checked.
@@ -43,6 +53,7 @@ function isCurrentYear(date) {
 
 module.exports = {
     formatDateForDB,
+    isCurrentDay,
     isCurrentWeek,
     isCurrentMonth,
     isCurrentYear

@@ -2,6 +2,7 @@ const Logger = require('../../../logger-setup');
 const { dbInstance, fieldValue } = require("../../../db-setup");
 const {
     formatDateForDB,
+    isCurrentDay,
     isCurrentWeek,
     isCurrentMonth,
     isCurrentYear
@@ -33,6 +34,10 @@ module.exports.updateStats = async function(action, method){
 
     statsToUpdate['days.' + actionDateDBFormat] = fieldValue.increment(action.co2e);
 
+    if (isCurrentDay(actionDate)) {
+        statsToUpdate.dayTotal = fieldValue.increment(action.co2e);
+        statsToUpdate['day' + category] = fieldValue.increment(action.co2e);
+    }
     if (isCurrentWeek(actionDate)) {
         statsToUpdate.weekTotal = fieldValue.increment(action.co2e);
         statsToUpdate['week' + category] = fieldValue.increment(action.co2e);
