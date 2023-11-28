@@ -18,24 +18,28 @@ function generateTarget() {
 }
 
 module.exports.generateUser = (params = {}) => {
-    const {
-        numberOfHistoryDates = 2,
-        historyDatesShouldFollow = false
-    } = params;
+    const { numberOfHistoryDates = 2, historyDatesShouldFollow = false } =
+        params;
     const addDays = (date, days) => dayjs(date).add(days, 'day').toDate();
 
     let connection_history;
 
     if (historyDatesShouldFollow) {
         const firstDate = falso.randRecentDate();
-        connection_history = Array.from({ length: numberOfHistoryDates }, (_, index) => addDays(firstDate, index));
+        connection_history = Array.from(
+            { length: numberOfHistoryDates },
+            (_, index) => addDays(firstDate, index)
+        );
     } else {
         let prevDate = falso.randRecentDate();
-        connection_history = Array.from({ length: numberOfHistoryDates }, (_, index) => {
-            const currentDate = addDays(prevDate, 2);
-            prevDate = currentDate;
-            return currentDate;
-        });
+        connection_history = Array.from(
+            { length: numberOfHistoryDates },
+            (_, index) => {
+                const currentDate = addDays(prevDate, 2);
+                prevDate = currentDate;
+                return currentDate;
+            }
+        );
     }
 
     return {
@@ -54,4 +58,3 @@ module.exports.generateUser = (params = {}) => {
         uid: falso.randUuid(),
     };
 };
-
