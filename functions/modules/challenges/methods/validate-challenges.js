@@ -61,13 +61,6 @@ exports.challengesList = {
             return statsObj.sponsorshipCount >= 10;
         },
     },
-    testStreak: {
-        score: 1000,
-        condition: function (statsObj) {
-            console.log('===========================================================')
-            return statsObj?.countConsecutiveDays >= 3;
-        },
-    },
     dayStreakLvl1: {
         score: 10,
         condition: function (statsObj) {
