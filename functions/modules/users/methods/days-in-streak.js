@@ -16,7 +16,8 @@ module.exports.daysInStreak = (timestamps) => {
     // Timestamp from firestore have a special type `Timestamp { _seconds: 1701331498, _nanoseconds: 616000000 }`
     // Parse in order to get same result from Firestore and Local emulator
     const parsedTimestamps =
-        timestamps[0]._seconds && timestamps[0]._nanoseconds
+        typeof timestamps[0]._seconds !== 'undefined' &&
+        typeof timestamps[0]._nanoseconds !== 'undefined'
             ? timestamps.map((t) => t.toDate())
             : timestamps;
 
