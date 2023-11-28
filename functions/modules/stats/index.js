@@ -56,16 +56,16 @@ exports.userUpdate = functions
         }
 
         // If user connection_history is updated, increment countConsecutiveDays or reset to 1
-        // if (
-        //     previousValues.connection_history.length <
-        //     newValues.connection_history.length
-        // ) {
-        const isDayInStreak = dayInStreak(newValues.connection_history);
+        if (
+            previousValues.connection_history.length <
+            newValues.connection_history.length
+        ) {
+            const isDayInStreak = dayInStreak(newValues.connection_history);
 
-        updates.countConsecutiveDays = isDayInStreak
-            ? fieldValue.increment(1)
-            : 1;
-        // }
+            updates.countConsecutiveDays = isDayInStreak
+                ? fieldValue.increment(1)
+                : 1;
+        }
 
         // Perform update
         const statsRef = await getStatsByUid(db, newValues.uid);
