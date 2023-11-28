@@ -7,7 +7,7 @@ const { createStatsModel } = require('./model');
 const { updateStats } = require('./methods/update-stats');
 const { updateSponsorCount } = require('./methods/update-sponsor-count');
 const { getStatsByUid } = require('./methods/get-stats-by-uid');
-const { dayInStreak } = require('../users/methods/day-in-streak');
+const { daysInStreak } = require('../users/methods/days-in-streak');
 
 exports.actionUpdate = functions
     .region('europe-west6')
@@ -60,11 +60,9 @@ exports.userUpdate = functions
             previousValues.connection_history.length <
             newValues.connection_history.length
         ) {
-            const isDayInStreak = dayInStreak(newValues.connection_history);
+            const streakCount = daysInStreak(newValues.connection_history);
 
-            updates.countConsecutiveDays = isDayInStreak
-                ? fieldValue.increment(1)
-                : 1;
+            updates.countConsecutiveDays = streakCount;
         }
 
         // Perform update
