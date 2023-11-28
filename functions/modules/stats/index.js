@@ -66,9 +66,11 @@ exports.userUpdate = functions
         }
 
         // Perform update
-        const statsRef = await getStatsByUid(db, newValues.uid);
-        if (statsRef && previousValues !== newValues) {
-            await statsRef.ref.update(updates);
+        if (Object.keys(updates).length > 0) {      
+            const statsRef = await getStatsByUid(db, newValues.uid);
+            if (statsRef && previousValues !== newValues) {
+                await statsRef.ref.update(updates);
+            }
         }
 
         // If user sponsor is updated, increment sponsorCount of sponsoring User
