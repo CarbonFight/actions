@@ -14,9 +14,7 @@ exports.update = functions
         const newStats = event.after.data();
         const uid = newStats.uid;
 
-        console.log(')))))))))))))))))))))) challenges')
-
-        await updateChallenges(db, newStats, uid);
+        await updateChallenges(db, uid, newStats);
     });
 
 exports.init = functions

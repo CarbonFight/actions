@@ -1,10 +1,9 @@
-const Logger = require('../../../logger-setup')
-const { challengesList } = require("./validate-challenges");
-const { calculateScore } = require("./calculate-score");
-const { getChallengeByUid } = require("./get-challenge-by-uid");
+const Logger = require('../../../logger-setup');
+const { challengesList } = require('./validate-challenges');
+const { calculateScore } = require('./calculate-score');
+const { getChallengeByUid } = require('./get-challenge-by-uid');
 
 module.exports.updateChallenges = async function (db, uid, statsObj) {
-    console.log(uid, statsObj)
     const updates = {};
 
     for (const [statKey, challenge] of Object.entries(challengesList)) {
@@ -12,16 +11,20 @@ module.exports.updateChallenges = async function (db, uid, statsObj) {
             updates[statKey] = true;
         }
     }
-    const challengeObjWithScore = await calculateScore(statsObj, challengesList);
+    const challengeObjWithScore = await calculateScore(
+        statsObj,
+        challengesList
+    );
 
     if (Object.keys(updates).length > 0) {
-        const userChallenges = await getChallengeByUid(db, uid)
+        const userChallenges = await getChallengeByUid(db, uid);
 
         if (userChallenges) {
-            console.log("000000000000000000000000000000000000 I WILL UPDATGE")
             await userChallenges.ref.update(challengeObjWithScore);
         } else {
-            Logger.error(`Can't update the challenge doc for user with uid: ${uid}`);
+            Logger.error(
+                `Can't update the challenge doc for user with uid: ${uid}`
+            );
         }
     }
 };

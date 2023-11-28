@@ -1,10 +1,13 @@
 const functions = require('firebase-functions');
+
+const { dbInstance, fieldValue } = require('../../db-setup');
+
 const { createStatsModel } = require('./model');
-const { dbInstance } = require('../../db-setup');
+
 const { updateStats } = require('./methods/update-stats');
 const { updateSponsorCount } = require('./methods/update-sponsor-count');
-const { fieldValue } = require('../../db-setup');
-const {getStatsByUid} = require("./methods/get-stats-by-uid");
+const { getStatsByUid } = require('./methods/get-stats-by-uid');
+const { daysInStreak } = require('../users/methods/days-in-streak');
 
 exports.actionUpdate = functions
     .region('europe-west6')
@@ -52,8 +55,18 @@ exports.userUpdate = functions
             updates.eventUpdateTeamCount = fieldValue.increment(1);
         }
 
+        // If user connection_history is updated, increment countConsecutiveDays or reset to 1
+        if (
+            previousValues.connection_history.length <
+            newValues.connection_history.length
+        ) {
+            const streakCount = daysInStreak(newValues.connection_history);
+
+            updates.countConsecutiveDays = streakCount;
+        }
+
         // Perform update
-        const statsRef = await getStatsByUid(db, newValues.uid)
+        const statsRef = await getStatsByUid(db, newValues.uid);
         if (statsRef && previousValues !== newValues) {
             await statsRef.ref.update(updates);
         }
