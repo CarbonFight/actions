@@ -9,6 +9,9 @@ const emptyChallenges = {
     periodicActionLvl1: false,
     hasEnoughSponsors: false,
     onboardingCompleted: false,
+    dayStreakLvl1: false,
+    dayStreakLvl2: false,
+    dayStreakLvl3: false,
 }
 
 let totalScore = 0;

@@ -1,4 +1,3 @@
-const Logger = require('../../../logger-setup');
 const { dbInstance, fieldValue } = require("../../../db-setup");
 const {
     formatDateForDB,

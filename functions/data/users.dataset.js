@@ -1,3 +1,4 @@
+const dayjs = require('dayjs');
 const falso = require('@ngneat/falso');
 
 function generateSponsorCode() {
@@ -16,18 +17,44 @@ function generateTarget() {
     return falso.rand(targets);
 }
 
-module.exports.generateUser = () => ({
-    connection_history: [falso.randRecentDate(), falso.randPastDate()],
-    created_time: falso.randPastDate(),
-    display_name: falso.randFullName(),
-    email: falso.randEmail(),
-    first_Name: falso.randFirstName(),
-    hasCompletedHowto: falso.randBoolean(),
-    last_Name: falso.randLastName(),
-    photo_url: falso.randAvatar(),
-    sponsor: generateSponsorCode(),
-    sponsorship_code: generateSponsorCode(),
-    target: generateTarget(),
-    team: generateTeam(),
-    uid: falso.randUuid(),
-});
+module.exports.generateUser = (params = {}) => {
+    const { numberOfHistoryDates = 2, historyDatesShouldFollow = false } =
+        params;
+    const addDays = (date, days) => dayjs(date).add(days, 'day').toDate();
+
+    let connection_history;
+
+    if (historyDatesShouldFollow) {
+        const firstDate = falso.randRecentDate();
+        connection_history = Array.from(
+            { length: numberOfHistoryDates },
+            (_, index) => addDays(firstDate, index)
+        );
+    } else {
+        let prevDate = falso.randRecentDate();
+        connection_history = Array.from(
+            { length: numberOfHistoryDates },
+            (_, index) => {
+                const currentDate = addDays(prevDate, 2);
+                prevDate = currentDate;
+                return currentDate;
+            }
+        );
+    }
+
+    return {
+        connection_history,
+        created_time: falso.randPastDate(),
+        display_name: falso.randFullName(),
+        email: falso.randEmail(),
+        first_Name: falso.randFirstName(),
+        hasCompletedHowto: falso.randBoolean(),
+        last_Name: falso.randLastName(),
+        photo_url: falso.randAvatar(),
+        sponsor: generateSponsorCode(),
+        sponsorship_code: generateSponsorCode(),
+        target: generateTarget(),
+        team: generateTeam(),
+        uid: falso.randUuid(),
+    };
+};

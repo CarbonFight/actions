@@ -1,4 +1,4 @@
-module.exports.calculateScore = function (challengesObj, challengesList) {
+module.exports.calculateScore = async function (challengesObj, challengesList) {
     let totalScore = 0;
     const challengeObj = {};
 
@@ -11,5 +11,7 @@ module.exports.calculateScore = function (challengesObj, challengesList) {
         totalScore += valid ? score : 0;
     }
 
-    return [totalScore, challengeObj];
+    challengeObj.score = totalScore
+
+    return challengeObj;
 };
