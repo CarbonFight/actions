@@ -9,3 +9,8 @@ module.exports.getStatsByUid = async function(db, uid){
     const userStats = await db.collection('stats').where('uid', '==', uid).limit(1).get();
     return userStats?.docs?.[0] || null;
 }
+
+module.exports.getStatsDataByUid = async function(db, uid){
+    const updatedUserStats = await db.collection('stats').where('uid', '==', uid).limit(1).get();
+    return updatedUserStats.docs.map( doc => doc.data())[0];
+}

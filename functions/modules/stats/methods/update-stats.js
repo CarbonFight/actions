@@ -4,7 +4,8 @@ const {
     isCurrentDay,
     isCurrentWeek,
     isCurrentMonth,
-    isCurrentYear
+    isCurrentYear,
+    parseDateFromDbFormat
 } = require("../../../utils/dates")
 const dayjs = require("dayjs");
 
@@ -58,13 +59,15 @@ module.exports.updateStats = async function(method, newValues = null, oldValues 
 
     } else {
         let co2e = newValues?.co2e;
+        let actionDbFormat = newActionDateDBFormat;
         if (method === 'update') {
             co2e = newValues.co2e - oldValues.co2e;
         } else if (method === 'delete') {
             co2e = -oldValues.co2e
+            actionDbFormat = oldActionDateDBFormat;
         }
 
-        statsToUpdate['days.' + newActionDateDBFormat] = fieldValue.increment(co2e);
+        statsToUpdate['days.' + actionDbFormat] = fieldValue.increment(co2e);
 
         if (isCurrentDay(newActionDate)) {
             setPeriodicStats(statsToUpdate, 'day', category, co2e)
@@ -85,7 +88,9 @@ module.exports.updateStats = async function(method, newValues = null, oldValues 
         .limit(1)
         .get();
 
-    await statToUpdate.docs[0].ref.update(statsToUpdate)
+    await statToUpdate.docs[0].ref.update(statsToUpdate);
+
+    await updateGraphTotalStats(db, uid);
 }
 
 const updateOrNot = (period, category, isCurrentPeriod, statsToUpdate, oldActionDate, newActionDate, oldValues, newValues) => {
@@ -108,4 +113,34 @@ const setPeriodicStats = (statsToUpdate, period, category, co2e) => {
     statsToUpdate[period + 'Total'] = fieldValue.increment(co2e);
     statsToUpdate[period + category] = fieldValue.increment(co2e);
     return statsToUpdate;
+}
+
+const updateGraphTotalStats = async (db, uid) => {
+    const statsToUpdate = await db.collection('stats')
+        .where('uid', '==', uid)
+        .limit(1)
+        .get();
+
+    const days = statsToUpdate.docs[0].data().days;
+    const currentDay = dayjs().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
+
+    const newGraphTotal = Object.keys(days).filter((key) => {
+        const diff = parseDateFromDbFormat(key).diff(currentDay, 'day');
+        return diff <= 0  && diff >= -29
+    }).reduce((obj, key, currentIndex) => {
+        obj[29 + parseDateFromDbFormat(key).diff(currentDay, 'day')] = days[key];
+        return obj;
+    }, {});
+
+    let newGraph = [];
+
+    for (let i = 0; i < 30; i++) {
+        let co2eByDay = 0;
+        if (newGraphTotal[i]) {
+            co2eByDay = newGraphTotal[i]
+        }
+        newGraph[i] = co2eByDay;
+    }
+
+    await statsToUpdate.docs[0].ref.update({graphTotal: newGraph});
 }

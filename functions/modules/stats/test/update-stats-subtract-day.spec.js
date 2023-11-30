@@ -5,12 +5,13 @@ const { mockedFunctions, deleteCollectionsContent } = require("../../../tests/_s
 const {
     init: initFunction,
     actionUpdate,
-} = require("../../stats");
+} = require("../index");
 const { dbInstance } = require("../../../db-setup");
 const { generateDocChange, generateDocSnapshot } = require("../../../tests/utils/change");
 const { setUserId } = require("../../../tests/utils/user");
 const dayjs = require("dayjs");
 const {formatDateForDB} = require("../../../utils/dates");
+const { getStatsDataByUid } = require("../methods/get-stats-by-uid");
 
 const userData = generateUser();
 const userPath = 'users/'+userData.uid
@@ -42,7 +43,7 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             path: userPath
         }))
 
-        const newData = await getStatByUid(db, userData.uid)
+        const newData = await getStatsDataByUid(db, userData.uid)
 
         expect(newData).toBeTruthy();
     });
@@ -53,7 +54,13 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             ...statsData.statsAfterMetroTripActionAdded,
             days: {
                 [actionDateDBFormat]: actionsData.metroTrip.co2e
-            }
+            },
+            graphTotal: [
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0, 20
+            ]
         }
 
         const wrapped = mockedFunctions.wrap(actionUpdate);
@@ -66,7 +73,7 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             after: actionData // Co2e = 20
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
         expect(data).toMatchObject(expectedData);
     });
@@ -77,7 +84,13 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             ...statsData.statsAfterMetroTripActionUpdated,
             days: {
                 [actionDateDBFormat]: 30
-            }
+            },
+            graphTotal: [
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0, 30
+            ]
         }
         const wrapped = mockedFunctions.wrap(actionUpdate);
         const actionData = await setUserId(db, actionsData.metroTrip);
@@ -92,7 +105,7 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             }
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
         expect(data).toMatchObject(expectedData);
     });
@@ -118,6 +131,12 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             monthTransport: statsData.statsAfterMetroTripActionUpdated.monthTransport, // 30
             yearTotal: statsData.statsAfterMetroTripActionUpdated.yearTotal, // 30
             yearTransport: statsData.statsAfterMetroTripActionUpdated.yearTransport, // 30
+            graphTotal: [
+                0, 0, 0, 0, 0, 0, 0,  0, 0,
+                0, 0, 0, 0, 0, 0, 0,  0, 0,
+                0, 0, 0, 0, 0, 0, 0, 30, 0,
+                0, 0, 0
+            ]
         }
 
         const wrapped = mockedFunctions.wrap(actionUpdate);
@@ -137,7 +156,7 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             }
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
         expect(data).toMatchObject(expectedData);
     });
@@ -159,6 +178,12 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             monthTransport: statsData.statsAfterMetroTripActionUpdated.monthTransport - 10, // 20
             yearTotal: statsData.statsAfterMetroTripActionUpdated.yearTotal - 10, // 20
             yearTransport: statsData.statsAfterMetroTripActionUpdated.yearTransport - 10, // 20
+            graphTotal: [
+                0, 0, 0, 0,  0, 0, 0, 0, 0,
+                0, 0, 0, 0,  0, 0, 0, 0, 0,
+                0, 0, 0, 0, 20, 0, 0, 0, 0,
+                0, 0, 0
+            ]
         }
 
         const wrapped = mockedFunctions.wrap(actionUpdate);
@@ -179,7 +204,7 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             }
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
         expect(data).toMatchObject(expectedData);
     });
@@ -219,7 +244,7 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             }
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
         expect(data).toMatchObject(expectedData);
     });
@@ -250,13 +275,13 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             path: actionPath,
             before: {
                 ...actionData,
-                created_time: dayjs(actionsData.metroTrip.created_time).subtract(35, 'day').toDate(),
+                created_time: dayjs(actionsData.metroTrip.created_time).subtract(1, 'month').toDate(),
                 co2e: 30,
             },
             after: {}
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
         expect(data).toMatchObject(expectedData);
     });
@@ -278,12 +303,3 @@ describe("A stat is updated because of an action's date change (subtract).", () 
     //     expect(data).toMatchObject(statsData.statsAfterMetroTripActionAdded);
     // });
 });
-
-async function getStatByUid(db, uid) {
-    const updatedUserStats = await db.collection('stats')
-        .where('uid', '==', uid)
-        .limit(1)
-        .get();
-
-    return updatedUserStats.docs.map( doc => doc.data())[0];
-}

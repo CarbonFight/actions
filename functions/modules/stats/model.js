@@ -24,6 +24,12 @@ exports.createStatsModel = function (uid) {
         eventUpdateTeamCount : 0,
 
         days: {},
+        graphTotal: [
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0
+        ],
 
         dayTotal: 0,
         dayTransport: 0,
