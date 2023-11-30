@@ -1,7 +1,7 @@
 const { generateUser } = require('../../../data/users.dataset');
 const actionsData= require("../../../data/actions.dataset");
 const statsData= require("../../../data/stats.dataset");
-const { mockedFunctions, setup, deleteCollectionsContent } = require("../../../tests/_setup");
+const { mockedFunctions, deleteCollectionsContent } = require("../../../tests/_setup");
 const {
     init: initFunction,
     actionUpdate,
