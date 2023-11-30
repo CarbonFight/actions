@@ -27,6 +27,22 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+      ],
+    "redirects": [
+      {
+        "source": "/adhesion",
+        "destination": "https://www.helloasso.com/associations/carbonfight/adhesions/adherant",
+        "type": 301
+      },
+      {
+        "source": "/dons",
+        "destination": "https://www.helloasso.com/associations/carbonfight/collectes/appel-aux-dons-pour-couvrir-les-depenses-de-2024",
+        "type": 301
+      },
+      {
+        "source": "/equipe",
+        "destination": "https://carbonfight.notion.site/Pour-commencer-14cc9ecfe03740af9f94d99e4cb08cfe?pvs=4",
+        "type": 301
+      } ]
   }
 }

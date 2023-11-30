@@ -1,9 +1,9 @@
-const Logger = require('../../../logger-setup')
-const { dbInstance } = require('../../../db-setup');
-const { challengesList } = require("./validate-challenges");
-const { calculateScore } = require("./calculate-score");
+const Logger = require('../../../logger-setup');
+const { challengesList } = require('./validate-challenges');
+const { calculateScore } = require('./calculate-score');
+const { getChallengeByUid } = require('./get-challenge-by-uid');
 
-module.exports.updateChallenges = async function (statsObj, uid) {
+module.exports.updateChallenges = async function (db, uid, statsObj) {
     const updates = {};
 
     for (const [statKey, challenge] of Object.entries(challengesList)) {
@@ -11,23 +11,20 @@ module.exports.updateChallenges = async function (statsObj, uid) {
             updates[statKey] = true;
         }
     }
-
-    const [score, challengeObj] = calculateScore(statsObj, challengesList);
-
-    const completedObject = {
-        ...statsObj,
-        ...challengeObj,
-        score,
-    };
+    const challengeObjWithScore = await calculateScore(
+        statsObj,
+        challengesList
+    );
 
     if (Object.keys(updates).length > 0) {
-        const db = await dbInstance();
-        const userChallenges = await db.collection('challenges').where('uid', '==', uid).limit(1).get();
+        const userChallenges = await getChallengeByUid(db, uid);
 
-        if (userChallenges?.docs?.[0]) {
-            await userChallenges.docs[0].ref.update(completedObject);
+        if (userChallenges) {
+            await userChallenges.ref.update(challengeObjWithScore);
         } else {
-            Logger.error(`Can't update the challenge doc for user with uid: ${uid}`);
+            Logger.error(
+                `Can't update the challenge doc for user with uid: ${uid}`
+            );
         }
     }
 };

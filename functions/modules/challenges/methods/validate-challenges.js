@@ -1,64 +1,82 @@
 exports.challengesList = {
     actionLvl1: {
         score: 10,
-        condition: function (data) {
-            return data.actionsCountTotal >= 10;
+        condition: function (statsObj) {
+            return statsObj.actionsCountTotal >= 10;
         },
     },
     actionLvl2: {
         score: 15,
-        condition: function (data) {
-            return data.actionsCountTotal >= 20;
+        condition: function (statsObj) {
+            return statsObj.actionsCountTotal >= 20;
         },
     },
     actionLvl3: {
         score: 30,
-        condition: function (data) {
-            return data.actionsCountTotal >= 50;
+        condition: function (statsObj) {
+            return statsObj.actionsCountTotal >= 50;
         },
     },
     actionLvl4: {
         score: 60,
-        condition: function (data) {
-            return data.actionsCountTotal >= 75;
+        condition: function (statsObj) {
+            return statsObj.actionsCountTotal >= 75;
         },
     },
     actionLvl5: {
         score: 100,
-        condition: function (data) {
-            return data.actionsCountTotal >= 100;
+        condition: function (statsObj) {
+            return statsObj.actionsCountTotal >= 100;
         },
     },
     periodicActionLvl1: {
         score: 10,
-        condition: function (data) {
-            return data.actionsPeriodicCountTotal >= 3;
+        condition: function (statsObj) {
+            return statsObj.actionsPeriodicCountTotal >= 3;
         },
     },
     onboardingCompleted: {
         score: 10,
-        condition: function (data) {
+        condition: function (statsObj) {
             return (
-                data.onboardingTransport &&
-                data.onboardingServices &&
-                data.onboardingObjects &&
-                data.onboardingLodging &&
-                data.onboardingFurniture &&
-                data.onboardingFood &&
-                data.onboardingDigital &&
-                data.onboardingClothes &&
-                data.onboardingAppliance &&
-                data.onboardingUpdateAction &&
-                data.onboardingDeleteAction &&
-                data.onboardingUpdateTarget &&
-                data.onboardingUpdateTeam
+                statsObj.onboardingTransport &&
+                statsObj.onboardingServices &&
+                statsObj.onboardingObjects &&
+                statsObj.onboardingLodging &&
+                statsObj.onboardingFurniture &&
+                statsObj.onboardingFood &&
+                statsObj.onboardingDigital &&
+                statsObj.onboardingClothes &&
+                statsObj.onboardingAppliance &&
+                statsObj.onboardingUpdateAction &&
+                statsObj.onboardingDeleteAction &&
+                statsObj.onboardingUpdateTarget &&
+                statsObj.onboardingUpdateTeam
             );
         },
     },
     hasEnoughSponsors: {
         score: 100,
-        condition: function (data) {
-            return data.sponsorshipCount >= 10;
+        condition: function (statsObj) {
+            return statsObj.sponsorshipCount >= 10;
+        },
+    },
+    dayStreakLvl1: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj?.countConsecutiveDays >= 7;
+        },
+    },
+    dayStreakLvl2: {
+        score: 50,
+        condition: function (statsObj) {
+            return statsObj?.countConsecutiveDays >= 15;
+        },
+    },
+    dayStreakLvl3: {
+        score: 100,
+        condition: function (statsObj) {
+            return statsObj?.countConsecutiveDays >= 30;
         },
     },
 };

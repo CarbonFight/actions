@@ -7,7 +7,7 @@ const { validateUserSchema } = require('./validation');
 
 const {
     getUserBySponsorshipCode,
-} = require('./methods/get-by-sponsorship-code');
+} = require('./methods/get-user-by-sponsorship-code');
 const { updateUserSponsor } = require('./methods/update-sponsor-code');
 
 exports.userCreate = functions

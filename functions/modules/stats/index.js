@@ -1,9 +1,13 @@
 const functions = require('firebase-functions');
+
+const { dbInstance, fieldValue } = require('../../db-setup');
+
 const { createStatsModel } = require('./model');
-const { dbInstance } = require('../../db-setup');
+
 const { updateStats } = require('./methods/update-stats');
 const { updateSponsorCount } = require('./methods/update-sponsor-count');
-const { fieldValue } = require('../../db-setup');
+const { getStatsByUid } = require('./methods/get-stats-by-uid');
+const { daysInStreak } = require('../users/methods/days-in-streak');
 
 exports.actionUpdate = functions
     .region('europe-west6')
@@ -42,23 +46,31 @@ exports.userUpdate = functions
         const updates = {};
 
         // If user target is updated, increment eventUpdateTargetCount
-        if (previousValues.target != newValues.target) {
+        if (previousValues.target !== newValues.target) {
             updates.eventUpdateTargetCount = fieldValue.increment(1);
         }
 
         // If user team is updated, increment eventUpdateTargetCount
-        if (previousValues.team != newValues.team) {
+        if (previousValues.team !== newValues.team) {
             updates.eventUpdateTeamCount = fieldValue.increment(1);
         }
 
+        // If user connection_history is updated, increment countConsecutiveDays or reset to 1
+        if (
+            previousValues.connection_history.length <
+            newValues.connection_history.length
+        ) {
+            const streakCount = daysInStreak(newValues.connection_history);
+
+            updates.countConsecutiveDays = streakCount;
+        }
+
         // Perform update
-        const statsRef = await db
-            .collection('stats')
-            .where('uid', '==', newValues.uid)
-            .limit(1)
-            .get();
-        if (!statsRef.empty) {
-            await statsRef.docs[0].ref.update(updates);
+        if (Object.keys(updates).length > 0) {      
+            const statsRef = await getStatsByUid(db, newValues.uid);
+            if (statsRef && previousValues !== newValues) {
+                await statsRef.ref.update(updates);
+            }
         }
 
         // If user sponsor is updated, increment sponsorCount of sponsoring User

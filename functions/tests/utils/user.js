@@ -19,6 +19,25 @@ module.exports.getUser = async function(db){
 }
 
 /**
+ * Updates user content in the 'users' collection in the database.
+ *
+ * @param {FirebaseFirestore} db - The Firestore database instance.
+ * @param {Object} content - The content to be updated in the user document.
+ * @returns {Promise<void>} A promise that resolves when the update is complete.
+ * @throws {Error} Throws an error if there is an issue accessing the 'users' collection or updating user content.
+ * @function
+ */
+module.exports.setUserContent = async function(db, content){
+    const users = await db.collection('users').limit(1).get();
+    const uid = users.docs[0].data().uid
+
+    return users.docs[0].ref.update({
+        ...content,
+        uid
+    });
+}
+
+/**
  * Sets the user ID in the provided object using data from the 'users' collection in the database.
  *
  * @param {FirebaseFirestore} db - The Firestore database instance.
