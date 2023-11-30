@@ -1,6 +1,5 @@
 const dayjs = require('dayjs');
 const falso = require('@ngneat/falso');
-const dayjs = require('dayjs');
 
 function generateSponsorCode() {
     return Array.from({ length: 8 }, () =>
@@ -49,7 +48,7 @@ module.exports.generateUser = (params = {}) => {
         display_name: falso.randFullName(),
         email: falso.randEmail(),
         first_Name: falso.randFirstName(),
-        hasCompletedHowto: falso.randBoolean(),
+        skipHowto: falso.randBoolean(),
         last_Name: falso.randLastName(),
         photo_url: falso.randAvatar(),
         sponsor: generateSponsorCode(),
@@ -58,4 +57,4 @@ module.exports.generateUser = (params = {}) => {
         team: generateTeam(),
         uid: falso.randUuid(),
     };
-}
+};

@@ -23,7 +23,7 @@ const userSchema = object({
     team: string().optional(),
     target: number(),
     skipHowto: boolean(),
-    connection_history: array(string()),
+    connection_history: array(object({})),
     created_time: object({}),
 });
 
