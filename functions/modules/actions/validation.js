@@ -7,37 +7,43 @@ const baseSchema = object({
     created_time: object({}),
     country: string(),
     category: string(),
+    action: string(),
+    option: string().optional(),
     co2e: number(),
     count: number(),
     emission_factor: number(),
     isPeriodic: boolean(),
+    periodicity: array(string()).optional(),
+});
+
+const purchaseDetailsSchema = object({
+    newPurchase: boolean(),
+    startDepreciation: object({}),
+    endDepreciation: object({}),
 });
 
 const transportSchema = baseSchema.merge(
     object({
-        action: string(),
-        option: string(),
         peopleSharing: number().optional(),
-        roundtrip: boolean(),
+        roundtrip: boolean().optional(),
     })
 );
 
 const foodSchema = baseSchema.merge(
     object({
-        action: string(),
-        option: string(),
         side: array(string()).optional(),
     })
 );
 
 const energySchema = baseSchema.merge(
     object({
-        action: string(),
-        option: string(),
-        peopleSharing: number(),
-        periodicity: array(string()),
+        peopleSharing: number().optional(),
     })
 );
+
+const clothesSchema = baseSchema.merge(purchaseDetailsSchema);
+
+const digitalSchema = baseSchema.merge(purchaseDetailsSchema);
 
 exports.validateActionModel = function (actionObject) {
     return baseSchema.safeParse(actionObject);
@@ -53,6 +59,10 @@ exports.isParametersValidOnCreate = function (category, data) {
             return userId && foodSchema.safeParse(data);
         case 'energy':
             return userId && energySchema.safeParse(data);
+        case 'clothes':
+            return userId && clothesSchema.safeParse(data);
+        case 'digital':
+            return userId && digitalSchema.safeParse(data);
         default:
             Logger.error(`action category '${category}' not implemented`);
             return;
