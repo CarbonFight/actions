@@ -1,4 +1,4 @@
-const dayjs = require("dayjs");
+const dayjs = require('dayjs');
 module.exports = {
     carTrip: {
         uid: "tm8nhYrYSPFOKJgdonAt",
@@ -40,7 +40,7 @@ module.exports = {
         co2e: 767,
         count: 1,
         emission_factor: 100,
-        side: ["Riz", "Légumes"],
+        side: ['Riz', 'Légumes'],
         isPeriodic: false,
     },
 
@@ -57,7 +57,15 @@ module.exports = {
         emission_factor: 17,
         peopleSharing: 4,
         isPeriodic: true,
-        periodicity: ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+        periodicity: [
+            'lundi',
+            'mardi',
+            'mercredi',
+            'jeudi',
+            'vendredi',
+            'samedi',
+            'dimanche',
+        ],
     },
 
     dailyEspressoCoffees: {
@@ -72,6 +80,13 @@ module.exports = {
         count: 2,
         emission_factor: 100,
         isPeriodic: true,
-        periodicity: ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+        periodicity: [
+            'lundi',
+            'mardi',
+            'mercredi',
+            'jeudi',
+            'vendredi',
+            'samedi',
+        ],
     },
 };

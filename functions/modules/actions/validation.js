@@ -1,8 +1,10 @@
 const { object, string, number, boolean, array } = require('zod');
 
+const Logger = require('../../logger-setup');
+
 const baseSchema = object({
     uid: string(),
-    created_time: string(),
+    created_time: object({}),
     country: string(),
     category: string(),
     co2e: number(),
@@ -15,7 +17,7 @@ const transportSchema = baseSchema.merge(
     object({
         action: string(),
         option: string(),
-        peopleSharing: number(),
+        peopleSharing: number().optional(),
         roundtrip: boolean(),
     })
 );
@@ -24,7 +26,7 @@ const foodSchema = baseSchema.merge(
     object({
         action: string(),
         option: string(),
-        side: array(string()),
+        side: array(string()).optional(),
     })
 );
 
@@ -41,45 +43,18 @@ exports.validateActionModel = function (actionObject) {
     return baseSchema.safeParse(actionObject);
 };
 
-exports.validateTransportAction = function (actionObject) {
-    return transportSchema.safeParse(actionObject);
-};
-
-exports.validateFoodAction = function (actionObject) {
-    return foodSchema.safeParse(actionObject);
-};
-
-exports.validateEnergyAction = function (actionObject) {
-    return energySchema.safeParse(actionObject);
-};
-
 exports.isParametersValidOnCreate = function (category, data) {
     const userId = typeof data.uid !== 'undefined';
 
-    if (category === 'transport') {
-        return userId && transportSchema.pick({
-            uid: data.uid,
-            action: data.action,
-            option: data.option,
-            peopleSharing: data.peopleSharing,
-            roundtrip: data.roundtrip,
-        }).safeParse(data);
-    } else if (category === 'food') {
-        return userId && foodSchema.pick({
-            uid: data.uid,
-            action: data.action,
-            option: data.option,
-            side: data.side,
-        }).safeParse(data);
-    } else if (category === 'energy') {
-        return userId && energySchema.pick({
-            uid: data.uid,
-            action: data.action,
-            option: data.option,
-            peopleSharing: data.peopleSharing,
-            periodicity: data.periodicity,
-        }).safeParse(data);
-    } else {
-        return false;
+    switch (category) {
+        case 'transport':
+            return userId && transportSchema.safeParse(data);
+        case 'food':
+            return userId && foodSchema.safeParse(data);
+        case 'energy':
+            return userId && energySchema.safeParse(data);
+        default:
+            Logger.error(`action category '${category}' not implemented`);
+            return;
     }
 };
