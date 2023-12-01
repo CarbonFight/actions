@@ -41,19 +41,23 @@ exports.userUpdate = functions
         const updates = {};
 
         // If user target is updated, increment eventUpdateTargetCount
-        if (previousValues.target !== newValues.target) {
+        if (
+            previousValues.target &&
+            previousValues.target !== newValues.target
+        ) {
             updates.eventUpdateTargetCount = fieldValue.increment(1);
         }
 
         // If user team is updated, increment eventUpdateTargetCount
-        if (previousValues.team !== newValues.team) {
+        if (previousValues.team && previousValues.team !== newValues.team) {
             updates.eventUpdateTeamCount = fieldValue.increment(1);
         }
 
         // If user connection_history is updated, increment countConsecutiveDays or reset to 1
         if (
+            previousValues.connection_history &&
             previousValues.connection_history.length <
-            newValues.connection_history.length
+                newValues.connection_history.length
         ) {
             const streakCount = daysInStreak(newValues.connection_history);
 
@@ -69,7 +73,7 @@ exports.userUpdate = functions
         }
 
         // If user sponsor is updated, increment sponsorCount of sponsoring User
-        if (!previousValues.sponsor) {
+        if (!previousValues.sponsor && newValues.sponsor) {
             await updateSponsorCount(db, newValues.sponsor);
         }
     });
