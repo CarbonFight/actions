@@ -1,4 +1,13 @@
 const dayjs = require("dayjs");
+const customParseFormat = require('dayjs/plugin/customParseFormat')
+const utc = require('dayjs/plugin/utc')
+const timezone = require('dayjs/plugin/timezone')
+
+dayjs.extend(customParseFormat)
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
+dayjs.tz.setDefault('Europe/Paris')
 
 /**
  * Formats a given date for database storage in the format 'DDMMYYYY'.
@@ -8,6 +17,16 @@ const dayjs = require("dayjs");
  */
 function formatDateForDB(date) {
     return dayjs(date).format('DDMMYYYY');
+}
+
+/**
+ * Parses a date from a given database format using dayjs.
+ *
+ * @param {string} format - The date string to parse in the 'DDMMYYYY' format.
+ * @returns {dayjs} - A dayjs object representing the parsed date.
+ */
+function parseDateFromDbFormat(format) {
+    return dayjs(format, 'DDMMYYYY')
 }
 
 /**
@@ -56,5 +75,6 @@ module.exports = {
     isCurrentDay,
     isCurrentWeek,
     isCurrentMonth,
-    isCurrentYear
+    isCurrentYear,
+    parseDateFromDbFormat,
 }

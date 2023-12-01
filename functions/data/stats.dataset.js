@@ -1,4 +1,5 @@
 const actionsData= require("../data/actions.dataset");
+const { formatDateForDB } = require("../utils/dates");
 
 const emptyOnboarding = {
     onboardingTransport: false,
@@ -41,6 +42,14 @@ const emptyStats = {
     eventUpdateTargetCount : 0,
     eventUpdateTeamCount : 0,
 
+    days: {},
+    graphTotal: [
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0
+    ],
+
     dayTotal: 0,
     dayTransport: 0,
     dayServices: 0,
@@ -52,7 +61,6 @@ const emptyStats = {
     dayClothes: 0,
     dayAppliance: 0,
 
-    weekTotalPerDay : [0],
     weekTotal : 0,
     weekTransport : 0,
     weekServices : 0,
@@ -64,8 +72,7 @@ const emptyStats = {
     weekClothes : 0,
     weekAppliance : 0,
 
-    monthTotalPerDay : [0],
-    // monthTotal : 0,
+    monthTotal : 0,
     monthTransport : 0,
     monthServices : 0,
     monthObjects : 0,
@@ -76,7 +83,6 @@ const emptyStats = {
     monthClothes : 0,
     monthAppliance : 0,
 
-    yearTotalPerDay : [],
     yearTotal : 0,
     yearTransport : 0,
     yearServices : 0,
@@ -87,6 +93,56 @@ const emptyStats = {
     yearDigital : 0,
     yearClothes : 0,
     yearAppliance : 0,
+}
+
+const statsAfterMetroTripActionAdded = {
+    ...emptyStats,
+    actionsCountTotal : emptyStats.actionsCountTotal + 1,
+    eventActionAddCount: emptyStats.eventActionAddCount + 1,
+    actionsCountTransport: emptyStats.actionsCountTransport + 1,
+    dayTotal: emptyStats.dayTotal + actionsData.metroTrip.co2e,
+    dayTransport: emptyStats.dayTransport + actionsData.metroTrip.co2e,
+    weekTotal: emptyStats.weekTotal + actionsData.metroTrip.co2e,
+    weekTransport: emptyStats.weekTransport + actionsData.metroTrip.co2e,
+    monthTotal: emptyStats.monthTotal + actionsData.metroTrip.co2e,
+    monthTransport: emptyStats.monthTransport + actionsData.metroTrip.co2e,
+    yearTotal: emptyStats.yearTotal + actionsData.metroTrip.co2e,
+    yearTransport: emptyStats.yearTransport + actionsData.metroTrip.co2e,
+};
+
+const statsAfterMetroTripActionUpdated = {
+    ...emptyStats,
+    actionsCountTotal : statsAfterMetroTripActionAdded.actionsCountTotal,
+    eventActionAddCount: statsAfterMetroTripActionAdded.eventActionAddCount,
+    eventActionUpdateCount: statsAfterMetroTripActionAdded.eventActionUpdateCount + 1,
+    actionsCountTransport: statsAfterMetroTripActionAdded.actionsCountTransport,
+    // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
+    dayTotal: statsAfterMetroTripActionAdded.dayTotal + 10,
+    dayTransport: statsAfterMetroTripActionAdded.dayTransport + 10,
+    weekTotal: statsAfterMetroTripActionAdded.weekTotal + 10,
+    weekTransport: statsAfterMetroTripActionAdded.weekTransport + 10,
+    monthTotal: statsAfterMetroTripActionAdded.monthTotal + 10,
+    monthTransport: statsAfterMetroTripActionAdded.monthTransport + 10,
+    yearTotal: statsAfterMetroTripActionAdded.yearTotal + 10,
+    yearTransport: statsAfterMetroTripActionAdded.yearTransport + 10,
+};
+
+const statsAfterMetroTripActionDeleted = {
+    ...emptyStats,
+    actionsCountTotal : statsAfterMetroTripActionUpdated.actionsCountTotal - 1,
+    eventActionAddCount: statsAfterMetroTripActionUpdated.eventActionAddCount,
+    eventActionUpdateCount: statsAfterMetroTripActionUpdated.eventActionUpdateCount,
+    actionsCountTransport: statsAfterMetroTripActionUpdated.actionsCountTransport - 1,
+    eventActionDeleteCount: statsAfterMetroTripActionUpdated.eventActionDeleteCount + 1,
+    // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
+    dayTotal: statsAfterMetroTripActionUpdated.dayTotal - (actionsData.metroTrip.co2e + 10),
+    dayTransport: statsAfterMetroTripActionUpdated.dayTransport - (actionsData.metroTrip.co2e + 10),
+    weekTotal: statsAfterMetroTripActionUpdated.weekTotal - (actionsData.metroTrip.co2e + 10),
+    weekTransport: statsAfterMetroTripActionUpdated.weekTransport - (actionsData.metroTrip.co2e + 10),
+    monthTotal: statsAfterMetroTripActionUpdated.monthTotal - (actionsData.metroTrip.co2e + 10),
+    monthTransport: statsAfterMetroTripActionUpdated.monthTransport - (actionsData.metroTrip.co2e + 10),
+    yearTotal: statsAfterMetroTripActionUpdated.yearTotal - (actionsData.metroTrip.co2e + 10),
+    yearTransport: statsAfterMetroTripActionUpdated.yearTransport - (actionsData.metroTrip.co2e + 10),
 }
 
 module.exports = {
@@ -114,46 +170,7 @@ module.exports = {
         ...fullOnboarding,
         sponsorshipCount: 10,
     },
-    statsAfterMetroTripActionAdded: {
-        ...emptyStats,
-        eventActionAddCount: 1,
-        actionsCountTransport:  1,
-        // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
-        dayTotal: actionsData.metroTrip.co2e,
-        dayTransport: actionsData.metroTrip.co2e,
-        weekTotal: actionsData.metroTrip.co2e,
-        'weekTransport': actionsData.metroTrip.co2e,
-        monthTotal: actionsData.metroTrip.co2e,
-        'monthTransport': actionsData.metroTrip.co2e,
-        yearTotal: actionsData.metroTrip.co2e,
-        'yearTransport': actionsData.metroTrip.co2e,
-    },
-    statsAfterMetroTripActionUpdated: {
-        ...emptyStats,
-        eventActionAddCount: 1,
-        actionsCountTransport:  1,
-        // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
-        dayTotal: actionsData.metroTrip.co2e + 10,
-        dayTransport: actionsData.metroTrip.co2e + 10,
-        weekTotal: actionsData.metroTrip.co2e + 10,
-        'weekTransport': actionsData.metroTrip.co2e  + 10,
-        monthTotal: actionsData.metroTrip.co2e  + 10,
-        'monthTransport': actionsData.metroTrip.co2e  + 10,
-        yearTotal: actionsData.metroTrip.co2e  + 10,
-        'yearTransport': actionsData.metroTrip.co2e  + 10,
-    },
-    statsAfterMetroTripActionDeleted: {
-        ...emptyStats,
-        eventActionAddCount: 1,
-        actionsCountTransport:  0,
-        // ['days.' + action.created_time]:  actionsData.metroTrip.co2e,
-        dayTotal: 0,
-        dayTransport: 0,
-        weekTotal: 0,
-        'weekTransport': 0,
-        monthTotal: 0,
-        'monthTransport': 0,
-        yearTotal: 0,
-        'yearTransport': 0,
-    }
+    statsAfterMetroTripActionAdded,
+    statsAfterMetroTripActionUpdated,
+    statsAfterMetroTripActionDeleted,
 }

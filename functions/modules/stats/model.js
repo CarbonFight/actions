@@ -23,6 +23,14 @@ exports.createStatsModel = function (uid) {
         eventUpdateTargetCount : 0,
         eventUpdateTeamCount : 0,
 
+        days: {},
+        graphTotal: [
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0
+        ],
+
         dayTotal: 0,
         dayTransport: 0,
         dayServices: 0,
@@ -34,7 +42,6 @@ exports.createStatsModel = function (uid) {
         dayClothes: 0,
         dayAppliance: 0,
 
-        weekTotalPerDay : [0],
         weekTotal : 0,
         weekTransport : 0,
         weekServices : 0,
@@ -46,7 +53,6 @@ exports.createStatsModel = function (uid) {
         weekClothes : 0,
         weekAppliance : 0,
 
-        monthTotalPerDay : [0],
         monthTotal : 0,
         monthTransport : 0,
         monthServices : 0,
@@ -58,7 +64,6 @@ exports.createStatsModel = function (uid) {
         monthClothes : 0,
         monthAppliance : 0,
 
-        yearTotalPerDay : [],
         yearTotal : 0,
         yearTransport : 0,
         yearServices : 0,
@@ -69,5 +74,19 @@ exports.createStatsModel = function (uid) {
         yearDigital : 0,
         yearClothes : 0,
         yearAppliance : 0,
+
+        onboardingTransport: false,
+        onboardingServices: false,
+        onboardingObjects: false,
+        onboardingLodging: false,
+        onboardingFurniture: false,
+        onboardingFood: false,
+        onboardingDigital: false,
+        onboardingClothes: false,
+        onboardingAppliance: false,
+        onboardingUpdateAction: false,
+        onboardingDeleteAction: false,
+        onboardingUpdateTarget: false,
+        onboardingUpdateTeam: false,
     }
 }

@@ -1,9 +1,6 @@
 const functions = require('firebase-functions');
-
 const { dbInstance, fieldValue } = require('../../db-setup');
-
 const { createStatsModel } = require('./model');
-
 const { updateStats } = require('./methods/update-stats');
 const { updateSponsorCount } = require('./methods/update-sponsor-count');
 const { getStatsByUid } = require('./methods/get-stats-by-uid');
@@ -19,17 +16,15 @@ exports.actionUpdate = functions
 
         // NEW action
         if (!previousValues) {
-            await updateStats(newValues, 'create');
+            await updateStats('create', newValues);
         }
         // UPDATE action
         else if (previousValues && newValues) {
-            newValues.co2e -= previousValues.co2e;
-            await updateStats(newValues, 'update');
+            await updateStats('update', newValues, previousValues);
         }
         // DELETE action
         else if (!newValues) {
-            previousValues.co2e = -previousValues.co2e;
-            await updateStats(previousValues, 'delete');
+            await updateStats('delete', null, previousValues);
         }
     });
 
@@ -66,7 +61,7 @@ exports.userUpdate = functions
         }
 
         // Perform update
-        if (Object.keys(updates).length > 0) {      
+        if (Object.keys(updates).length > 0) {
             const statsRef = await getStatsByUid(db, newValues.uid);
             if (statsRef && previousValues !== newValues) {
                 await statsRef.ref.update(updates);

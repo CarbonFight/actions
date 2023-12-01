@@ -6,7 +6,7 @@ const {
 } = require('../../../tests/_setup');
 const { dbInstance } = require('../../../db-setup');
 
-const { updateSponsorCount } = require('./update-sponsor-count');
+const { updateSponsorCount } = require('../methods/update-sponsor-count');
 
 const userData = generateUser();
 const userPath = `users/${userData.uid}`;

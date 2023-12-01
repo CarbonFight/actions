@@ -1,14 +1,15 @@
 const { generateUser } = require('../../../data/users.dataset');
 const actionsData= require("../../../data/actions.dataset");
 const statsData= require("../../../data/stats.dataset");
-const { mockedFunctions, setup, deleteCollectionsContent } = require("../../../tests/_setup");
+const { mockedFunctions, deleteCollectionsContent } = require("../../../tests/_setup");
 const {
     init: initFunction,
     actionUpdate,
-} = require("../../stats");
+} = require("../index");
 const { dbInstance } = require("../../../db-setup");
 const { generateDocChange, generateDocSnapshot } = require("../../../tests/utils/change");
 const { setUserId } = require("../../../tests/utils/user");
+const { getStatsDataByUid } = require("../methods/get-stats-by-uid");
 
 const userData = generateUser();
 const userPath = 'users/'+userData.uid
@@ -40,12 +41,22 @@ describe("A stat is updated because of an action change.", () => {
             path: userPath
         }))
 
-        const newData = await getStatByUid(db, userData.uid)
+        const newData = await getStatsDataByUid(db, userData.uid)
 
         expect(newData).toBeTruthy();
     });
 
     test("Stats are updated after an action is added.", async () => {
+        const expectedData = {
+            ...statsData.statsAfterMetroTripActionAdded,
+            graphTotal: [
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0, 20
+            ]
+        }
+
         const wrapped = mockedFunctions.wrap(actionUpdate);
         const actionData = await setUserId(db, actionsData.metroTrip);
 
@@ -56,12 +67,21 @@ describe("A stat is updated because of an action change.", () => {
             after: actionData
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
-        expect(data).toMatchObject(statsData.statsAfterMetroTripActionAdded);
+        expect(data).toMatchObject(expectedData);
     });
 
     test("Stats are updated after an action is updated.", async () => {
+        const expectedData = {
+            ...statsData.statsAfterMetroTripActionUpdated,
+            graphTotal: [
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0,  0, 0, 0, 0, 0, 0, 0,
+                0, 0, 30
+            ]
+        }
         const wrapped = mockedFunctions.wrap(actionUpdate);
         const actionData = await setUserId(db, actionsData.metroTrip);
 
@@ -75,9 +95,9 @@ describe("A stat is updated because of an action change.", () => {
             }
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
-        expect(data).toMatchObject(statsData.statsAfterMetroTripActionUpdated);
+        expect(data).toMatchObject(expectedData);
     });
 
     test("Stats are updated after an action is deleted.", async () => {
@@ -94,7 +114,7 @@ describe("A stat is updated because of an action change.", () => {
             after: {}
         }));
 
-        const data = await getStatByUid(db, actionData.uid);
+        const data = await getStatsDataByUid(db, actionData.uid);
 
         expect(data).toMatchObject(statsData.statsAfterMetroTripActionDeleted);
     });
@@ -116,12 +136,3 @@ describe("A stat is updated because of an action change.", () => {
     //     expect(data).toMatchObject(statsData.statsAfterMetroTripActionAdded);
     // });
 });
-
-async function getStatByUid(db, uid) {
-    const updatedUserStats = await db.collection('stats')
-        .where('uid', '==', uid)
-        .limit(1)
-        .get();
-
-    return updatedUserStats.docs.map( doc => doc.data())[0];
-}
