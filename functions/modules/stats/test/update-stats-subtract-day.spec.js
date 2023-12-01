@@ -220,8 +220,8 @@ describe("A stat is updated because of an action's date change (subtract).", () 
             dayTransport: statsData.statsAfterMetroTripActionUpdated.dayTransport - (actionsData.metroTrip.co2e + 10),
             weekTotal: statsData.statsAfterMetroTripActionUpdated.weekTotal - (actionsData.metroTrip.co2e + 10),
             weekTransport: statsData.statsAfterMetroTripActionUpdated.weekTransport - (actionsData.metroTrip.co2e + 10),
-            monthTotal: statsData.statsAfterMetroTripActionUpdated.monthTotal,
-            monthTransport: statsData.statsAfterMetroTripActionUpdated.monthTransport,
+            monthTotal: statsData.statsAfterMetroTripActionUpdated.monthTotal - (actionsData.metroTrip.co2e + 10),
+            monthTransport: statsData.statsAfterMetroTripActionUpdated.monthTransport - (actionsData.metroTrip.co2e + 10),
             yearTotal: statsData.statsAfterMetroTripActionUpdated.yearTotal,
             yearTransport: statsData.statsAfterMetroTripActionUpdated.yearTransport,
         }

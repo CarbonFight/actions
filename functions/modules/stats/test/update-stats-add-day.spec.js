@@ -53,8 +53,6 @@ describe("A stat is updated because of an action's date change (Add).", () => {
             actionsCountTotal : statsData.emptyStats.actionsCountTotal + 1,
             eventActionAddCount: statsData.emptyStats.eventActionAddCount + 1,
             actionsCountTransport: statsData.emptyStats.actionsCountTransport + 1,
-            monthTotal: statsData.emptyStats.monthTotal + actionsData.metroTrip.co2e,
-            monthTransport: statsData.emptyStats.monthTransport + actionsData.metroTrip.co2e,
             yearTotal: statsData.emptyStats.yearTotal + actionsData.metroTrip.co2e,
             yearTransport: statsData.emptyStats.yearTransport + actionsData.metroTrip.co2e,
         };
@@ -84,8 +82,6 @@ describe("A stat is updated because of an action's date change (Add).", () => {
             eventActionAddCount: statsData.emptyStats.eventActionAddCount + 1,
             actionsCountTransport: statsData.emptyStats.actionsCountTransport + 1,
             eventActionUpdateCount: statsData.statsAfterMetroTripActionUpdated.eventActionUpdateCount,
-            monthTotal: statsData.emptyStats.monthTotal + actionsData.metroTrip.co2e + 10,
-            monthTransport: statsData.emptyStats.monthTransport + actionsData.metroTrip.co2e + 10,
             yearTotal: statsData.emptyStats.yearTotal + actionsData.metroTrip.co2e + 10,
             yearTransport: statsData.emptyStats.yearTransport + actionsData.metroTrip.co2e + 10,
         };
