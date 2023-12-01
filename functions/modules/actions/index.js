@@ -2,7 +2,6 @@ const functions = require('firebase-functions');
 const Logger = require('../../logger-setup');
 const { isParametersValidOnCreate } = require('./validation');
 const { updateStats } = require('../stats/methods/update-stats');
-const { createActionModel } = require('./model');
 
 exports.update = functions
     .region('europe-west6')
@@ -15,13 +14,13 @@ exports.update = functions
         const co2eCurrent = change.after.data().co2e;
 
         if (co2eCurrent === co2eBefore) {
-          const validationResult = isParametersValidOnCreate(category, data);
+            const validationResult = isParametersValidOnCreate(category, data);
 
-          if (!validationResult.success) {
-              await change.after.ref.delete();
-              Logger.error(validationResult);
-              return validationResult.error;
-          }
+            if (!validationResult.success) {
+                await change.after.ref.delete();
+                Logger.error(validationResult);
+                return validationResult.error;
+            }
         }
     });
 
@@ -40,8 +39,7 @@ exports.create = functions
             return validationResult.error;
         }
 
-        const value = createActionModel(category, data);
-        await snap.ref.set(value);
+        await snap.ref.set(data);
     });
 
 exports.delete = functions
@@ -49,7 +47,7 @@ exports.delete = functions
     .firestore.document('/actions/{documentId}')
     .onDelete(async (snap) => {
         try {
-            const data = snap.data()
+            const data = snap.data();
         } catch (error) {
             throw new Error(`${snap.data().category} delete failed, ${error}`);
         }
