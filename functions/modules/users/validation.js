@@ -19,11 +19,11 @@ const userSchema = object({
     first_Name: string().optional(),
     email: string().email(),
     photo_url: string().url().optional(),
-    sponsorship_code: string(),
+    sponsorship_code: string().optional(),
     team: string().optional(),
-    target: number(),
-    skipHowto: boolean(),
-    connection_history: array(object({})),
+    target: number().optional(),
+    skipHowto: boolean().optional(),
+    connection_history: array(object({})).optional(),
     created_time: object({}),
 });
 
