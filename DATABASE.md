@@ -123,6 +123,13 @@
 - bool **dayStreakLvl[1,2,3]** : countConsecutiveDays >= [7,15,30]
 - bool **actionLvl[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
 
+## Success
+
+- string **uid** : UserId, users table
+- int **led** : led lamps
+- int **pub** : use stop pub on mailbox
+- int **greenEnergy** : use green option in energy contracts
+
 ## Badges
 
 - **uid** : UserId, users table

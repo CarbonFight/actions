@@ -1,5 +1,6 @@
 exports.badges = require('./modules/badges')
 exports.users = require('./modules/users')
 exports.challenges = require('./modules/challenges')
+exports.success = require('./modules/success')
 exports.crons = require('./modules/crons')
 exports.stats = require('./modules/stats')
