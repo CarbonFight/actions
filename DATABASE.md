@@ -105,6 +105,7 @@
 ## Challenges
 
 - string **uid** : UserId, users table
+- int **
 - bool **onboardingTransport** : actionsCountTransport > 0
 - bool **onboardingServices** : actionsCountServices > 0
 - bool **onboardingObjects** : actionsCountObjects > 0
@@ -119,6 +120,8 @@
 - bool **onboardingUpdateTarget** : eventUpdateTargetCount > 0
 - bool **onboardingUpdateTeam** : eventUpdateTeamCount > 0
 - bool **hasEnoughSponsors** : sponsorshipCount >= 10
+- bool **dayStreakLvl[1,2,3]** : countConsecutiveDays >= [7,15,30]
+- bool **actionLvl[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
 
 ## Badges
 

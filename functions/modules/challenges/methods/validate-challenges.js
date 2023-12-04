@@ -35,24 +35,58 @@ exports.challengesList = {
             return statsObj.actionsPeriodicCountTotal >= 3;
         },
     },
-    onboardingCompleted: {
+    onboardingTransport: {
         score: 10,
         condition: function (statsObj) {
-            return (
-                statsObj.onboardingTransport &&
-                statsObj.onboardingServices &&
-                statsObj.onboardingObjects &&
-                statsObj.onboardingLodging &&
-                statsObj.onboardingFurniture &&
-                statsObj.onboardingFood &&
-                statsObj.onboardingDigital &&
-                statsObj.onboardingClothes &&
-                statsObj.onboardingAppliance &&
-                statsObj.onboardingUpdateAction &&
-                statsObj.onboardingDeleteAction &&
-                statsObj.onboardingUpdateTarget &&
-                statsObj.onboardingUpdateTeam
-            );
+            return statsObj.actionsCountTransport >= 1;
+        },
+    },
+    onboardingServices: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountServices >= 1;
+        },
+    },
+    onboardingObjects: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountObjects >= 1;
+        },
+    },
+    onboardingLodging: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountLodging >= 1;
+        },
+    },
+    onboardingFurniture: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountFurniture >= 1;
+        },
+    },
+    onboardingFood: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountFood >= 1;
+        },
+    },
+    onboardingDigital: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountDigital >= 1;
+        },
+    },
+    onboardingClothes: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountClothes >= 1;
+        },
+    },
+    onboardingAppliance: {
+        score: 10,
+        condition: function (statsObj) {
+            return statsObj.actionsCountAppliance >= 1;
         },
     },
     hasEnoughSponsors: {
