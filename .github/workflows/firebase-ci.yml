@@ -28,22 +28,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Cache Firebase Tools
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cache/firebase
-          key: ${{ runner.os }}-firebase-${{ hashFiles('functions/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-firebase-
-
       - name: Install Firebase CLI 🛠️
         run: npm install -g firebase-tools
 
       - name: Install dependencies 🛠️
         env:
           CI: true
-        run: npm --prefix ./functions ci ./functions --ignore-scripts
+        run: npm --prefix ./functions ci ./functions
 
       - name: Start Firebase Emulator 💻
         run: firebase emulators:start --only firestore &
