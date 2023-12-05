@@ -9,7 +9,7 @@
         "deploy": "firebase deploy --only functions",
         "logs": "firebase functions:log",
         "data": "node firestore_export.js",
-        "test": "jest --detectOpenHandles",
+        "test": "jest --detectOpenHandles --forceExit",
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "prepare": "if [ -z \"$GOOGLE_FUNCTION_TARGET\" ]; then cd .. && husky install functions/.husky; fi"
