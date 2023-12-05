@@ -27,5 +27,8 @@ jobs:
         run: firebase emulators:start --only firestore &
         shell: bash
 
+      - name: Wait for Emulator to Start
+        run: sleep 5
+
       - name: Run tests
         run: npm run test --prefix functions
