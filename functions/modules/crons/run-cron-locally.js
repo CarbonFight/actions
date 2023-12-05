@@ -1,8 +1,13 @@
-const { resetDailyStats } = require('./methods/resetDailyStats');
+const { resetDailyStats } = require('./methods/reset-daily-stats');
+const { addPeriodicActions } = require('./methods/add-periodic-actions');
 
 const args = process.argv.slice(2);
 
-if (args.includes('day') || args.includes('all')) {
-    console.info('Periodic task "resetDailyStats" has been emulated.');
-    resetDailyStats();
+async function runCron() {
+    if (args.includes('day') || args.includes('all')) {
+        await resetDailyStats();
+        await addPeriodicActions();
+    }
 }
+
+runCron();
