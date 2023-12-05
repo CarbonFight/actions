@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Cache dependencies
+      - name: Cache dependencies 💾
         uses: actions/cache@v2
         with:
           path: ~/.npm
@@ -36,8 +36,7 @@ jobs:
         run: npm --prefix ./functions ci ./functions --ignore-scripts
 
       - name: Start Firebase Emulator 💻
-        run: firebase emulators:start --only firestore &
-        shell: bash
+        run: npx firebase emulators:start --only firestore &
 
       - name: Run tests 🧪
         run: npm run test --prefix functions
