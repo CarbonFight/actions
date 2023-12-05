@@ -17,14 +17,17 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install Firebase CLI  🛠️
+      - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Install dependencies  🛠️
+      - name: Install dependencies
+        env:
+          CI: true
         run: npm --prefix ./functions ci ./functions
 
-      - name: Start emulator and run tests 🧪
-        run: |
-          nohup firebase emulators:start --only firestore > /dev/null 2>&1 &
-          sleep 5
-          npm run test --prefix functions
+      - name: Start Firebase Emulator
+        run: firebase emulators:start --only firestore &
+        shell: bash
+
+      - name: Run tests
+        run: npm run test --prefix functions
