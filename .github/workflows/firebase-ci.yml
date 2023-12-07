@@ -41,7 +41,7 @@ jobs:
         shell: bash
 
       - name: Wait for emulator to start ⏱️
-        run: sleep 5
+        run: sleep 10
 
       - name: Run tests 🧪
         run: npm run test --prefix functions
