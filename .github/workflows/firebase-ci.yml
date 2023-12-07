@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js 🟢
         uses: actions/setup-node@v2
         with:
-          node-version: "16"
+          node-version: "20"
 
       - name: Cache Node.js modules 💾
         uses: actions/cache@v2
@@ -39,9 +39,6 @@ jobs:
       - name: Start Firebase Emulator 💻
         run: firebase emulators:start --only firestore &
         shell: bash
-
-      - name: Wait for emulator to start ⏱️
-        run: sleep 5
 
       - name: Run tests 🧪
         run: npm run test --prefix functions
