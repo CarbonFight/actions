@@ -43,6 +43,11 @@
         "source": "/equipe",
         "destination": "https://carbonfight.notion.site/Pour-commencer-14cc9ecfe03740af9f94d99e4cb08cfe?pvs=4",
         "type": 301
+      },
+      {
+        "source": "/delete",
+        "destination": "https://carbonfight.notion.site/Terms-Privacy-e88dc3436e724e6882810d591ee31c95?pvs=4",
+        "type": 301
       } ]
   }
 }
