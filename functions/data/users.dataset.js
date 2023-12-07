@@ -2,9 +2,13 @@ const dayjs = require('dayjs');
 const falso = require('@ngneat/falso');
 
 function generateSponsorCode() {
-    return Array.from({ length: 8 }, () =>
-        String.fromCharCode(Math.floor(Math.random() * 26) + 65)
-    ).join('-');
+    return Array.from(
+        { length: 6 },
+        () =>
+            '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[
+                Math.floor(Math.random() * 36)
+            ]
+    ).join('');
 }
 
 function generateTeam() {
