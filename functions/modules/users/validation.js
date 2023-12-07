@@ -14,7 +14,7 @@ exports.validateUser = (userObject) => {
 
 const userSchema = object({
     uid: string(),
-    display_name: string(),
+    display_name: string().optional(),
     last_Name: string().optional(),
     first_Name: string().optional(),
     email: string().email(),
