@@ -45,34 +45,6 @@ describe('A function is triggered by an action', () => {
     test('An user is not correctly created: missing 1 field (poor mobile connection)', async () => {
         const wrapped = mockedFunctions.wrap(userCreate);
 
-        delete userData.display_name;
-
-        const result = await wrapped(
-            await generateDocSnapshot({
-                db,
-                data: userData,
-                path: userPath,
-            })
-        );
-
-        const data = (await db.doc(userPath).get()).data();
-
-        expect(data).toBeUndefined();
-        expect(result.issues).toEqual([
-            {
-                code: 'invalid_type',
-                expected: 'string',
-                received: 'undefined',
-                path: ['display_name'],
-                message: 'Required',
-            },
-        ]);
-    });
-
-    test('An user is not correctly created: missing multiple fields (poor mobile connection)', async () => {
-        const wrapped = mockedFunctions.wrap(userCreate);
-
-        delete userData.display_name;
         delete userData.email;
 
         const result = await wrapped(
@@ -91,14 +63,42 @@ describe('A function is triggered by an action', () => {
                 code: 'invalid_type',
                 expected: 'string',
                 received: 'undefined',
-                path: ['display_name'],
+                path: ['email'],
                 message: 'Required',
             },
+        ]);
+    });
+
+    test('An user is not correctly created: missing multiple fields (poor mobile connection)', async () => {
+        const wrapped = mockedFunctions.wrap(userCreate);
+
+        delete userData.created_time;
+        delete userData.email;
+
+        const result = await wrapped(
+            await generateDocSnapshot({
+                db,
+                data: userData,
+                path: userPath,
+            })
+        );
+
+        const data = (await db.doc(userPath).get()).data();
+
+        expect(data).toBeUndefined();
+        expect(result.issues).toEqual([
             {
                 code: 'invalid_type',
                 expected: 'string',
                 received: 'undefined',
                 path: ['email'],
+                message: 'Required',
+            },
+            {
+                code: 'invalid_type',
+                expected: 'object',
+                received: 'undefined',
+                path: ['created_time'],
                 message: 'Required',
             },
         ]);
