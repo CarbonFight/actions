@@ -36,8 +36,12 @@ jobs:
           CI: true
         run: npm --prefix ./functions ci ./functions
 
-      - name: Start emulator and run tests 🧪
-        run: |
-          nohup firebase emulators:start --only firestore > /dev/null 2>&1 &
-          sleep 5
-          npm run test --prefix functions
+      - name: Start Firebase Emulator 💻
+        run: firebase emulators:start --only firestore &
+        shell: bash
+
+      - name: Wait for Emulator to Start ⏰
+        run: sleep 5
+
+      - name: Run tests 🧪
+        run: npm run test --prefix functions
