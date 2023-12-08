@@ -29,10 +29,10 @@ exports.challengesList = {
             return statsObj.actionsCountTotal >= 100;
         },
     },
-    periodicActionLvl1: {
+    '5periodics': {
         score: 10,
         condition: function (statsObj) {
-            return statsObj.actionsPeriodicCountTotal >= 3;
+            return statsObj.actionsPeriodicCountTotal >= 5;
         },
     },
     onboardingTransport: {

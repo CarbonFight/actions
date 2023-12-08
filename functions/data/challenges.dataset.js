@@ -2,27 +2,13 @@ const {
     challengesList,
 } = require('../modules/challenges/methods/validate-challenges');
 
-const emptyChallenges = {
-    actionLvl1: false,
-    actionLvl2: false,
-    actionLvl3: false,
-    actionLvl4: false,
-    actionLvl5: false,
-    periodicActionLvl1: false,
-    onboardingTransport: false,
-    onboardingServices: false,
-    onboardingObjects: false,
-    onboardingLodging: false,
-    onboardingFurniture: false,
-    onboardingFood: false,
-    onboardingDigital: false,
-    onboardingClothes: false,
-    onboardingAppliance: false,
-    hasEnoughSponsors: false,
-    dayStreakLvl1: false,
-    dayStreakLvl2: false,
-    dayStreakLvl3: false,
-};
+const emptyChallenges = {};
+
+for (const key in challengesList) {
+    if (Object.hasOwnProperty.call(challengesList, key)) {
+        emptyChallenges[key] = false;
+    }
+}
 
 let totalScore = 0;
 
