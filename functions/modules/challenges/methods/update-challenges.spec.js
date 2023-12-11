@@ -98,7 +98,7 @@ describe('A challenge is updated because of a stat change.', () => {
         expect(challenges.onboardingClothes).toBeTruthy();
         expect(challenges.onboardingAppliance).toBeTruthy();
         expect(challenges.hasEnoughSponsors).toBeFalsy();
-        expect(challenges.actionLvl1).toBeFalsy();
+        expect(challenges.actions1).toBeFalsy();
         expect(challenges.score).toBe(totalScoreOnboardingCompleted);
     });
 
@@ -115,7 +115,7 @@ describe('A challenge is updated because of a stat change.', () => {
 
         expect(challenges.onboardingTransport).toBeTruthy();
         expect(challenges.hasEnoughSponsors).toBeTruthy();
-        expect(challenges.actionLvl1).toBeFalsy();
+        expect(challenges.actions1).toBeFalsy();
         expect(challenges.score).toBe(
             totalScoreOnboardingCompleted +
                 challengesList.hasEnoughSponsors.score
@@ -135,11 +135,39 @@ describe('A challenge is updated because of a stat change.', () => {
 
         expect(challenges.onboardingTransport).toBeTruthy();
         expect(challenges.hasEnoughSponsors).toBeTruthy();
-        expect(challenges.actionLvl1).toBeTruthy();
+        expect(challenges.actions1).toBeTruthy();
         expect(challenges.score).toBe(
             totalScoreOnboardingCompleted +
                 challengesList.hasEnoughSponsors.score +
-                challengesList.actionLvl1.score
+                challengesList.actions1.score
+        );
+    });
+
+    test('Some challenges are completed : 100 actions added.', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                actionsCountTotal: 100,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.actions1).toBeTruthy();
+        expect(challenges.actions2).toBeTruthy();
+        expect(challenges.actions3).toBeTruthy();
+        expect(challenges.actions4).toBeTruthy();
+        expect(challenges.actions5).toBeTruthy();
+        expect(challenges.score).toBe(
+            challengesList.actions1.score +
+                challengesList.actions2.score +
+                challengesList.actions3.score +
+                challengesList.actions4.score +
+                challengesList.actions5.score
         );
     });
 

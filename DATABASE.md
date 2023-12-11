@@ -120,7 +120,7 @@
 - bool **onboardingUpdateTeam** : eventUpdateTeamCount > 0
 - bool **hasEnoughSponsors** : sponsorshipCount >= 10
 - bool **streak[1,2,3]** : connectionStreak >= [7,15,30]
-- bool **actionLvl[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
+- bool **actions[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
 - bool **5periodics** : actionsPeriodicCountTotal >= 5
 
 ## Success
