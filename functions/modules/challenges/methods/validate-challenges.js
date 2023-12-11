@@ -89,10 +89,28 @@ exports.challengesList = {
             return statsObj.actionsCountAppliance >= 1;
         },
     },
-    hasEnoughSponsors: {
+    sponsor1: {
+        score: 20,
+        condition(statsObj) {
+            return statsObj.sponsorshipCount >= 1;
+        },
+    },
+    sponsor2: {
+        score: 50,
+        condition(statsObj) {
+            return statsObj.sponsorshipCount >= 5;
+        },
+    },
+    sponsor3: {
         score: 100,
         condition(statsObj) {
             return statsObj.sponsorshipCount >= 10;
+        },
+    },
+    sponsor4: {
+        score: 200,
+        condition(statsObj) {
+            return statsObj.sponsorshipCount >= 20;
         },
     },
     streak1: {

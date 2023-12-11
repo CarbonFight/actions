@@ -73,7 +73,7 @@ describe('A challenge is updated because of a stat change.', () => {
         const challenges = (await getChallengeByUid(db, user.uid)).data();
 
         expect(challenges.onboardingTransport).toBeFalsy();
-        expect(challenges.hasEnoughSponsors).toBeFalsy();
+        expect(challenges.sponsor1).toBeFalsy();
         expect(challenges.score).toBe(0);
     });
 
@@ -97,12 +97,12 @@ describe('A challenge is updated because of a stat change.', () => {
         expect(challenges.onboardingDigital).toBeTruthy();
         expect(challenges.onboardingClothes).toBeTruthy();
         expect(challenges.onboardingAppliance).toBeTruthy();
-        expect(challenges.hasEnoughSponsors).toBeFalsy();
+        expect(challenges.sponsor1).toBeFalsy();
         expect(challenges.actions1).toBeFalsy();
         expect(challenges.score).toBe(totalScoreOnboardingCompleted);
     });
 
-    test('Some challenges are completed : full onboarding / 10 sponsor codes.', async () => {
+    test('Some challenges are completed : full onboarding / 1 sponsor.', async () => {
         const user = await getUser(db);
 
         await updateChallenges(
@@ -114,15 +114,14 @@ describe('A challenge is updated because of a stat change.', () => {
         const challenges = (await getChallengeByUid(db, user.uid)).data();
 
         expect(challenges.onboardingTransport).toBeTruthy();
-        expect(challenges.hasEnoughSponsors).toBeTruthy();
+        expect(challenges.sponsor1).toBeTruthy();
         expect(challenges.actions1).toBeFalsy();
         expect(challenges.score).toBe(
-            totalScoreOnboardingCompleted +
-                challengesList.hasEnoughSponsors.score
+            totalScoreOnboardingCompleted + challengesList.sponsor1.score
         );
     });
 
-    test('Some challenges are completed : full onboarding / 10 sponsor codes / 10 actions added.', async () => {
+    test('Some challenges are completed : full onboarding / 1 sponsor / 10 actions added.', async () => {
         const user = await getUser(db);
 
         await updateChallenges(
@@ -134,12 +133,38 @@ describe('A challenge is updated because of a stat change.', () => {
         const challenges = (await getChallengeByUid(db, user.uid)).data();
 
         expect(challenges.onboardingTransport).toBeTruthy();
-        expect(challenges.hasEnoughSponsors).toBeTruthy();
+        expect(challenges.sponsor1).toBeTruthy();
         expect(challenges.actions1).toBeTruthy();
         expect(challenges.score).toBe(
             totalScoreOnboardingCompleted +
-                challengesList.hasEnoughSponsors.score +
+                challengesList.sponsor1.score +
                 challengesList.actions1.score
+        );
+    });
+
+    test('Some challenges are completed : 20 sponsors.', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                sponsorshipCount: 20,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.sponsor1).toBeTruthy();
+        expect(challenges.sponsor2).toBeTruthy();
+        expect(challenges.sponsor3).toBeTruthy();
+        expect(challenges.sponsor4).toBeTruthy();
+        expect(challenges.score).toBe(
+            challengesList.sponsor1.score +
+                challengesList.sponsor2.score +
+                challengesList.sponsor3.score +
+                challengesList.sponsor4.score
         );
     });
 
