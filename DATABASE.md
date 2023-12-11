@@ -60,6 +60,7 @@
 - int **eventActionDeleteCount** : increment +1 when user delete action
 - int **eventUpdateTargetCount** : increment +1 when user update target
 - int **eventUpdateTeamCount** : increment +1 when user update team
+- int **eventUpdateDisplayNameCount** : increment +1 when user update display_name
 - int **dayTotal** : Total CO2e
 - int **dayTransport** : Total CO2e for the day for category transport
 - int **dayServices** : Total CO2e for the day for category services
@@ -125,6 +126,7 @@
 - bool **streak[1,2,3]** : connectionStreak >= [7,15,30]
 - bool **actions[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
 - bool **5periodics** : actionsPeriodicCountTotal >= 5
+- bool **display** : eventUpdateDisplayNameCount >= 0
 
 ## Success
 

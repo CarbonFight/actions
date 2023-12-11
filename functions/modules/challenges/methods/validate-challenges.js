@@ -131,4 +131,10 @@ exports.challengesList = {
             return statsObj?.connectionStreak >= 30;
         },
     },
+    display: {
+        score: 50,
+        condition(statsObj) {
+            return statsObj?.eventUpdateDisplayNameCount >= 1;
+        },
+    },
 };

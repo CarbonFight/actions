@@ -257,4 +257,22 @@ describe('A challenge is updated because of a stat change.', () => {
                 challengesList.streak3.score
         );
     });
+
+    test('Some challenges are completed : Update pseudo (display_name)', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                eventUpdateDisplayNameCount: 1,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.display).toBeTruthy();
+        expect(challenges.score).toBe(challengesList.display.score);
+    });
 });
