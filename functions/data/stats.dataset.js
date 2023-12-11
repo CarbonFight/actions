@@ -165,7 +165,7 @@ module.exports = {
     },
     statsWithManyActionsAndFullOnboarding: {
         ...emptyStats,
-        sponsorshipCount: 10,
+        sponsorshipCount: 1,
         actionsCountTotal: 10,
         actionsCountTransport: 1,
         actionsCountServices: 1,
@@ -179,7 +179,7 @@ module.exports = {
     },
     statsWithSponsorshipAndFullOnboarding: {
         ...emptyStats,
-        sponsorshipCount: 10,
+        sponsorshipCount: 1,
         actionsCountTransport: 1,
         actionsCountServices: 1,
         actionsCountObjects: 1,

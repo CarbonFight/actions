@@ -118,7 +118,10 @@
 - bool **onboardingDeleteAction** : eventDeleteCount > 0
 - bool **onboardingUpdateTarget** : eventUpdateTargetCount > 0
 - bool **onboardingUpdateTeam** : eventUpdateTeamCount > 0
-- bool **hasEnoughSponsors** : sponsorshipCount >= 10
+- bool **sponsor1** : sponsorshipCount >= 1
+- bool **sponsor2** : sponsorshipCount >= 5
+- bool **sponsor3** : sponsorshipCount >= 10
+- bool **sponsor4** : sponsorshipCount >= 20
 - bool **streak[1,2,3]** : connectionStreak >= [7,15,30]
 - bool **actions[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
 - bool **5periodics** : actionsPeriodicCountTotal >= 5
