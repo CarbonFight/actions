@@ -127,6 +127,7 @@
 - bool **actions[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
 - bool **5periodics** : actionsPeriodicCountTotal >= 5
 - bool **display** : eventUpdateDisplayNameCount >= 0
+- bool **target** : eventUpdateTargetCount >= 0
 
 ## Success
 

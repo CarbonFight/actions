@@ -137,4 +137,10 @@ exports.challengesList = {
             return statsObj?.eventUpdateDisplayNameCount >= 1;
         },
     },
+    target: {
+        score: 25,
+        condition(statsObj) {
+            return statsObj?.eventUpdateTargetCount >= 1;
+        },
+    },
 };
