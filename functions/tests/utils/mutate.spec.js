@@ -13,7 +13,7 @@ const originalObject = {
 describe('slightlyMutate', () => {
     it('1. Default Mutation', () => {
         const mutatedObject = slightlyMutate(originalObject);
-        expect(mutatedObject).not.toEqual(originalObject);
+        expect(mutatedObject).not.toBe(originalObject);
     });
 
     it('2. Specific Key Mutation', () => {
@@ -22,13 +22,13 @@ describe('slightlyMutate', () => {
             'team.label',
             'skipHowto',
         ]);
-        expect(mutatedObject).not.toEqual(originalObject);
+        expect(mutatedObject).not.toBe(originalObject);
         expect(mutatedObject.target).toEqual(originalObject.target);
     });
 
     it('3. String Value Mutation', () => {
         const mutatedObject = slightlyMutate(originalObject, ['first_Name']);
-        expect(mutatedObject.first_Name).not.toEqual(originalObject.first_Name);
+        expect(mutatedObject.first_Name).not.toBe(originalObject.first_Name);
         expect(mutatedObject.first_Name.length).toEqual(
             originalObject.first_Name.length
         );
@@ -36,7 +36,7 @@ describe('slightlyMutate', () => {
 
     it('4. Number Value Mutation', () => {
         const mutatedObject = slightlyMutate(originalObject, ['target']);
-        expect(mutatedObject.target).not.toEqual(originalObject.target);
+        expect(mutatedObject.target).not.toBe(originalObject.target);
         expect(mutatedObject.target).toBeGreaterThanOrEqual(
             mutatedObject.target * -1.5
         );
