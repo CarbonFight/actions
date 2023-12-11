@@ -53,6 +53,14 @@ exports.userUpdate = functions
             updates.eventUpdateTeamCount = fieldValue.increment(1);
         }
 
+        // If user display_name is updated, increment eventUpdateDisplayNameCount
+        if (
+            previousValues.display_name &&
+            previousValues.display_name !== newValues.display_name
+        ) {
+            updates.eventUpdateDisplayNameCount = fieldValue.increment(1);
+        }
+
         // If user connection_history is updated, increment connectionStreak or reset to 1
         if (
             previousValues.connection_history &&

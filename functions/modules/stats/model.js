@@ -1,6 +1,6 @@
 exports.createStatsModel = function (uid) {
     return {
-        uid: uid,
+        uid,
         score: 0,
         sponsorshipCount: 0,
         connectionStreak: 1,
@@ -22,6 +22,7 @@ exports.createStatsModel = function (uid) {
         eventActionDeleteCount: 0,
         eventUpdateTargetCount: 0,
         eventUpdateTeamCount: 0,
+        eventUpdateDisplayNameCount: 0,
 
         days: {},
         graphTotal: [

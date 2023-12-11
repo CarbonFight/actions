@@ -1,79 +1,8 @@
 const actionsData = require('../data/actions.dataset');
+const { createStatsModel } = require('../modules/stats/model');
 
-const emptyStats = {
-    score: 0,
-    sponsorshipCount: 0,
-    connectionStreak: 1,
-
-    actionsCountTotal: 0,
-    actionsPeriodicCountTotal: 0,
-
-    actionsCountTransport: 0,
-    actionsCountServices: 0,
-    actionsCountObjects: 0,
-    actionsCountLodging: 0,
-    actionsCountFurniture: 0,
-    actionsCountFood: 0,
-    actionsCountDigital: 0,
-    actionsCountClothes: 0,
-    actionsCountAppliance: 0,
-
-    eventActionAddCount: 0,
-    eventActionUpdateCount: 0,
-    eventActionDeleteCount: 0,
-    eventUpdateTargetCount: 0,
-    eventUpdateTeamCount: 0,
-
-    days: {},
-    graphTotal: [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0,
-    ],
-
-    dayTotal: 0,
-    dayTransport: 0,
-    dayServices: 0,
-    dayObjects: 0,
-    dayLodging: 0,
-    dayFurniture: 0,
-    dayFood: 0,
-    dayDigital: 0,
-    dayClothes: 0,
-    dayAppliance: 0,
-
-    weekTotal: 0,
-    weekTransport: 0,
-    weekServices: 0,
-    weekObjects: 0,
-    weekLodging: 0,
-    weekFurniture: 0,
-    weekFood: 0,
-    weekDigital: 0,
-    weekClothes: 0,
-    weekAppliance: 0,
-
-    monthTotal: 0,
-    monthTransport: 0,
-    monthServices: 0,
-    monthObjects: 0,
-    monthLodging: 0,
-    monthFurniture: 0,
-    monthFood: 0,
-    monthDigital: 0,
-    monthClothes: 0,
-    monthAppliance: 0,
-
-    yearTotal: 0,
-    yearTransport: 0,
-    yearServices: 0,
-    yearObjects: 0,
-    yearLodging: 0,
-    yearFurniture: 0,
-    yearFood: 0,
-    yearDigital: 0,
-    yearClothes: 0,
-    yearAppliance: 0,
-};
+const emptyStats = createStatsModel('');
+delete emptyStats.uid;
 
 const statsAfterMetroTripActionAdded = {
     ...emptyStats,
