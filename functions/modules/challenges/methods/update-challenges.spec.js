@@ -160,4 +160,48 @@ describe('A challenge is updated because of a stat change.', () => {
         expect(challenges['5periodics']).toBeTruthy();
         expect(challenges.score).toBe(challengesList['5periodics'].score);
     });
+
+    test('Some challenges are completed : 7 connection streak', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                connectionStreak: 7,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.streak1).toBeTruthy();
+        expect(challenges.streak2).toBeFalsy();
+        expect(challenges.streak3).toBeFalsy();
+        expect(challenges.score).toBe(challengesList.streak1.score);
+    });
+
+    test('Some challenges are completed : 30 connection streak', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                connectionStreak: 30,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.streak1).toBeTruthy();
+        expect(challenges.streak2).toBeTruthy();
+        expect(challenges.streak3).toBeTruthy();
+        expect(challenges.score).toBe(
+            challengesList.streak1.score +
+                challengesList.streak2.score +
+                challengesList.streak3.score
+        );
+    });
 });

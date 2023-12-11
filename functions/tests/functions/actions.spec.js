@@ -1,7 +1,7 @@
 const { generateUser } = require('../../data/users.dataset');
 const actionsData = require('../../data/actions.dataset');
 
-const mockLogger = require('../../logger-setup');
+const Logger = require('../../logger-setup');
 const { mockedFunctions, deleteCollectionsContent } = require('../_setup');
 const { dbInstance } = require('../../db-setup');
 
@@ -16,15 +16,6 @@ const {
 
 const { setUserId } = require('../utils/user');
 const { generateDeletedDocSnapshot } = require('../utils/delete');
-
-jest.mock('../../modules/stats/methods/update-stats', () => ({
-    updateStats: jest.fn().mockImplementation((obj) => {
-        mockLogger.info(
-            'Method `updateStats` has been called with object: ' +
-                JSON.stringify(obj)
-        );
-    }),
-}));
 
 const userData = generateUser();
 const userPath = 'users/' + userData.uid;
@@ -43,6 +34,7 @@ describe('A function is triggered by an action', () => {
     });
 
     beforeEach(async () => {
+        jest.spyOn(Logger, 'error').mockImplementation(() => {});
         await deleteCollectionsContent(db, ['users', 'actions']);
         await db.doc(userPath).set(userData);
         await db.doc(actionPath).set(actionsData.metroTrip);

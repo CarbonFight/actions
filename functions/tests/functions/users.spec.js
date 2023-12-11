@@ -1,5 +1,6 @@
 const { generateUser } = require('../../data/users.dataset');
 
+const Logger = require('../../logger-setup');
 const { mockedFunctions, deleteCollectionsContent } = require('../_setup');
 const { generateDocSnapshot } = require('../utils/change');
 const { dbInstance } = require('../../db-setup');
@@ -22,6 +23,7 @@ describe('A function is triggered by an action', () => {
     });
 
     beforeEach(async () => {
+        jest.spyOn(Logger, 'error').mockImplementation(() => {});
         await deleteCollectionsContent(db, ['users']);
         await db.doc(userPath).set(userData);
     });

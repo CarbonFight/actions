@@ -3,7 +3,7 @@ const actionsData = require('../data/actions.dataset');
 const emptyStats = {
     score: 0,
     sponsorshipCount: 0,
-    countConsecutiveDays: 1,
+    connectionStreak: 1,
 
     actionsCountTotal: 0,
     actionsPeriodicCountTotal: 0,
