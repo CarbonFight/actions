@@ -196,6 +196,25 @@ describe('A challenge is updated because of a stat change.', () => {
         );
     });
 
+    test('Some challenges are completed : 1 periodic action added', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                actionsPeriodicCountTotal: 1,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.periodic).toBeTruthy();
+        expect(challenges['5periodics']).toBeFalsy();
+        expect(challenges.score).toBe(challengesList.periodic.score);
+    });
+
     test('Some challenges are completed : 5 periodics actions added', async () => {
         const user = await getUser(db);
 
@@ -211,7 +230,9 @@ describe('A challenge is updated because of a stat change.', () => {
         const challenges = (await getChallengeByUid(db, user.uid)).data();
 
         expect(challenges['5periodics']).toBeTruthy();
-        expect(challenges.score).toBe(challengesList['5periodics'].score);
+        expect(challenges.score).toBe(
+            challengesList['5periodics'].score + challengesList.periodic.score
+        );
     });
 
     test('Some challenges are completed : 7 connection streak', async () => {

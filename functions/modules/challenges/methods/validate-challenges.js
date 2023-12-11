@@ -29,6 +29,12 @@ exports.challengesList = {
             return statsObj.actionsCountTotal >= 100;
         },
     },
+    periodic: {
+        score: 15,
+        condition(statsObj) {
+            return statsObj.actionsPeriodicCountTotal >= 1;
+        },
+    },
     '5periodics': {
         score: 10,
         condition(statsObj) {

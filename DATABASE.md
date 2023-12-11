@@ -125,6 +125,7 @@
 - bool **sponsor4** : sponsorshipCount >= 20
 - bool **streak[1,2,3]** : connectionStreak >= [7,15,30]
 - bool **actions[1,2,3,4,5]** : actionsCountTotal >= [10,20,50,75,100]
+- bool **periodic** : actionsPeriodicCountTotal >= 1
 - bool **5periodics** : actionsPeriodicCountTotal >= 5
 - bool **display** : eventUpdateDisplayNameCount >= 0
 - bool **target** : eventUpdateTargetCount >= 0
