@@ -149,4 +149,10 @@ exports.challengesList = {
             return statsObj?.eventActionDeleteCount >= 1;
         },
     },
+    modify: {
+        score: 20,
+        condition(statsObj) {
+            return statsObj?.eventActionUpdateCount >= 1;
+        },
+    },
 };

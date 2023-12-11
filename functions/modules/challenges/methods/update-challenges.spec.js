@@ -311,4 +311,22 @@ describe('A challenge is updated because of a stat change.', () => {
         expect(challenges.delete).toBeTruthy();
         expect(challenges.score).toBe(challengesList.delete.score);
     });
+
+    test('Some challenges are completed : Modify an action', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                eventActionUpdateCount: 1,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.modify).toBeTruthy();
+        expect(challenges.score).toBe(challengesList.modify.score);
+    });
 });

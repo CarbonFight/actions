@@ -129,6 +129,7 @@
 - bool **display** : eventUpdateDisplayNameCount >= 0
 - bool **target** : eventUpdateTargetCount >= 0
 - bool **delete** : eventActionDeleteCount >= 0
+- bool **modify** : eventActionUpdateCount >= 0
 
 ## Success
 
