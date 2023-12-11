@@ -275,4 +275,22 @@ describe('A challenge is updated because of a stat change.', () => {
         expect(challenges.display).toBeTruthy();
         expect(challenges.score).toBe(challengesList.display.score);
     });
+
+    test('Some challenges are completed : Update target', async () => {
+        const user = await getUser(db);
+
+        await updateChallenges(
+            db,
+            user.uid,
+            await setUserId(db, {
+                ...statsData.emptyStats,
+                eventUpdateTargetCount: 1,
+            })
+        );
+
+        const challenges = (await getChallengeByUid(db, user.uid)).data();
+
+        expect(challenges.target).toBeTruthy();
+        expect(challenges.score).toBe(challengesList.target.score);
+    });
 });
