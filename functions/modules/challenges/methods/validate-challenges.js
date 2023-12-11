@@ -1,29 +1,29 @@
 exports.challengesList = {
-    actionLvl1: {
+    actions1: {
         score: 10,
         condition(statsObj) {
             return statsObj.actionsCountTotal >= 10;
         },
     },
-    actionLvl2: {
+    actions2: {
         score: 15,
         condition(statsObj) {
             return statsObj.actionsCountTotal >= 20;
         },
     },
-    actionLvl3: {
+    actions3: {
         score: 30,
         condition(statsObj) {
             return statsObj.actionsCountTotal >= 50;
         },
     },
-    actionLvl4: {
+    actions4: {
         score: 60,
         condition(statsObj) {
             return statsObj.actionsCountTotal >= 75;
         },
     },
-    actionLvl5: {
+    actions5: {
         score: 100,
         condition(statsObj) {
             return statsObj.actionsCountTotal >= 100;
