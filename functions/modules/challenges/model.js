@@ -25,5 +25,6 @@ exports.createChallengeModel = function (uid) {
         streak3: false,
         display: false,
         target: false,
+        delete: false,
     };
 };
