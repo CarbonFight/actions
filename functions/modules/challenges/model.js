@@ -15,10 +15,10 @@ exports.createChallengeModel = function (uid) {
         actionLvl3: false,
         actionLvl4: false,
         actionLvl5: false,
-        periodicActionLvl1: false,
+        '5periodics': false,
         hasEnoughSponsors: false,
-        dayStreakLvl1: false,
-        dayStreakLvl2: false,
-        dayStreakLvl3: false,
+        streak1: false,
+        streak2: false,
+        streak3: false,
     };
 };

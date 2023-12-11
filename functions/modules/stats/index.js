@@ -53,7 +53,7 @@ exports.userUpdate = functions
             updates.eventUpdateTeamCount = fieldValue.increment(1);
         }
 
-        // If user connection_history is updated, increment countConsecutiveDays or reset to 1
+        // If user connection_history is updated, increment connectionStreak or reset to 1
         if (
             previousValues.connection_history &&
             previousValues.connection_history.length <
@@ -61,7 +61,7 @@ exports.userUpdate = functions
         ) {
             const streakCount = daysInStreak(newValues.connection_history);
 
-            updates.countConsecutiveDays = streakCount;
+            updates.connectionStreak = streakCount;
         }
 
         // Perform update
