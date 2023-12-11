@@ -15,6 +15,7 @@ exports.createChallengeModel = function (uid) {
         actions3: false,
         actions4: false,
         actions5: false,
+        periodic: false,
         '5periodics': false,
         sponsor1: false,
         sponsor2: false,
