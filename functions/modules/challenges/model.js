@@ -26,5 +26,6 @@ exports.createChallengeModel = function (uid) {
         display: false,
         target: false,
         delete: false,
+        modify: false,
     };
 };
