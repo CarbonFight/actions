@@ -6,9 +6,9 @@ const { getChallengeByUid } = require('./get-challenge-by-uid');
 module.exports.updateChallenges = async function (db, uid, statsObj) {
     const updates = {};
 
-    for (const [statKey, challenge] of Object.entries(challengesList)) {
-        if (challenge.condition(statsObj) || statsObj[statKey] === true) {
-            updates[statKey] = true;
+    for (const [challengeKey, challenge] of Object.entries(challengesList)) {
+        if (challenge.condition(statsObj)) {
+            updates[challengeKey] = true;
         }
     }
     const challengeObjWithScore = await calculateScore(
