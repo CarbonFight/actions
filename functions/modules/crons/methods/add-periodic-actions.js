@@ -23,7 +23,7 @@ module.exports.addPeriodicActions = async function () {
             for (const action of periodicActions) {
                 const periodicity = action.periodicity;
 
-                if (periodicity.length > 0) {
+                if (periodicity && periodicity.length > 0) {
                     const dayMatch = isDayMatching(periodicity);
 
                     if (dayMatch) {
