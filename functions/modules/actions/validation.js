@@ -53,15 +53,15 @@ exports.isParametersValidOnCreate = function (category, data) {
     const userId = typeof data.uid !== 'undefined';
 
     switch (category) {
-        case 'transport':
+        case 'Trajets':
             return userId && transportSchema.safeParse(data);
-        case 'food':
+        case 'Repas':
             return userId && foodSchema.safeParse(data);
-        case 'energy':
+        case 'Energie':
             return userId && energySchema.safeParse(data);
-        case 'clothes':
+        case 'Habits':
             return userId && clothesSchema.safeParse(data);
-        case 'digital':
+        case 'Numérique':
             return userId && digitalSchema.safeParse(data);
         default:
             Logger.error(`action category '${category}' not implemented`);
