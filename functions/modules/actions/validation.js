@@ -18,8 +18,8 @@ const baseSchema = object({
 
 const purchaseDetailsSchema = object({
     newPurchase: boolean(),
-    startDepreciation: object({}),
-    endDepreciation: object({}),
+    startDepreciation: string(),
+    endDepreciation: string(),
 });
 
 const transportSchema = baseSchema.merge(

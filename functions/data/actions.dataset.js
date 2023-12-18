@@ -112,8 +112,8 @@ module.exports = {
             'dimanche',
         ],
         newPurchase: true,
-        startDepreciation: dayjs().toDate(),
-        endDepreciation: dayjs().add(2, 'years').toDate(),
+        startDepreciation: dayjs().format('YYYY'),
+        endDepreciation: dayjs().add(2, 'years').format('YYYY'),
     },
 
     tvDepreciation: {
@@ -138,7 +138,7 @@ module.exports = {
             'dimanche',
         ],
         newPurchase: false,
-        startDepreciation: dayjs().toDate(),
-        endDepreciation: dayjs().add(4, 'years').toDate(),
+        startDepreciation: dayjs().format('YYYY'),
+        endDepreciation: dayjs().add(4, 'years').format('YYYY'),
     },
 };
