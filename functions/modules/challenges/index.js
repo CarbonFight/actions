@@ -9,7 +9,7 @@ exports.update = functions
     .region('europe-west6')
     .runWith({ minInstances: 1 })
     .firestore.document('/stats/{documentId}')
-    .onWrite(async (event) => {
+    .onUpdate(async (event) => {
         const db = await dbInstance();
         const newStats = event.after.data();
         const uid = newStats.uid;
@@ -36,28 +36,5 @@ exports.init = functions
             } catch (error) {
                 throw new Error(`Init user challenges failed, ${error}`);
             }
-        }
-    });
-
-exports.flush = functions
-    .region('europe-west6')
-    .firestore.document('/users/{documentId}')
-    .onDelete(async (snap) => {
-        const db = await dbInstance();
-        const user = snap.data();
-        const { uid } = user;
-
-        try {
-            // Deletes all Stats for User
-            const killStats = db
-                .collection('challenges')
-                .where('uid', '==', uid);
-            killStats.get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    doc.ref.delete();
-                });
-            });
-        } catch (error) {
-            throw new Error(`Init flush challenges failed, ${error}`);
         }
     });

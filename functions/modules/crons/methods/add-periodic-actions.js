@@ -17,12 +17,12 @@ const { createAction } = require('../../actions/methods/create-action');
 dayjs.tz.setDefault('Europe/Paris');
 process.env.TZ = 'Europe/Paris';
 
-const today = dayjs().format('dddd');
-Logger.info(`Today: ${today}`);
-
 module.exports.addPeriodicActions = async function () {
     try {
         const db = await dbInstance();
+
+        const today = dayjs().format('dddd');
+        Logger.info(`Today: ${today}`);
 
         const periodicActionsSnapshot = await getPeriodicActions(db);
 
@@ -35,7 +35,7 @@ module.exports.addPeriodicActions = async function () {
                 const periodicity = action.periodicity;
 
                 if (periodicity && periodicity.length > 0) {
-                    const dayMatch = isDayMatching(periodicity);
+                    const dayMatch = isDayMatching(periodicity, today);
 
                     if (dayMatch) {
                         Logger.info(action);
@@ -52,7 +52,7 @@ module.exports.addPeriodicActions = async function () {
     }
 };
 
-function isDayMatching(periodicity) {
+function isDayMatching(periodicity, today) {
     switch (today) {
         case 'Monday':
             return periodicity.includes('L');

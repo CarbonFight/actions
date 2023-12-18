@@ -1,7 +1,6 @@
 const functions = require('firebase-functions');
 const Logger = require('../../logger-setup');
 const { isParametersValidOnCreate } = require('./validation');
-const { updateStats } = require('../stats/methods/update-stats');
 
 exports.update = functions
     .region('europe-west6')
@@ -40,15 +39,4 @@ exports.create = functions
         }
 
         await snap.ref.set(data);
-    });
-
-exports.delete = functions
-    .region('europe-west6')
-    .firestore.document('/actions/{documentId}')
-    .onDelete(async (snap) => {
-        try {
-            const data = snap.data();
-        } catch (error) {
-            throw new Error(`${snap.data().category} delete failed, ${error}`);
-        }
     });
