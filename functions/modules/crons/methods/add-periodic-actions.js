@@ -1,4 +1,9 @@
 const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const Logger = require('../../../logger-setup');
 
@@ -8,6 +13,12 @@ const {
     getPeriodicActions,
 } = require('../../actions/methods/get-periodic-actions');
 const { createAction } = require('../../actions/methods/create-action');
+
+dayjs.tz.setDefault('Europe/Paris');
+process.env.TZ = 'Europe/Paris';
+
+const today = dayjs().format('dddd');
+Logger.info(`Today: ${today}`);
 
 module.exports.addPeriodicActions = async function () {
     try {
@@ -27,6 +38,8 @@ module.exports.addPeriodicActions = async function () {
                     const dayMatch = isDayMatching(periodicity);
 
                     if (dayMatch) {
+                        Logger.info(action);
+                        Logger.info(`Creating action for user ${action.uid}`);
                         await createAction(db, action);
                     }
                 }
@@ -40,8 +53,6 @@ module.exports.addPeriodicActions = async function () {
 };
 
 function isDayMatching(periodicity) {
-    const today = dayjs().format('dddd');
-
     switch (today) {
         case 'Monday':
             return periodicity.includes('L');
