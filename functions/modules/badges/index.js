@@ -36,24 +36,3 @@ exports.init = functions
             }
         }
     });
-
-exports.flush = functions
-    .region('europe-west6')
-    .firestore.document('/users/{documentId}')
-    .onDelete(async (snap) => {
-        const db = await dbInstance();
-        const user = snap.data();
-        const { uid } = user;
-
-        try {
-            // Deletes all Stats for User
-            const killStats = db.collection('badges').where('uid', '==', uid);
-            killStats.get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    doc.ref.delete();
-                });
-            });
-        } catch (error) {
-            throw new Error(`Init flush badges failed, ${error}`);
-        }
-    });

@@ -49,3 +49,39 @@ exports.userUpdate = functions
             await updateUserSponsor(db, uid, newValues.sponsor);
         }
     });
+
+// Remove all collections related to user on user delete
+exports.flush = functions
+    .region('europe-west6')
+    .auth.user()
+    .onDelete(async (user) => {
+        const db = await dbInstance();
+
+        try {
+            const collectionsToDelete = [
+                'actions',
+                'stats',
+                'challenges',
+                'badges',
+                'success',
+                'users',
+            ];
+
+            await Promise.all(
+                collectionsToDelete.map(async (collectionName) => {
+                    const collectionRef = db.collection(collectionName);
+                    const querySnapshot = await collectionRef
+                        .where('uid', '==', user.uid)
+                        .get();
+
+                    querySnapshot.forEach((doc) => {
+                        return doc.ref.delete();
+                    });
+                })
+            );
+
+            return 'ok';
+        } catch (error) {
+            throw new Error(`User flush failed, ${error}`);
+        }
+    });

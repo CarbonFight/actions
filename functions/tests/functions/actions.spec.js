@@ -10,12 +10,10 @@ const { slightlyMutate } = require('../utils/mutate');
 
 const {
     create: createFunction,
-    delete: deleteFunction,
     update: updateFunction,
 } = require('../../modules/actions');
 
 const { setUserId } = require('../utils/user');
-const { generateDeletedDocSnapshot } = require('../utils/delete');
 
 const userData = generateUser();
 const userPath = 'users/' + userData.uid;
@@ -132,22 +130,5 @@ describe('A function is triggered by an action', () => {
                 message: 'Required',
             },
         ]);
-    });
-
-    test('An action is successfully deleted.', async () => {
-        const wrapped = mockedFunctions.wrap(deleteFunction);
-
-        await wrapped(
-            await generateDeletedDocSnapshot({
-                db,
-                data: actionsData.metroTrip,
-                path: actionPath,
-            })
-        );
-
-        let newData = await db.doc(actionPath).get();
-        newData = newData.data();
-
-        expect(newData).toBeUndefined();
     });
 });
