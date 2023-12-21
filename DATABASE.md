@@ -18,6 +18,7 @@
 - string **team** : Team
 - double **target** : Target (Goal) parameter of the user. In Tonnes per year
 - bool **skipHowto** : has finished or skipped howto
+- String **badge** : Active badge
 - DateTime (list) **connection_history** : (rafacto) list of last connexions
 
 ## Actions
