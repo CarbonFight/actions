@@ -40,7 +40,6 @@ exports.init = functions
 
 exports.userUpdate = functions
     .region('europe-west6')
-    .runWith({ minInstances: 1 })
     .firestore.document('/users/{documentId}')
     .onUpdate(async (event) => {
         const db = await dbInstance();
