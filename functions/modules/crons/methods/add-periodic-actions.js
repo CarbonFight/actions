@@ -11,6 +11,7 @@ const { dbInstance } = require('../../../db-setup');
 
 const {
     getPeriodicActions,
+    getDepreciationActions,
 } = require('../../actions/methods/get-periodic-actions');
 const { createAction } = require('../../actions/methods/create-action');
 
@@ -38,14 +39,32 @@ module.exports.addPeriodicActions = async function () {
                     const dayMatch = isDayMatching(periodicity, today);
 
                     if (dayMatch) {
-                        Logger.info(action);
                         Logger.info(`Creating action for user ${action.uid}`);
                         await createAction(db, action);
                     }
                 }
             }
 
-            Logger.info('Periodic action successfully created.');
+            Logger.info('Periodic actions successfully created.');
+        }
+
+        const depreciationActionsSnapshot = await getDepreciationActions(db);
+
+        if (depreciationActionsSnapshot.docs.length > 0) {
+            const depreciationActions = depreciationActionsSnapshot.docs
+                .map((doc) => {
+                    return doc.data();
+                })
+                .filter((action) => action.yearEndPurchase.length === 4);
+
+            if (depreciationActions.length > 0) {
+                for (const action of depreciationActions) {
+                    Logger.info(`Creating action for user ${action.uid}`);
+                    await createAction(db, action);
+                }
+            }
+
+            Logger.info('Depreciation actions successfully created.');
         }
     } catch (error) {
         Logger.error(`Error creating periodic actions: ${error}`);
