@@ -16,6 +16,6 @@ module.exports.getDepreciationActions = async function (db) {
     const actualYear = dayjs().format('YYYY');
     return await db
         .collection('actions')
-        .where('yearEndPurchase', '>=', actualYear)
+        .where('yearEndPurchase', '>', actualYear)
         .get();
 };
