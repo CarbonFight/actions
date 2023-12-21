@@ -40,7 +40,6 @@ module.exports.addPeriodicActions = async function () {
 
                     if (dayMatch) {
                         Logger.info(`Creating action for user ${action.uid}`);
-                        Logger.info(action);
                         await createAction(db, action);
                     }
                 }
@@ -52,14 +51,17 @@ module.exports.addPeriodicActions = async function () {
         const depreciationActionsSnapshot = await getDepreciationActions(db);
 
         if (depreciationActionsSnapshot.docs.length > 0) {
-            const depreciationActions = depreciationActionsSnapshot.docs.map(
-                (doc) => doc.data()
-            );
+            const depreciationActions = depreciationActionsSnapshot.docs
+                .map((doc) => {
+                    return doc.data();
+                })
+                .filter((action) => action.yearEndPurchase.length === 4);
 
-            for (const action of depreciationActions) {
-                Logger.info(`Creating action for user ${action.uid}`);
-                Logger.info(action);
-                await createAction(db, action);
+            if (depreciationActions.length > 0) {
+                for (const action of depreciationActions) {
+                    Logger.info(`Creating action for user ${action.uid}`);
+                    await createAction(db, action);
+                }
             }
 
             Logger.info('Depreciation actions successfully created.');
