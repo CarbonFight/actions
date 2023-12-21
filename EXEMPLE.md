@@ -135,8 +135,8 @@ La fabrication du vêtement génère 24 Kg de CO2e. Amorti sur 2 ans, cette acti
     "dimanche"
   ],
   "newPurchase": true,
-  "startDepreciation": "2023",
-  "endDepreciation": "2025"
+  "yearPurchase": "2023",
+  "yearEndPurchase": "2025"
 }
 ```
 
@@ -165,7 +165,7 @@ La fabrication génère 500 Kg de CO2e. Amorti sur 10 ans, cette action amortie 
     "dimanche"
   ],
   "newPurchase": false,
-  "startDepreciation": "2021",
-  "endDepreciation": "2026"
+  "yearPurchase": "2021",
+  "yearEndPurchase": "2026"
 }
 ```
