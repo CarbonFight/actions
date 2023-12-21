@@ -11,20 +11,30 @@ exports.actionUpdate = functions
     .runWith({ minInstances: 1 })
     .firestore.document('/actions/{documentId}')
     .onWrite(async (event) => {
+        const db = await dbInstance();
+
         const previousValues = event.before?.data();
         const newValues = event.after.data();
 
-        // NEW action
-        if (!previousValues) {
-            await updateStats('create', newValues);
-        }
-        // UPDATE action
-        else if (previousValues && newValues) {
-            await updateStats('update', newValues, previousValues);
-        }
-        // DELETE action
-        else if (!newValues) {
-            await updateStats('delete', null, previousValues);
+        const statsSnap = await db
+            .collection('stats')
+            .where('uid', '==', newValues ? newValues.uid : previousValues.uid)
+            .limit(1)
+            .get();
+
+        if (!statsSnap.empty) {
+            // NEW action
+            if (!previousValues) {
+                await updateStats('create', newValues);
+            }
+            // UPDATE action
+            else if (previousValues && newValues) {
+                await updateStats('update', newValues, previousValues);
+            }
+            // DELETE action
+            else if (!newValues) {
+                await updateStats('delete', null, previousValues);
+            }
         }
     });
 
