@@ -24,6 +24,7 @@ const userSchema = object({
     target: number().optional(),
     skipHowto: boolean().optional(),
     connection_history: array(object({})).optional(),
+    badge: string().optional(),
     created_time: object({}),
 });
 
