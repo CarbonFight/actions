@@ -35,11 +35,16 @@ module.exports.addPeriodicActions = async function () {
             for (const action of periodicActions) {
                 const periodicity = action.periodicity;
 
+                // periodic action without day periodicity (eg: energy/gaz contracts...)
+                if (!periodicity && !action.yearEndPurchase) {
+                    await createAction(db, action);
+                }
+
+                // periodic action with periodicity (eg: monday, tuesday...)
                 if (periodicity && periodicity.length > 0) {
                     const dayMatch = isDayMatching(periodicity, today);
 
                     if (dayMatch) {
-                        Logger.info(`Creating action for user ${action.uid}`);
                         await createAction(db, action);
                     }
                 }
