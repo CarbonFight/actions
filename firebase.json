@@ -48,6 +48,16 @@
         "source": "/delete",
         "destination": "https://carbonfight.notion.site/Terms-Privacy-e88dc3436e724e6882810d591ee31c95?pvs=4",
         "type": 301
+      },
+      {
+        "source": "/privacy",
+        "destination": "https://www.iubenda.com/privacy-policy/77022733",
+        "type": 301
+      },
+      {
+        "source": "/cgu",
+        "destination": "https://www.iubenda.com/conditions-generales/77022733",
+        "type": 301
       } ]
   }
 }
