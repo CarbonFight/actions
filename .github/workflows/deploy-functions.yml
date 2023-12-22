@@ -1,0 +1,15 @@
+name: Deploy firebase functions
+on:
+  push:
+    branches:
+      - main
+jobs:
+  main:
+    name: Deploy Firebase functions 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: MTB-nsartor/deploy-firebase-functions-n16@v0.0.3
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT: actions-dd2b5
