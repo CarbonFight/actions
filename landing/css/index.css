@@ -1,0 +1,1151 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@media only screen and (min-width: 767px) {
+/* COOKIES */
+.cookiesContent {
+   width: 25%;
+   padding: 2%;
+   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.329);
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   z-index: 999;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: #fff;
+   color: #000;
+   text-align: center;
+   border-radius: 20px;
+   padding: 30px 30px 70px;
+}
+
+.cookiesContent button.close {
+   width: 30px;
+   font-size: 20px;
+   color: #c0c5cb;
+   align-self: flex-end;
+   background-color: transparent;
+   border: none;
+   margin-bottom: 10px;
+}
+
+.cookiesContent img {
+   width: 82px;
+   margin-bottom: 15px;
+}
+
+.cookiesContent p {
+   margin-bottom: 40px;
+   font-size: 18px;
+}
+
+.cookiesContent button.accept {
+   background-color: #ed6755;
+   border: none;
+   border-radius: 5px;
+   width: 200px;
+   padding: 14px;
+   font-size: 16px;
+   color: white;
+   box-shadow: 0px 6px 18px -5px #ed6755;
+}
+
+.cookiesContent button.denied {
+   margin-top: 5%;
+   background-color: #000000;
+   border: none;
+   border-radius: 5px;
+   width: 150px;
+   padding: 14px;
+   font-size: 12px;
+   color: white;
+   box-shadow: 0px 6px 18px -5px #000000;
+} 
+
+
+
+   
+   body {
+      font-family: "Poppins", sans-serif;
+      ;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+
+
+   .mainframe {
+      width: 90vw;
+      ;
+      font-family: "Poppins", sans-serif;
+      ;
+   }
+
+   .footera {
+      text-decoration: none !important;
+      color: #ffffff !important;
+   }
+
+
+   /* Div FullscreenTop */
+   .divtop {
+      width: 100%;
+      height: 100vh;
+      background-image: url(../img/testfinalsombre3.png);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .divtopcontent {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .divtopleft {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10%;
+      text-align: center;
+      padding-left: 10%;
+      color: #ffffff !important;
+
+   }
+
+   /*  .divtoplefttext {
+      width: 100%;
+      height: auto;
+      background-color:rgba(24, 46, 8, 0.288);
+      margin-top: 5%;
+  } */
+   .divtoplefttext>h2 {
+      font-size: 2em;
+      font-weight: bold !important;
+   }
+
+   .divtopright {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10%;
+
+   }
+
+   .appstore {
+      margin-bottom: 5%;
+      margin-top: 5%;
+      width: 450px;
+   }
+
+   .divtoptelephone {
+      width: 300px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+
+   /* Div NavBar + Texte  */
+   .divnavbar {
+      width: 100%;
+
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      font-weight: 700;
+
+   }
+
+   .navbar {
+      margin: 0;
+   }
+
+   .nav-item {
+      margin-left: 50px;
+   }
+
+   .telecharger {
+      display: flex;
+      flex-direction: row;
+   }
+
+   .divtelecharger {
+      background-color: rgba(24, 46, 8, 1);
+      margin-right: 5px;
+      border-radius: 10px 0px 0px 10px
+   }
+
+   .divlogotelecharger {
+      background-color: rgba(24, 46, 8, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      border-radius: 0px 10px 10px 0px;
+
+   }
+
+   .logotelecharger {
+      width: 20px;
+      height: 20px;
+   }
+
+   .divnavtexte {
+      text-align: center;
+      margin-top: 2%;
+      width: 50%;
+   }
+
+   .divnavtexte>h1 {
+      font-size: 50px;
+      font-weight: bold;
+      margin-bottom: 2%;
+   }
+
+   .boutongeneral {
+      display: flex;
+      flex-direction: row;
+   }
+
+   .btgauche {
+      background-color: rgba(24, 46, 8, 1) !important;
+      border-radius: 10px 0px 0px 10px !important;
+      color: #ffffff;
+      font-weight: bold;
+      margin-right: 5px;
+      padding: 5px 5px;
+
+   }
+
+   .btdroite {
+      background-color: rgba(24, 46, 8, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      border-radius: 0px 10px 10px 0px;
+   }
+
+
+
+   /* Div Engagement + Icone */
+
+   .divengagement {
+      width: 100%;
+      height: auto;
+      padding-top: 0.5%;
+      padding-left: 5%;
+      margin-top: 5%;
+      background-color: rgba(24, 46, 8, 1);
+      padding-bottom: 2%;
+   }
+
+   .divengagement>h2 {
+      font-size: 45px;
+      color: #ffffff;
+      font-weight: bold;
+      text-align: start;
+      margin-top: 2%;
+   }
+
+   .divengagementiconetexte {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding-top: 3%;
+      color: #ffffff;
+   }
+
+   .divengagementiconetexte>img {
+      width: 120px;
+
+   }
+
+   .trait {
+      margin-right: 5%;
+      margin-left: 5%;
+      width: 2px;
+      height: 120px;
+      background-color: #ffffff;
+   }
+
+   .divengagmenttexte {
+      width: 50%;
+   }
+
+   .titreengagement {
+      font-size: 20px;
+      font-weight: bold;
+   }
+
+   .textengagement {
+      font-size: 16px;
+   }
+
+   /* Div Carbonfight avec ecran */
+   .divcarbonfight {
+      width: 100%;
+      margin-top: 5%;
+      height: auto;
+      border-left: 5px solid rgba(24, 46, 8, 1);
+      border-bottom: 5px solid rgba(24, 46, 8, 1);
+
+   }
+
+   .divcarbonfight>h2 {
+      font-size: 45px;
+      font-weight: bold;
+      margin-top: 5%;
+      margin-left: 5%;
+   }
+
+   .firstdiv {
+      width: 100%;
+
+      padding-left: 5%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1%;
+   }
+
+   .firstdivrleft {
+      width: 35%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .firstdivright {
+      width: 35%;
+      height: auto;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: center;
+   }
+
+    .taillemid {
+      width: 250px;
+      height: 20px;
+      background-color: rgb(255, 255, 255);
+    }
+
+   .seconddiv {
+      width: 100%;
+
+      padding-left: 5%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+   }
+
+   .seconddivleft {
+      height: auto;
+      width: 35%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+   }
+
+   .divcarbonfighttelephone {
+      width: 250px;
+   }
+
+   .seconddivright {
+      width: 35%;
+      height: auto;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .titredivcarbonfight {
+      font-size: 20px;
+      font-weight: bold;
+   }
+
+   .logodivcarbon {
+      margin: 2%;
+   }
+
+   /*Div ZONE contact */
+   .divcontact {
+      width: 100%;
+      height: auto;
+      margin-top: 5%;
+      padding-top: 0.5%;
+      padding-left: 5%;
+      margin-top: 5%;
+      background-color: rgba(24, 46, 8, 1);
+      padding-bottom: 2%;
+   }
+
+   .divcontact>h2 {
+      font-size: 45px;
+      color: #ffffff;
+      font-weight: bold;
+      text-align: start;
+      margin-top: 2%
+   }
+
+   form {
+      width: 65%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      margin-top: 5%;
+
+
+   }
+
+   fieldset {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+   }
+
+   label {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-top: 2%;
+   }
+
+
+   #full-name,
+   #email-address {
+      width: 100%;
+      height: 50px;
+      border-radius: 5px;
+
+   }
+
+   #message {
+      width: 100%;
+      height: 450px;
+      border-radius: 5px;
+
+   }
+
+
+   .boutongeneral2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      align-items: end;
+      margin-top: 2%;
+   }
+
+   .btgauche2 {
+      background-color: rgb(255, 255, 255) !important;
+      border-radius: 10px 0px 0px 10px !important;
+      color: #000000;
+      font-weight: bold;
+      margin-right: 5px;
+      padding: 5px 5px;
+      width: 150px;
+      height: 35px;
+      text-align: center;
+   }
+
+   .btdroite2 {
+      background-color: rgb(255, 255, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 35px;
+      border-radius: 0px 10px 10px 0px;
+   }
+
+   .btgauche2:hover {
+      cursor: pointer;
+      height: 40px;
+      transition: 2s;
+   }
+
+
+   .btdroite2:hover {
+      cursor: pointer;
+      height: 40px;
+      transition: 2s;
+   }
+
+
+   .divcontact>h2 {
+      font-size: 45px;
+      color: #ffffff;
+      font-weight: bold;
+      text-align: start;
+      margin-top: 2%
+   }
+
+
+   /* Div Footer */
+   /* footer */
+   footer {
+      width: 100%;
+      padding: 2% 2% 0% 2%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 2%;
+      color: white;
+      background-color: rgba(24, 46, 8, 1);
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      font-size: 15px;
+   }
+
+   .footerlogo {
+      width: 150px;
+   }
+
+   .footera {
+      text-decoration: none !important;
+      color: #ffffff !important;
+      margin-left: 20px;
+      text-decoration: underline !important;
+   }
+
+   .footerb {
+      text-decoration: none !important;
+      color: #ffffff !important;
+      text-decoration: underline !important;
+   }
+   .divfooterbottom {
+      width: 100%;
+      margin-top: 1%;
+   }
+
+   .Legal {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      text-align: center;
+      margin-top: 1%;
+   }
+
+   .divfooterbottom div {
+      display: none;
+      /* Par défaut, le div est caché */
+   }
+
+   .divfooterbottom div.visible {
+      display: block;
+      /* Si la classe visible est ajoutée, le div est affiché */
+   }
+
+   button {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+      text-decoration: underline !important;
+   }
+
+   .lienfooter {
+      font-size: 10px;
+   }
+}
+
+
+@media only screen and (max-width: 766px) {
+
+    /* COOKIES */
+    .cookiesContent {
+      width: 90%;
+      padding: 2%;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.329);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff;
+      color: #000;
+      text-align: center;
+      border-radius: 20px;
+      padding: 30px 30px 70px;
+  }
+  
+.cookiesContent button.close {
+  width: 30px;
+  font-size: 20px;
+  color: #c0c5cb;
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.cookiesContent img {
+  width: 82px;
+  margin-bottom: 15px;
+}
+
+.cookiesContent p {
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+
+.cookiesContent button.accept {
+  background-color: #ed6755;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  padding: 14px;
+  font-size: 16px;
+  color: white;
+  box-shadow: 0px 6px 18px -5px #ed6755;
+}
+
+.cookiesContent button.denied {
+  margin-top: 5%;
+  background-color: #000000;
+  border: none;
+  border-radius: 5px;
+  width: 150px;
+  padding: 14px;
+  font-size: 12px;
+  color: white;
+  box-shadow: 0px 6px 18px -5px #000000;
+} 
+   body {
+      font-family: "Poppins", sans-serif;
+      ;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .mainframe {
+      width: 100vw;
+
+      font-family: "Poppins", sans-serif;
+      ;
+   }
+
+   .footera {
+      text-decoration: none !important;
+      color: #ffffff !important;
+   }
+
+
+   /* Div FullscreenTop */
+   .divtop {
+      width: 100%;
+      height: 100vh;
+
+      background-image: url(../img/vaguemobilesombre1.png);
+      background-repeat: no-repeat;
+      background-size: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .divtopcontent {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5%;
+   }
+
+   .divtopleft {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 15px;
+      text-align: center;
+
+      color: #ffffff !important;
+
+   }
+
+   /*
+    .divtoplefttext {
+      width: 100%;
+      height: auto;
+      background-color:rgba(24, 46, 8, 0.199);
+
+  }
+  */
+   .divtoplefttext>h2 {
+      font-size: 30px;
+      font-weight: bold !important;
+   }
+
+
+   .appstore {
+      width: 250px;
+   }
+
+   .divtoptelephone {
+      width: 200px;
+      margin-top: 5%;
+
+   }
+
+   /* Div NavBar + Texte  */
+   .divnavbar {
+      width: 100%;
+
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+
+      font-weight: 700;
+
+   }
+
+   .navbar {
+      margin: 0;
+   }
+
+   .nav-item {
+      margin-left: 50px;
+   }
+
+   .telecharger {
+      display: flex;
+      flex-direction: row;
+   }
+
+   .divtelecharger {
+      background-color: rgba(24, 46, 8, 1);
+      margin-right: 5px;
+      width: 125px;
+      text-align: center;
+      border-radius: 10px 0px 0px 10px
+   }
+
+   .divlogotelecharger {
+      background-color: rgba(24, 46, 8, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      border-radius: 0px 10px 10px 0px;
+
+   }
+
+   .logotelecharger {
+      width: 20px;
+      height: 20px;
+   }
+
+   .divnavtexte {
+      text-align: center;
+      margin-top: 2%;
+      width: 100%;
+   }
+
+   .divnavtexte>h1 {
+      font-size: 40px;
+      font-weight: bold;
+      margin-bottom: 2%;
+   }
+
+   .boutongeneral {
+      display: flex;
+      flex-direction: row;
+   }
+
+   .btgauche {
+      background-color: rgba(24, 46, 8, 1) !important;
+      border-radius: 10px 0px 0px 10px !important;
+      color: #ffffff;
+      font-weight: bold;
+      margin-right: 5px;
+      padding: 5px 5px;
+
+   }
+
+   .btdroite {
+      background-color: rgba(24, 46, 8, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      border-radius: 0px 10px 10px 0px;
+   }
+
+
+
+   /* Div Engagement + Icone */
+
+   .divengagement {
+      width: 100%;
+      height: auto;
+      padding-top: 0.5%;
+      padding-left: 5%;
+      margin-top: 5%;
+      background-color: rgba(24, 46, 8, 1);
+      padding-bottom: 2%;
+   }
+
+   .divengagement>h2 {
+      font-size: 30px;
+      color: #ffffff;
+      font-weight: bold;
+      margin-top: 5%;
+
+   }
+
+   .divengagementiconetexte {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 3%;
+      color: #ffffff;
+   }
+
+   .divengagementiconetexte>img {
+      width: 100px;
+   }
+
+   .trait {
+      width: 1px !important;
+      height: 1px !important;
+      background-color: rgba(24, 46, 8, 1);
+   }
+
+   .divengagmenttexte {
+      width: 100%;
+   }
+
+   .titreengagement {
+      margin-top: 2%;
+      font-size: 25px !important;
+      font-weight: bold;
+   }
+
+   .textengagement {
+      font-size: 15px;
+   }
+
+   /* Div Carbonfight avec ecran */
+   .divcarbonfight {
+      width: 100%;
+      margin-top: 5%;
+      padding-left: 5%;
+      height: auto;
+
+
+   }
+
+   .divcarbonfight>h2 {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 5%;
+
+   }
+
+   .firstdiv {
+      width: 100%;
+
+
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1%;
+   }
+
+   .firstdivrleft {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .firstdivright {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .seconddiv {
+      width: 100%;
+
+
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+   }
+
+   .seconddivleft {
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+   }
+
+   .divcarbonfighttelephone {
+      width: 200px;
+      margin-bottom: 5%;
+   }
+
+   .seconddivright {
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+   }
+
+   .titredivcarbonfight {
+      font-size: 20px;
+      font-weight: bold;
+   }
+
+   .logodivcarbon {
+      margin: 2%;
+   }
+
+   /*Div ZONE contact */
+   .divcontact {
+      width: 100%;
+      height: auto;
+      margin-top: 5%;
+      padding-top: 0.5%;
+      padding-left: 5%;
+      margin-top: 5%;
+      background-color: rgba(24, 46, 8, 1);
+      padding-bottom: 2%;
+   }
+
+   .divcontact>h2 {
+      font-size: 30px !important;
+      color: #ffffff;
+      font-weight: bold;
+      text-align: start;
+      margin-top: 5%
+   }
+
+   form {
+      width: 80%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      margin-top: 5%;
+
+
+   }
+
+   fieldset {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+   }
+
+   label {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      margin-top: 2%;
+   }
+
+
+   #full-name,
+   #email-address {
+      width: 100%;
+      height: 50px;
+      border-radius: 5px;
+
+   }
+
+   #message {
+      width: 100%;
+      height: 450px;
+      border-radius: 5px;
+
+   }
+
+
+   .boutongeneral2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-top: 5%;
+   }
+
+   .btgauche2 {
+      background-color: rgb(255, 255, 255) !important;
+      border-radius: 10px 0px 0px 10px !important;
+      color: #000000;
+      font-weight: bold;
+      margin-right: 5px;
+      padding: 5px 5px;
+      width: 150px;
+      height: 35px;
+      text-align: center;
+   }
+
+   .btdroite2 {
+      background-color: rgb(255, 255, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 35px;
+      border-radius: 0px 10px 10px 0px;
+   }
+
+   .btgauche2:hover {
+      cursor: pointer;
+      height: 40px;
+      transition: 2s;
+   }
+
+
+   .btdroite2:hover {
+      cursor: pointer;
+      height: 40px;
+      transition: 2s;
+   }
+
+
+   .divcontact>h2 {
+      font-size: 45px;
+      color: #ffffff;
+      font-weight: bold;
+      text-align: start;
+      margin-top: 2%
+   }
+
+
+   /* Div Footer */
+   /* footer */
+   footer {
+      width: 100%;
+      padding: 2% 2% 0% 2%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 2%;
+      color: white;
+      background-color: rgba(24, 46, 8, 1);
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      font-size: 10px;
+   }
+
+   .footerlogo {
+      width: 100px;
+   }
+
+   .footerb {
+      text-decoration: none !important;
+      color: #ffffff !important;
+      text-decoration: underline !important;
+   }
+   .footera {
+      text-decoration: none !important;
+      color: #ffffff !important;
+      margin-left: 10px;
+      text-decoration: underline !important;
+   }
+
+   .divfooterbottom {
+      width: 100%;
+
+      margin-top: 2%;
+   }
+
+   .Legal {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      text-align: center;
+
+      margin-top: 2%;
+   }
+   .divfooterbottom div {
+      display: none;
+      /* Par défaut, le div est caché */
+   }
+
+   .divfooterbottom div.visible {
+      display: block;
+      /* Si la classe visible est ajoutée, le div est affiché */
+   }
+
+   button {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+      text-decoration: underline !important;
+   }
+   .lienfooter {
+      font-size: 10px;
+   }
+}

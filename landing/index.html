@@ -1,14 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="utf-8">
-  <title>CarbonFight</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/png" href="img/favicon.svg" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
-  <!-- Google tag (gtag.js) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/effect.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <link rel="icon" type="image/png" href="img/favicon.svg" />
+    <link rel="icon" href="../logo/GoogleLogo.ico">
+    <meta name="description" content=" Application Android et IOS pour maîtriser vos émissions : transports, repas, énergies. Identifiez vos réelles sources
+    d'émission, et réduisez les ">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>CarbonFight | Mesurez au jour le jour votre empreinte carbone</title>
+      <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KNN2HDXH7"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -18,110 +24,255 @@
   gtag('config', 'G-3KNN2HDXH7');
 </script>
 </head>
+
 <body>
-  <header>
-      <div class="col-lg-2">
-        <img class="logo" src="img/logo.svg" alt="">
+    
+    <div class="container">
+        <div class="cookiesContent" id="cookiesPopup">
+          <button class="close">✖</button>
+          <img src="https://cdn-icons-png.flaticon.com/512/1047/1047711.png" alt="cookies-img" />
+          <p>Nous utilisons des cookies à des fins statistiques et marketing (Google Analytics)</p>
+          <button class="accept">C'est Ok !</button>
+          <a href="https://google.com" ><button class="denied" >Retour sur Google !</button> </a>
+        </div>
       </div>
-      <div class="navigation col-lg-10">
-        <nav>
-          <ul>
-            <li>Engagements</li>
-            <li>CarbonFight</li>
-            <li>Télécharger</li>
-          </ul>
-        </nav>
-      </div>
-  </header>
-  <section class="home">
-    <div class="home-content row">
-      <div class=" col-12 col-md-12 col-lg-6 block-text">
-        <div class="block_home_texte">
-          <h1>Mesurez au jour le jour votre empreinte carbone</h1>
-          <p>Maîtrisez vos émissions : transports, repas, énergies. Identifiez vos réelles sources d'émission, et réduisez les.</p>
-          <div class="block_button">
-            <div class=" col-6 col-sm-6 col-md-6 col-lg-4 size_button ">
-              <a target="blank" href="https://play.google.com/store/apps/details?id=app.carbonfight"><img src="img/play_store.png" alt=""></a>
-              </div>
-            <div class="size_button col-6  col-sm-6 col-md-6 col-lg-4 ">
-              <a target="blank" href="https://apps.apple.com/app/id1630369566"><img src="img/apple_store.svg" alt=""></a>
+    <div id="btnScrollToTop" onclick="scrollToTop()" title="Remonter en haut de la page"> CARBONFIGHT <img
+            src="img/play_store2.png" alt="PlayStore pour CarbonFight" class="appstore2"> <img src="img/app_store2.png"
+            alt="AppStore pour CarbonFight" class="appstore21"> </div>
+    <div class="mainframe">
+        <!-- Div FullscreenTop -->
+        <div class="divtop" id="telecharger">
+            <div class="divtopcontent">
+                <div class="divtopleft">
+                    <div class="divtoplefttext">
+                    <h2>Mesurez au jour le jour votre empreinte carbone</h2>
+                    <p style="font-weight: 600;">Maîtrisez vos émissions : transports, repas, énergies. Identifiez vos réelles sources
+                        d'émission,
+                        et réduisez les.</p>
+                    </div>
+                    <a href="https://apps.apple.com/app/id1630369566" target="_blank" rel="noopener noreferrer"><img src="img/app_store2.png" alt="AppStore pour CarbonFight" class="appstore"></a>
+                    <a href="https://play.google.com/store/apps/details?id=app.carbonfight" target="_blank" rel="noopener noreferrer"><img src="img/play_store2.png" alt="PlayStore pour CarbonFight" class="appstore"></a>
+                </div>
+                <div class="divtopright">
+                    <img src="img/telephone2mobile.png" alt="Un téléphone avec CarbonFight" class="divtoptelephone">
+                </div>
             </div>
-          </div>
+
+        </div>
+        <!-- Div NavBar + Texte -->
+        <div class="divnavbar">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#index">ACCUEIL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#engagement">ENGAGEMENTS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#carbonfight">LE PROJET</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="divnavtexte" id="index">
+                <h1>CARBONFIGHT</h1>
+                <p>Agissez contre le réchauffement climatique en mesurant et réduisant vos émissions CO2 avec
+                    l'application CarbonFight !</p>
+
+            </div>
         </div>
 
 
-      </div>
-      <div class="col-12 col-md-12 col-lg-6 block-image">
-        <img src="img/telephone.svg" alt="">
-      </div>
-    </div>
-  </section>
-  <section class="nos_engagement">
-    <h1>Nos Engagements</h1>
-    <div class=" row engagement">
-      <div class="block_engagement col-12 col-sm-12 col-md-6 col-lg-3">
-        <div class="icon">
-          <img src="img/brand-open-source.svg" alt="">
-          <p>Open Source</p>
-      </div>
-      </div>
-      <div class="block_engagement col-12 col-sm-12 col-md-6 col-lg-3">
-        <div class="icon">
-          <img src="img/shield-check.svg" alt="">
-          <p>Données protégées</p>
-      </div>
-      </div>
-      <div class="block_engagement col-12 col-sm-12 col-md-6 col-lg-3">
-        <div class="icon">
-          <img src="img/ad-circle-off.svg" alt="">
-          <p>Sans publicité</p>
+        <!-- Div Engagement + Icone -->
+
+        <div class="divengagement" id="engagement">
+            <h2>NOS ENGAGEMENTS</h2>
+            <div class="divengagementiconetexte">
+                <img src="icon/bloc-dannonces.png" alt="Pas de publicité chez CarbonFight">
+                <div class="trait"></div>
+                <div class="divengagmenttexte">
+                    <h3 class="titreengagement">SANS PUBLICITÉ</h3>
+                    <p class="textengagement">Nous n'affichons aucune publicité dans l'application, nous n'en
+                        avons
+                        ni le besoin ni l'envie.</p>
+                </div>
+            </div>
+            <div class="divengagementiconetexte">
+                <img src="icon/carte-de-credit.png" alt="Pas d'achat chez CarbonFight">
+                <div class="trait"></div>
+                <div class="divengagmenttexte">
+                    <h3 class="titreengagement">SANS ACHAT</h3>
+                    <p class="textengagement">Aucun achat n'est nécessaire. Nous ne vous demandons rien d'autre
+                        que
+                        d'utiliser l'application et de baisser vos émissions.</p>
+                </div>
+            </div>
+            <div class="divengagementiconetexte">
+                <img src="icon/base-de-donnees.png" alt="Pas de donnée privée CarbonFight">
+                <div class="trait"></div>
+                <div class="divengagmenttexte">
+                    <h3 class="titreengagement">DONNEES PROTÉGÉES</h3>
+                    <p class="textengagement">Nous ne collectons que les données nécessaires au fonctionnement
+                        de
+                        l'application sur un environnement sécurisé.</p>
+                </div>
+            </div>
+            <div class="divengagementiconetexte">
+                <img src="icon/open-source.png" alt="Une application opensource CarbonFight">
+                <div class="trait"></div>
+                <div class="divengagmenttexte">
+                    <h3 class="titreengagement">OPEN SOURCE</h3>
+                    <p class="textengagement">Le projet est open source et open data. L'intégralité du code et
+                        des
+                        données nécessaires à l'application est disponible sur nos dépôts Github.</p>
+                </div>
+            </div>
         </div>
+
+
+
+
+        <!-- Div Carbonfight avec ecran  -->
+        <div class="divcarbonfight" id="carbonfight">
+            <h2>LE PROJET</h2>
+            <div class="firstdiv">
+                <div class="firstdivrleft">
+                    <img src="img/heart-handshake.svg" alt="Associatif Carbonfight" class="logodivcarbon">
+                    <div>
+                        <h3 class="titredivcarbonfight">ASSOCIATIF</h3>
+                        <p>
+                            Le projet est soutenue par l'association CarbonFight, reconnue d'intérêt général. Cette
+                            association vie sur ses fonds propres et ne dépend d'aucune entreprise.
+                        </p>
+                    </div>
+                </div>
+                <div class="taillemid"></div>
+                <div class="firstdivright">
+                    <img src="img/target-arrow.svg" alt="Carbonfight a des objectifs " class="logodivcarbon">
+                    <div>
+                        <h3 class="titredivcarbonfight">OBJECTIF</h3>
+                        <p>
+                            Notre unique objectif, faire de chaque citoyen un acteur de la diminution des émissions
+                            de
+                            gaz à effet de serre.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="seconddiv">
+                <div class="seconddivleft">
+                    <img src="img/users.svg" alt="CarbonFight est participatif" class="logodivcarbon">
+                    <div>
+                        <h3 class="titredivcarbonfight">PARTICIPATIF</h3>
+                        <p>
+                            Une vingtaine de contributeurs, volontaires ou en mécénat de compétence, participent
+                            activement au projet. Vous aussi, vous pouvez contribuer librement au projet.
+                        </p>
+                    </div>
+                </div>
+                <img src="img/telephone22.png" alt="CarbonFight sur un téléphone" id="carbonImage" class="divcarbonfighttelephone hidden">                <div class="seconddivright">
+                    <img src="img/device-gamepad.svg" alt="CarbonFight est un jeu " class="logodivcarbon">
+                    <div>
+                        <h3 class="titredivcarbonfight">PLUS D’UNE APPLI, UN JEU</h3>
+                        <p>
+                            Mesurer son empreinte carbone n'est pas le comble du "fun". CarbonFight s'efforce
+                            d'insérer
+                            un maximum de mécanismes de jeu.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="firstdiv">
+                <div class="firstdivrleft">
+                    <img src="img/lock-access.svg" alt="Associatif Carbonfight" class="logodivcarbon">
+                    <div>
+                        <h3 class="titredivcarbonfight">DONNEES PROTEGEES</h3>
+                        <p>
+                            N'ayant aucun objectif financier, nous ne revendons aucune donnée. Nous ne collectons
+                            que
+                            les données nécessaires au fonctionnement de l'application sur un environnement sécurisé
+                        </p>
+                    </div>
+                </div>
+                <div class="taillemid"></div>
+                <div class="firstdivright">
+                    <img src="img/graph.svg" alt="Carbonfight a des objectifs " class="logodivcarbon">
+                    <div>
+                        <h3 class="titredivcarbonfight">MESUREZ, AGISSEZ</h3>
+                        <p>
+                            Visualisez vos émissions de la journée, de la semaine, du mois, de l'année, et agissez
+                            au
+                            jour le jour pour réduire votre empreinte. Objectif 2 Tonnes, ou moins !
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-      <div class="block_engagement col-12 col-sm-12 col-md-6 col-lg-3">
-        <div class="icon">
-          <img src="img/shopping-cart-off.svg" alt="">
-          <p>Sans achat</p>
-      </div>
-      </div>
+  <!-- 
+      Div ZONE contact  
+        <div class="divcontact">
+            <h2>NOUS CONTACTER</h2>
+            <form id="fs-frm" name="simple-contact-form" accept-charset="utf-8"
+                action="https://formspree.io/f/{form_id}" method="post">
+                <fieldset id="fs-frm-inputs">
+                    <label for="full-name">NOM / PRENOM</label>
+                    <input type="text" name="name" id="full-name" placeholder="" required="">
+                    <label for="email-address">ADRESSE EMAIL</label>
+                    <input type="email" name="_replyto" id="email-address" placeholder="" required="">
+                    <label for="message">MESSAGE</label>
+                    <textarea rows="5" name="message" id="message" placeholder="" required=""></textarea>
+                    <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
+                </fieldset>
+                <div class="boutongeneral2" type="submit">
+                    <div class="btgauche2"> ENVOYER</div>
+                    <div class="btdroite2"><img src="icon/envoyerb.png" alt="" class="logotelecharger">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    -->
+        <footer>
+            <div class="divfooter">
+                <div class="divfooterleft">
+                    <img src="img/logo.svg" alt="Logo de carbonFight" class="footerlogo">
+                    <p>CarbonFight est une application mobile qui vous permet de mesurer et réduire votre empreinte
+                        carbone.</p>
+                </div>
+                <div class="Legal">
+                    <a class="footerb" href="https://carbonfight.app/privacy"> Privacy Terms </a>
+                    <a  class="footera"  href="https://carbonfight.app/cgu">Conditions Générales</a>
+                    <a class="footera" href="https://carbonfight.notion.site/CarbonFight-f3c90f63d36c44a9a1abe5510ebcaffd">Rejoindre l'association</a>
+                    <a class="footera" href="mailto:contact@carbonfight.app">Contact</a>
+                </div>
+            </div>
+            <div class="divfooterbottom">
+                © 2024 CarbonFight. Tous droits réservés | Made By <a class="footerb" href="https://bastien.sitetest.best">Bastien VILLEGAS.</a> <br>
+                Sources visuelles  : <button id="toggleButton">En savoir</button><br>
+                <div class="lienfooter"> *Freepik, licence : Free for commercial use WITH ATTRIBUTION license <br> <a href="https://www.freepik.com/free-vector/flat-design-carbon-neutral-illustration_27259139.htm" target="_blank" rel="noopener noreferrer" class="footerb">Lien vers l'image</a> <br>
+                    *Flaticon, licence : Free for commercial use WITH ATTRIBUTION license <br> Graphiste : <a href="https://www.flaticon.com/fr/auteurs/hexagon075" target="_blank" rel="noopener noreferrer" class="footerb">Hexagon075</a></div>
+            </div>
+        </footer>
+
+
+
     </div>
 
-  </section>
-  <section class="info">
-    <div class="block_info_gauche col-lg-4">
-      <div class="atout">
-        <img src="img/heart-handshake.svg" alt="">
-        <p><b>Associatif</b><br>Le projet est soutenue par l'association CarbonFight, reconnue d'intérêt général. Cette association vie sur ses fonds propres et ne dépend d'aucune entreprise.</p>
-    </div>
-    <div class="atout">
-      <img src="img/users.svg" alt="">
-      <p><b>Participatif</b><br>Une vingtaine de contributeurs, volontaires ou en mécénat de compétence, participent activement au projet. Vous aussi, vous pouvez contribuer librement au projet.</p>
-  </div>
-  <div class="atout">
-    <img src="img/lock-access.svg" alt="">
-    <p><b>Données protégées</b><br>N'ayant aucun objectif financier, nous ne revendons aucune donnée. Nous ne collectons que les données nécessaires au fonctionnement de l'application sur un environnement sécurisé.</p>
-</div>
-    </div>
-    <div class="block_info col-lg-4">
-      <div class="info">
-        <img class="info_img"src="img/mockup_info.svg" alt="">
-    </div>
-    </div>
-    <div class="block_info_droite col-lg-4">
-      <div class="atout">
-        <img src="img/target-arrow.svg" alt="">
-        <p><b>Objectif</b><br>Notre unique objectif, faire de chaque citoyen un acteur de la diminution des émissions de gaz à effet de serre.</p>
-    </div>
-    <div class="atout">
-      <img src="img/device-gamepad.svg" alt="">
-      <p><b>Plus qu'une appli, un jeu.</b><br>Mesurer son empreinte carbone n'est pas le comble du "fun". CarbonFight s'efforce d'insérer un maximum de mécanismes de jeu.</p>
-  </div>
-  <div class="atout">
-    <img src="img/graph.svg" alt="">
-    <p><b>Mesurez, agissez</b><br>Visualisez vos émissions de la journée, de la semaine, du mois, de l'année, et agissez au jour le jour pour réduire votre empreinte. Objectif 2 Tonnes, ou moins !</p>
-</div>
-<button type="button" name="button">
-<p>Gamification</p></button>
-    </div>
-  </section>
+    <script src="js/index.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+        </script>
 </body>
+
+
 </html>
