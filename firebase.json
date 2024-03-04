@@ -22,12 +22,14 @@
       "**/.*",
       "**/node_modules/**"
     ],
+
     "rewrites": [
       {
         "source": "**",
         "destination": "/index.html"
       }
-      ],
+    ],
+
     "redirects": [
       {
         "source": "/adhesion",
@@ -41,12 +43,12 @@
       },
       {
         "source": "/equipe",
-        "destination": "https://carbonfight.notion.site/Pour-commencer-14cc9ecfe03740af9f94d99e4cb08cfe?pvs=4",
+        "destination": "https://carbonfight.notion.site/carbonfight/CarbonFight-f3c90f63d36c44a9a1abe5510ebcaffd",
         "type": 301
       },
       {
         "source": "/delete",
-        "destination": "https://carbonfight.notion.site/Terms-Privacy-e88dc3436e724e6882810d591ee31c95?pvs=4",
+        "destination": "https://carbonfight.notion.site/Supprimez-vos-donn-es-e88dc3436e724e6882810d591ee31c95?pvs=4",
         "type": 301
       },
       {
